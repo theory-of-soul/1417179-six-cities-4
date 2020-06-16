@@ -11,6 +11,9 @@ module.exports = {
     open: true,
     port: 1337,
   },
+  resolve: {
+    extensions: [`.js`, `.jsx`],
+  },
   module: {
     rules: [
       {
