@@ -12,6 +12,7 @@ const App = (props) => {
     <Main
       placesAmount={placesAmount}
       placeList={placeList}
+      onLogoLinkClickHandler={() => {}}
     />
   );
 };
