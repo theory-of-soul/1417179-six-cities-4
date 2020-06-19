@@ -145,9 +145,9 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  placesAmount: PropTypes.number,
-  placeList: PropTypes.arrayOf(PropTypes.string),
-  onLogoLinkClickHandler: PropTypes.func
+  placesAmount: PropTypes.number.isRequired,
+  placeList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onLogoLinkClickHandler: PropTypes.func.isRequired
 };
 
 export default Main;
