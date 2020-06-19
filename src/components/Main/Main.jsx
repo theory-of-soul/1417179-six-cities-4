@@ -144,8 +144,8 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  placesAmount: PropTypes.number,
-  placeList: PropTypes.arrayOf(PropTypes.string)
+  placesAmount: PropTypes.number.isRequired,
+  placeList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default Main;

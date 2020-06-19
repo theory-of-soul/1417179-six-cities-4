@@ -17,8 +17,8 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  placesAmount: PropTypes.number,
-  placeList: PropTypes.arrayOf(PropTypes.string)
+  placesAmount: PropTypes.number.isRequired,
+  placeList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default App;
