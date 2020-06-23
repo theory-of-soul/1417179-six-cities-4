@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 const Main = (props) => {
   const {
     placesAmount,
-    placeList
+    placeList,
+    onLogoLinkClickHandler
   } = props;
 
   return (
@@ -13,7 +14,7 @@ const Main = (props) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <a className="header__logo-link header__logo-link--active" onClick={onLogoLinkClickHandler}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>
@@ -145,7 +146,8 @@ const Main = (props) => {
 
 Main.propTypes = {
   placesAmount: PropTypes.number.isRequired,
-  placeList: PropTypes.arrayOf(PropTypes.string).isRequired
+  placeList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onLogoLinkClickHandler: PropTypes.func.isRequired
 };
 
 export default Main;
