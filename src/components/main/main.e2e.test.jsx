@@ -8,7 +8,26 @@ Enzyme.configure({
 });
 
 const placesAmount = 312;
-const placeList = [`Beautiful & luxurious apartment at great location`, `Wood and stone place`];
+const placeList = [{
+  id: 0,
+  mark: `premium`,
+  img: `img/apartment-01.jpg`,
+  value: 120,
+  time: `night`,
+  isInBookmark: true,
+  rating: 5,
+  name: `luxurious apartment at great location`,
+  type: `Apartment`
+}, {
+  id: 1,
+  img: `img/apartment-02.jpg`,
+  value: 200,
+  time: `week`,
+  isInBookmark: false,
+  rating: 0,
+  name: `Beautiful & luxurious`,
+  type: `Hotel`
+}];
 
 describe(`Main component e2e tests`, () => {
   it(`Main header logo click calls once`, () => {

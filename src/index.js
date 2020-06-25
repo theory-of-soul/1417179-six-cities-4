@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app";
+import placeList from "./mocks/offers";
 
 const appSettings = {
   placesAmount: 312,
-  placeList: [`Beautiful & luxurious apartment at great location`, `Wood and stone place`]
+  placeList
 };
 
 ReactDOM.render(
