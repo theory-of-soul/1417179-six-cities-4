@@ -1,6 +1,20 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
+const propTypes = {
+  place: PropTypes.shape({
+    mark: PropTypes.string,
+    img: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    time: PropTypes.string.isRequired,
+    isInBookmark: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  }).isRequired,
+  handleHover: PropTypes.func.isRequired
+};
+
 const PlaceCard = (props) => {
   const {
     place: {
@@ -72,18 +86,6 @@ const PlaceCard = (props) => {
   );
 };
 
-PlaceCard.propTypes = {
-  place: PropTypes.shape({
-    mark: PropTypes.string,
-    img: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    time: PropTypes.string.isRequired,
-    isInBookmark: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  }).isRequired,
-  handleHover: PropTypes.func.isRequired
-};
+PlaceCard.propTypes = propTypes;
 
 export default PlaceCard;

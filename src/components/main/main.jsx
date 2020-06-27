@@ -2,6 +2,24 @@ import React from "react";
 import PropTypes from 'prop-types';
 import PlaceCardList from "../place-card-list/place-card-list";
 
+const propTypes = {
+  placesAmount: PropTypes.number.isRequired,
+  placeList: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        mark: PropTypes.string,
+        img: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        time: PropTypes.string.isRequired,
+        isInBookmark: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
+  onLogoLinkClickHandler: PropTypes.func.isRequired
+};
+
 const Main = (props) => {
   const {
     placesAmount,
@@ -104,22 +122,6 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
-  placesAmount: PropTypes.number.isRequired,
-  placeList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        mark: PropTypes.string,
-        img: PropTypes.string.isRequired,
-        value: PropTypes.number.isRequired,
-        time: PropTypes.string.isRequired,
-        isInBookmark: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
-  onLogoLinkClickHandler: PropTypes.func.isRequired
-};
+Main.propTypes = propTypes;
 
 export default Main;

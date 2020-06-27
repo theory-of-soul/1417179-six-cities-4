@@ -2,6 +2,22 @@ import React from "react";
 import PropTypes from 'prop-types';
 import PlaceCard from "../place-card/place-card";
 
+const propTypes = {
+  placeList: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        mark: PropTypes.string,
+        img: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        time: PropTypes.string.isRequired,
+        isInBookmark: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired
+};
+
 class PlaceCardList extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -36,20 +52,6 @@ class PlaceCardList extends React.PureComponent {
   }
 }
 
-PlaceCardList.propTypes = {
-  placeList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        mark: PropTypes.string,
-        img: PropTypes.string.isRequired,
-        value: PropTypes.number.isRequired,
-        time: PropTypes.string.isRequired,
-        isInBookmark: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired
-};
+PlaceCardList.propTypes = propTypes;
 
 export default PlaceCardList;
