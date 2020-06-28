@@ -8,7 +8,7 @@ export default [{
   rating: 5,
   name: `luxurious apartment at great location`,
   type: `Apartment`,
-  place: [52.3909553943508, 4.85309666406198]
+  point: [52.3909553943508, 4.85309666406198]
 }, {
   id: 1,
   mark: `premium`,
@@ -19,7 +19,7 @@ export default [{
   rating: 4,
   name: `Beautiful & luxurious`,
   type: `Hotel`,
-  place: [52.369553943508, 4.85309666406198]
+  point: [52.369553943508, 4.85309666406198]
 }, {
   id: 2,
   img: `img/apartment-03.jpg`,
@@ -29,7 +29,7 @@ export default [{
   rating: 3.5,
   name: `Beautiful`,
   type: `Apartment`,
-  place: [52.3909553943508, 4.929309666406198]
+  point: [52.3909553943508, 4.929309666406198]
 }, {
   id: 3,
   img: `img/apartment-01.jpg`,
@@ -39,5 +39,5 @@ export default [{
   rating: 2,
   name: `Beautiful & luxurious apartment at great location`,
   type: `Apartment`,
-  place: [52.3809553943508, 4.939309666406198]
+  point: [52.3809553943508, 4.939309666406198]
 }];

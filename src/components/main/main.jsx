@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import PlaceCardList from "../place-card-list/place-card-list";
+import Map from "../map/map";
 
 const propTypes = {
   placesAmount: PropTypes.number.isRequired,
@@ -15,6 +16,9 @@ const propTypes = {
         rating: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
+        point: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
       }).isRequired
   ).isRequired,
   onLogoLinkClickHandler: PropTypes.func.isRequired
@@ -26,6 +30,8 @@ const Main = (props) => {
     placeList,
     onLogoLinkClickHandler
   } = props;
+
+  const coordinates = placeList.map((place) => place.point);
 
   return (
     <div className="page page--gray page--main">
@@ -113,7 +119,7 @@ const Main = (props) => {
               <PlaceCardList placeList={placeList}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <Map markersCoordinates={coordinates} city={[52.38333, 4.9]}/>
             </div>
           </div>
         </div>

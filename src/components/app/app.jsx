@@ -14,6 +14,9 @@ const propTypes = {
         rating: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
+        point: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
       }).isRequired
   ).isRequired
 };
