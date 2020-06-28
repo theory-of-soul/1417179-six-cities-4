@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import PlaceCardList from "../place-card-list/place-card-list";
-import Map from "../map/map";
 
 const propTypes = {
   placesAmount: PropTypes.number.isRequired,
@@ -21,14 +20,16 @@ const propTypes = {
         ).isRequired,
       }).isRequired
   ).isRequired,
-  onLogoLinkClickHandler: PropTypes.func.isRequired
+  onLogoLinkClickHandler: PropTypes.func.isRequired,
+  renderMap: PropTypes.func.isRequired
 };
 
 const Main = (props) => {
   const {
     placesAmount,
     placeList,
-    onLogoLinkClickHandler
+    onLogoLinkClickHandler,
+    renderMap
   } = props;
 
   const coordinates = placeList.map((place) => place.point);
@@ -119,7 +120,7 @@ const Main = (props) => {
               <PlaceCardList placeList={placeList}/>
             </section>
             <div className="cities__right-section">
-              <Map markersCoordinates={coordinates} city={[52.38333, 4.9]}/>
+              {renderMap(coordinates, [52.38333, 4.9])}
             </div>
           </div>
         </div>

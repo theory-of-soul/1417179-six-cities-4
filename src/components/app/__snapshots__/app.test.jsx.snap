@@ -433,6 +433,7 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
         >
           <section
             className="cities__map map"
+            id="map"
           />
         </div>
       </div>
