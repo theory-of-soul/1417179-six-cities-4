@@ -1,5 +1,24 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import PlaceCardList from "../place-card-list/place-card-list";
+
+const propTypes = {
+  placesAmount: PropTypes.number.isRequired,
+  placeList: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        mark: PropTypes.string,
+        img: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        time: PropTypes.string.isRequired,
+        isInBookmark: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
+  onLogoLinkClickHandler: PropTypes.func.isRequired
+};
 
 const Main = (props) => {
   const {
@@ -81,7 +100,7 @@ const Main = (props) => {
                 <span className="places__sorting-type" tabIndex="0">
                   Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
+                    <use xlinkHref="#icon-arrow-select"/>
                   </svg>
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
@@ -91,51 +110,10 @@ const Main = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {
-                  placeList.map((place) => {
-                    return (
-                      <article key={place} className="cities__place-card place-card">
-                        <div className="place-card__mark">
-                          <span>Premium</span>
-                        </div>
-                        <div className="cities__image-wrapper place-card__image-wrapper">
-                          <a href="#">
-                            <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image"/>
-                          </a>
-                        </div>
-                        <div className="place-card__info">
-                          <div className="place-card__price-wrapper">
-                            <div className="place-card__price">
-                              <b className="place-card__price-value">&euro;120</b>
-                              <span className="place-card__price-text">&#47;&nbsp;night</span>
-                            </div>
-                            <button className="place-card__bookmark-button button" type="button">
-                              <svg className="place-card__bookmark-icon" width="18" height="19">
-                                <use xlinkHref="#icon-bookmark"></use>
-                              </svg>
-                              <span className="visually-hidden">To bookmarks</span>
-                            </button>
-                          </div>
-                          <div className="place-card__rating rating">
-                            <div className="place-card__stars rating__stars">
-                              <span style={{width: `80%`}}></span>
-                              <span className="visually-hidden">Rating</span>
-                            </div>
-                          </div>
-                          <h2 className="place-card__name">
-                            <a href="#">{place}</a>
-                          </h2>
-                          <p className="place-card__type">Apartment</p>
-                        </div>
-                      </article>
-                    );
-                  })
-                }
-              </div>
+              <PlaceCardList placeList={placeList}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map"/>
             </div>
           </div>
         </div>
@@ -144,10 +122,6 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
-  placesAmount: PropTypes.number.isRequired,
-  placeList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onLogoLinkClickHandler: PropTypes.func.isRequired
-};
+Main.propTypes = propTypes;
 
 export default Main;

@@ -1,8 +1,7 @@
 import React from "react";
 import renderer from 'react-test-renderer';
-import App from "./app";
+import PlaceCardList from "./place-card-list";
 
-const placesAmount = 312;
 const placeList = [{
   id: 0,
   mark: `premium`,
@@ -24,10 +23,10 @@ const placeList = [{
   type: `Hotel`
 }];
 
-describe(`App component snapshot tests`, () => {
-  it(`App component show Main screen`, () => {
+describe(`PlaceCardList component snapshot tests`, () => {
+  it(`PlaceCardList component show two places`, () => {
     const tree = renderer
-      .create(<App placeList={placeList} placesAmount={placesAmount} />)
+      .create(<PlaceCardList placeList={placeList}/>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

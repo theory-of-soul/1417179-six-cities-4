@@ -227,6 +227,7 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
           >
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -242,7 +243,7 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
                   href="#"
                 >
                   <img
-                    alt="Place image"
+                    alt="luxurious apartment at great location"
                     className="place-card__image"
                     height="200"
                     src="img/apartment-01.jpg"
@@ -262,16 +263,18 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
                     <b
                       className="place-card__price-value"
                     >
-                      €120
+                      €
+                      120
                     </b>
                     <span
                       className="place-card__price-text"
                     >
-                      / night
+                      / 
+                      night
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button button"
+                    className="place-card__bookmark-button button place-card__bookmark-button--active"
                     type="button"
                   >
                     <svg
@@ -299,7 +302,7 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "100%",
                         }
                       }
                     />
@@ -316,7 +319,7 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
                   <a
                     href="#"
                   >
-                    Beautiful & luxurious apartment at great location
+                    luxurious apartment at great location
                   </a>
                 </h2>
                 <p
@@ -328,14 +331,8 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
             </article>
             <article
               className="cities__place-card place-card"
+              onMouseEnter={[Function]}
             >
-              <div
-                className="place-card__mark"
-              >
-                <span>
-                  Premium
-                </span>
-              </div>
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -343,10 +340,10 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
                   href="#"
                 >
                   <img
-                    alt="Place image"
+                    alt="Beautiful & luxurious"
                     className="place-card__image"
                     height="200"
-                    src="img/apartment-01.jpg"
+                    src="img/apartment-02.jpg"
                     width="260"
                   />
                 </a>
@@ -363,16 +360,18 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
                     <b
                       className="place-card__price-value"
                     >
-                      €120
+                      €
+                      200
                     </b>
                     <span
                       className="place-card__price-text"
                     >
-                      / night
+                      / 
+                      week
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button button"
+                    className="place-card__bookmark-button button "
                     type="button"
                   >
                     <svg
@@ -400,7 +399,7 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "0%",
                         }
                       }
                     />
@@ -417,13 +416,13 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
                   <a
                     href="#"
                   >
-                    Wood and stone place
+                    Beautiful & luxurious
                   </a>
                 </h2>
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  Hotel
                 </p>
               </div>
             </article>
