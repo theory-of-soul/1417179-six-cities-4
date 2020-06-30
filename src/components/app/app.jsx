@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Main from "../main/main";
+import withMap from "../../hoc/with-map";
 
 const propTypes = {
   placesAmount: PropTypes.number.isRequired,
@@ -14,9 +15,14 @@ const propTypes = {
         rating: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
+        point: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
       }).isRequired
   ).isRequired
 };
+
+const MainScreenWithMap = withMap(Main);
 
 const App = (props) => {
   const {
@@ -25,7 +31,7 @@ const App = (props) => {
   } = props;
 
   return (
-    <Main
+    <MainScreenWithMap
       placesAmount={placesAmount}
       placeList={placeList}
       onLogoLinkClickHandler={() => {}}

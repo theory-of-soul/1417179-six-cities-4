@@ -15,17 +15,24 @@ const propTypes = {
         rating: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
+        point: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
       }).isRequired
   ).isRequired,
-  onLogoLinkClickHandler: PropTypes.func.isRequired
+  onLogoLinkClickHandler: PropTypes.func.isRequired,
+  renderMap: PropTypes.func.isRequired
 };
 
 const Main = (props) => {
   const {
     placesAmount,
     placeList,
-    onLogoLinkClickHandler
+    onLogoLinkClickHandler,
+    renderMap
   } = props;
+
+  const coordinates = placeList.map((place) => place.point);
 
   return (
     <div className="page page--gray page--main">
@@ -113,7 +120,7 @@ const Main = (props) => {
               <PlaceCardList placeList={placeList}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              {renderMap(coordinates, [52.38333, 4.9])}
             </div>
           </div>
         </div>

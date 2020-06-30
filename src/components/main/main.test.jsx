@@ -12,7 +12,8 @@ const placeList = [{
   isInBookmark: true,
   rating: 5,
   name: `luxurious apartment at great location`,
-  type: `Apartment`
+  type: `Apartment`,
+  point: [52.3909553943508, 4.929309666406198]
 }, {
   id: 1,
   img: `img/apartment-02.jpg`,
@@ -21,7 +22,8 @@ const placeList = [{
   isInBookmark: false,
   rating: 0,
   name: `Beautiful & luxurious`,
-  type: `Hotel`
+  type: `Hotel`,
+  point: [52.3909553943508, 4.929309666406198]
 }];
 
 describe(`Main component snapshot tests`, () => {
@@ -32,6 +34,7 @@ describe(`Main component snapshot tests`, () => {
             placeList={placeList}
             placesAmount={placesAmount}
             onLogoLinkClickHandler={() => {}}
+            renderMap={() => <React.Fragment/>}
           />
       )
       .toJSON();

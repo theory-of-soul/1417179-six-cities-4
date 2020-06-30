@@ -12,7 +12,8 @@ const placeList = [{
   isInBookmark: true,
   rating: 5,
   name: `luxurious apartment at great location`,
-  type: `Apartment`
+  type: `Apartment`,
+  point: [52.3909553943508, 4.929309666406198]
 }, {
   id: 1,
   img: `img/apartment-02.jpg`,
@@ -21,13 +22,23 @@ const placeList = [{
   isInBookmark: false,
   rating: 0,
   name: `Beautiful & luxurious`,
-  type: `Hotel`
+  type: `Hotel`,
+  point: [52.3909553943508, 4.929309666406198]
 }];
+
+const options = {
+  createNodeMock: (element) => {
+    if (element.props.id === `map`) {
+      return document.createElement(`div`);
+    }
+    return null;
+  }
+};
 
 describe(`App component snapshot tests`, () => {
   it(`App component show Main screen`, () => {
     const tree = renderer
-      .create(<App placeList={placeList} placesAmount={placesAmount} />)
+      .create(<App placeList={placeList} placesAmount={placesAmount} />, options)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
