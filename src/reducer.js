@@ -1,18 +1,21 @@
-import placeList from "src/mocks/offers";
-
-const cities = {
-  AMSTERDAM: `Amsterdam`
+export const cities = {
+  AMSTERDAM: `Amsterdam`,
+  COLOGNE: `Cologne`,
+  PARIS: `Paris`,
+  BRUSSELS: `Brussels`,
+  HAMBURG: `Hamburg`,
+  DUSSELDORF: `Dusseldorf`,
 };
 
 const initialState = {
   city: cities.AMSTERDAM,
-  placeList,
-  cityOffers: placeList.filter((place) => place.city === cities.AMSTERDAM)
+  offers: [],
+  cityOffers: []
 };
 
-const actions = {
+export const actions = {
   SET_CITY: `SET_CITY`,
-  SET_CITY_OFFERS: `SET_CITY_OFFERS`
+  SET_OFFERS: `SET_OFFERS`,
 };
 
 export const actionCreator = {
@@ -20,9 +23,9 @@ export const actionCreator = {
     type: actions.SET_CITY,
     payload: city
   }),
-  setOffers: (city) => ({
-    type: actions.SET_CITY_OFFERS,
-    payload: city
+  setOffers: (offers) => ({
+    type: actions.SET_OFFERS,
+    payload: offers
   })
 };
 
@@ -32,14 +35,16 @@ const extend = (state, expand) => {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.SET_CITY: {
+    case actions.SET_OFFERS: {
       return extend(state, {
-        city: action.payload
+        offers: action.payload,
+        cityOffers: action.payload.filter((place) => place.city === state.city)
       });
     }
-    case actions.SET_CITY_OFFERS: {
+    case actions.SET_CITY: {
       return extend(state, {
-        offers: state.placeList.filter((place) => place.city === action.payload)
+        city: action.payload,
+        cityOffers: state.offers.filter((place) => place.city === action.payload)
       });
     }
   }
