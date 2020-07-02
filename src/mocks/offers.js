@@ -54,5 +54,5 @@ export default [{
   name: `Beautiful & luxurious apartment at great location`,
   type: `Apartment`,
   city: `Paris`,
-  point: [52.3809553943508, 4.939309666406198]
+  point: [48.85341, 2.3588]
 }];

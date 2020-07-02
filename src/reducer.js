@@ -7,6 +7,12 @@ export const cities = {
   DUSSELDORF: `Dusseldorf`,
 };
 
+export const citiesCenter = {
+  [cities.AMSTERDAM]: [52.38333, 4.9],
+  [cities.COLOGNE]: [50.93333, 6.95],
+  [cities.PARIS]: [48.85341, 2.3488],
+};
+
 const initialState = {
   city: null,
   offers: [],

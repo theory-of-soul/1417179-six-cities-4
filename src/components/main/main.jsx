@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import PlaceCardList from "../place-card-list/place-card-list";
 import CityList from "../city-list/city-list";
+import {citiesCenter} from "../../reducer";
 
 const MAX_SIZE_CITY_LIST = 6;
 
@@ -74,10 +75,14 @@ const Main = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <PlaceCardList placeList={placeList}/>
+              {
+                placeList.length > 0 ?
+                  <PlaceCardList placeList={placeList}/> :
+                  `No places to stay available`
+              }
             </section>
             <div className="cities__right-section">
-              {renderMap(coordinates, [52.38333, 4.9])}
+              {renderMap(coordinates, citiesCenter[activeCity])}
             </div>
           </div>
         </div>
