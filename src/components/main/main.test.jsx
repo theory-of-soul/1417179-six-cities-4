@@ -46,4 +46,22 @@ describe(`Main component snapshot tests`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`Main if places has no, have to be phrase "No places to stay available"`, () => {
+    const tree = renderer
+      .create(
+          <Main
+            placeList={[]}
+            placesAmount={0}
+            cityList={cityList}
+            activeCity={activeCity}
+            onLogoLinkClickHandler={() => {}}
+            onCityClickHandler={() => {}}
+            renderMap={() => <React.Fragment/>}
+          />
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });
