@@ -1,7 +1,7 @@
 import {reducer, cities, actions} from "./reducer";
 
 const initialState = {
-  city: cities.AMSTERDAM,
+  city: null,
   offers: [],
   cityOffers: []
 };
@@ -87,35 +87,26 @@ describe(`app reducer tests`, () => {
 
   it(`set all offers`, () => {
     expect(reducer({
-      city: cities.AMSTERDAM,
+      city: null,
       offers: [],
       cityOffers: []
     }, {
       type: actions.SET_OFFERS,
       payload: offers
     })).toMatchObject({
-      city: cities.AMSTERDAM,
+      city: cities.COLOGNE,
       offers,
       cityOffers: [{
-        id: 3,
+        id: 0,
+        mark: `premium`,
         img: `img/apartment-01.jpg`,
-        value: 40,
+        value: 120,
         time: `night`,
-        isInBookmark: false,
-        rating: 2,
-        name: `Beautiful & luxurious apartment at great location`,
+        isInBookmark: true,
+        rating: 5,
+        name: `luxurious apartment at great location`,
         type: `Apartment`,
-        city: `Amsterdam`,
-      }, {
-        id: 6,
-        img: `img/apartment-01.jpg`,
-        value: 40,
-        time: `night`,
-        isInBookmark: false,
-        rating: 2,
-        name: `Beautiful & luxurious apartment at great location`,
-        type: `Apartment`,
-        city: `Amsterdam`,
+        city: `Cologne`,
       }]
     });
   });

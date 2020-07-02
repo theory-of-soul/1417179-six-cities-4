@@ -8,7 +8,7 @@ export const cities = {
 };
 
 const initialState = {
-  city: cities.AMSTERDAM,
+  city: null,
   offers: [],
   cityOffers: []
 };
@@ -36,9 +36,12 @@ const extend = (state, expand) => {
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.SET_OFFERS: {
+      const firstOffer = action.payload[0];
+      const city = firstOffer ? firstOffer.city : null;
       return extend(state, {
         offers: action.payload,
-        cityOffers: action.payload.filter((place) => place.city === state.city)
+        cityOffers: action.payload.filter((place) => place.city === city),
+        city
       });
     }
     case actions.SET_CITY: {

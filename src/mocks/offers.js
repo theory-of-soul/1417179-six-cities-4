@@ -44,4 +44,15 @@ export default [{
   type: `Apartment`,
   city: `Amsterdam`,
   point: [52.3809553943508, 4.939309666406198]
+}, {
+  id: 4,
+  img: `img/apartment-01.jpg`,
+  value: 40,
+  time: `night`,
+  isInBookmark: false,
+  rating: 2,
+  name: `Beautiful & luxurious apartment at great location`,
+  type: `Apartment`,
+  city: `Paris`,
+  point: [52.3809553943508, 4.939309666406198]
 }];
