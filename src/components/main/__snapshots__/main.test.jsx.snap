@@ -78,43 +78,9 @@ exports[`Main component snapshot tests Main component show two places 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Paris
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Cologne
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Brussels
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
               className="locations__item-link tabs__item tabs__item--active"
+              href="#"
+              onClick={[Function]}
             >
               <span>
                 Amsterdam
@@ -127,6 +93,46 @@ exports[`Main component snapshot tests Main component show two places 1`] = `
             <a
               className="locations__item-link tabs__item"
               href="#"
+              onClick={[Function]}
+            >
+              <span>
+                Paris
+              </span>
+            </a>
+          </li>
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item"
+              href="#"
+              onClick={[Function]}
+            >
+              <span>
+                Cologne
+              </span>
+            </a>
+          </li>
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item"
+              href="#"
+              onClick={[Function]}
+            >
+              <span>
+                Brussels
+              </span>
+            </a>
+          </li>
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item"
+              href="#"
+              onClick={[Function]}
             >
               <span>
                 Hamburg
@@ -139,6 +145,7 @@ exports[`Main component snapshot tests Main component show two places 1`] = `
             <a
               className="locations__item-link tabs__item"
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Dusseldorf
@@ -166,7 +173,8 @@ exports[`Main component snapshot tests Main component show two places 1`] = `
             className="places__found"
           >
             312
-             places to stay in Amsterdam
+             places to stay in 
+            Amsterdam
           </b>
           <form
             action="#"
@@ -176,7 +184,7 @@ exports[`Main component snapshot tests Main component show two places 1`] = `
             <span
               className="places__sorting-caption"
             >
-              Sort by
+              Sort by 
             </span>
             <span
               className="places__sorting-type"
