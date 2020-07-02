@@ -58,7 +58,7 @@ App.propTypes = {
   ).isRequired,
   setLoadedOffers: PropTypes.func.isRequired,
   chooseCity: PropTypes.func.isRequired,
-  activeCity: PropTypes.string,
+  activeCity: PropTypes.string.isRequired,
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 

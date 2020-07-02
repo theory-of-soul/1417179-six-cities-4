@@ -1,7 +1,7 @@
-import {reducer, cities, actions} from "./reducer";
+import {reducer, actions} from "./reducer";
 
 const initialState = {
-  city: null,
+  city: `Amsterdam`,
   offers: [],
   cityOffers: []
 };
@@ -94,7 +94,7 @@ describe(`app reducer tests`, () => {
       type: actions.SET_OFFERS,
       payload: offers
     })).toMatchObject({
-      city: cities.COLOGNE,
+      city: `Cologne`,
       offers,
       cityOffers: [{
         id: 0,
@@ -113,7 +113,7 @@ describe(`app reducer tests`, () => {
 
   it(`change city`, () => {
     expect(reducer({
-      city: cities.AMSTERDAM,
+      city: `Amsterdam`,
       offers,
       cityOffers: [{
         id: 3,
@@ -138,9 +138,9 @@ describe(`app reducer tests`, () => {
       }]
     }, {
       type: actions.SET_CITY,
-      payload: cities.DUSSELDORF,
+      payload: `Dusseldorf`,
     })).toMatchObject({
-      city: cities.DUSSELDORF,
+      city: `Dusseldorf`,
       offers,
       cityOffers: [{
         id: 5,

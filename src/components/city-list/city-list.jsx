@@ -39,7 +39,7 @@ const CityList = (props) => {
 CityList.propTypes = {
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   onCityClickHandler: PropTypes.func.isRequired,
-  activeCity: PropTypes.string,
+  activeCity: PropTypes.string.isRequired,
 };
 
 export default CityList;

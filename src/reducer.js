@@ -14,7 +14,7 @@ export const citiesCenter = {
 };
 
 const initialState = {
-  city: null,
+  city: cities.AMSTERDAM,
   offers: [],
   cityOffers: []
 };

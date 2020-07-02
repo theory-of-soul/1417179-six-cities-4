@@ -118,7 +118,7 @@ Main.propTypes = {
       }).isRequired
   ).isRequired,
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  activeCity: PropTypes.string,
+  activeCity: PropTypes.string.isRequired,
   onLogoLinkClickHandler: PropTypes.func.isRequired,
   onCityClickHandler: PropTypes.func.isRequired,
   renderMap: PropTypes.func.isRequired,
