@@ -91,7 +91,7 @@ describe(`app reducer tests`, () => {
       offers: [],
       cityOffers: []
     }, {
-      type: actions.SET_OFFERS,
+      type: actions.INIT_OFFERS,
       payload: offers
     })).toMatchObject({
       city: `Cologne`,
@@ -137,7 +137,7 @@ describe(`app reducer tests`, () => {
         city: `Amsterdam`,
       }]
     }, {
-      type: actions.SET_CITY,
+      type: actions.CHOOSE_CITY,
       payload: `Dusseldorf`,
     })).toMatchObject({
       city: `Dusseldorf`,

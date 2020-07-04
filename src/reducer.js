@@ -20,17 +20,17 @@ const initialState = {
 };
 
 export const actions = {
-  SET_CITY: `SET_CITY`,
-  SET_OFFERS: `SET_OFFERS`,
+  CHOOSE_CITY: `CHOOSE_CITY`,
+  INIT_OFFERS: `INIT_OFFERS`,
 };
 
 export const actionCreator = {
   setCity: (city) => ({
-    type: actions.SET_CITY,
+    type: actions.CHOOSE_CITY,
     payload: city
   }),
   setOffers: (offers) => ({
-    type: actions.SET_OFFERS,
+    type: actions.INIT_OFFERS,
     payload: offers
   })
 };
@@ -41,7 +41,7 @@ const extend = (state, expand) => {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.SET_OFFERS: {
+    case actions.INIT_OFFERS: {
       const firstOffer = action.payload[0];
       const city = firstOffer ? firstOffer.city : null;
       return extend(state, {
@@ -50,7 +50,7 @@ export const reducer = (state = initialState, action) => {
         city
       });
     }
-    case actions.SET_CITY: {
+    case actions.CHOOSE_CITY: {
       return extend(state, {
         city: action.payload,
         cityOffers: state.offers.filter((place) => place.city === action.payload)
