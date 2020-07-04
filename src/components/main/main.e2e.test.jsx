@@ -30,6 +30,8 @@ const placeList = [{
   type: `Hotel`,
   point: [52.3909553943508, 4.929309666406198]
 }];
+const cityList = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
+const activeCity = `Amsterdam`;
 
 describe(`Main component e2e tests`, () => {
   it(`Main header logo click calls once`, () => {
@@ -39,7 +41,10 @@ describe(`Main component e2e tests`, () => {
         <Main
           placesAmount={placesAmount}
           placeList={placeList}
+          cityList={cityList}
+          activeCity={activeCity}
           onLogoLinkClickHandler={onHeaderLogoClickCallback}
+          onCityClickHandler={() => {}}
           renderMap={() => <React.Fragment/>}
         />
     );

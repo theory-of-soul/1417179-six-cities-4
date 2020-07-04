@@ -25,6 +25,8 @@ const placeList = [{
   type: `Hotel`,
   point: [52.3909553943508, 4.929309666406198]
 }];
+const cityList = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
+const activeCity = `Amsterdam`;
 
 describe(`Main component snapshot tests`, () => {
   it(`Main component show two places`, () => {
@@ -33,7 +35,28 @@ describe(`Main component snapshot tests`, () => {
           <Main
             placeList={placeList}
             placesAmount={placesAmount}
+            cityList={cityList}
+            activeCity={activeCity}
             onLogoLinkClickHandler={() => {}}
+            onCityClickHandler={() => {}}
+            renderMap={() => <React.Fragment/>}
+          />
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`Main if places has no, have to be phrase "No places to stay available"`, () => {
+    const tree = renderer
+      .create(
+          <Main
+            placeList={[]}
+            placesAmount={0}
+            cityList={cityList}
+            activeCity={activeCity}
+            onLogoLinkClickHandler={() => {}}
+            onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
           />
       )

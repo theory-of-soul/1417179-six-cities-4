@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from 'react-test-renderer';
-import App from "./app";
+import {App} from "./app";
 
 const placesAmount = 312;
 const placeList = [{
@@ -25,6 +25,8 @@ const placeList = [{
   type: `Hotel`,
   point: [52.3909553943508, 4.929309666406198]
 }];
+const cityList = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
+const activeCity = `Amsterdam`;
 
 const options = {
   createNodeMock: (element) => {
@@ -38,7 +40,17 @@ const options = {
 describe(`App component snapshot tests`, () => {
   it(`App component show Main screen`, () => {
     const tree = renderer
-      .create(<App placeList={placeList} placesAmount={placesAmount} />, options)
+      .create(
+          <App
+            placeList={placeList}
+            placesAmount={placesAmount}
+            setLoadedOffers={() => {}}
+            chooseCity={() => {}}
+            activeCity={activeCity}
+            cityList={cityList}
+          />,
+          options
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();
