@@ -1,20 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const propTypes = {
-  place: PropTypes.shape({
-    mark: PropTypes.string,
-    img: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    time: PropTypes.string.isRequired,
-    isInBookmark: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  }).isRequired,
-  handleHover: PropTypes.func.isRequired
-};
-
 const PlaceCard = (props) => {
   const {
     place: {
@@ -27,14 +13,14 @@ const PlaceCard = (props) => {
       name,
       type
     },
-    handleHover
+    onHoverHandler
   } = props;
 
   return (
     <article
       className="cities__place-card place-card"
       onMouseEnter={() => {
-        handleHover(props.place);
+        onHoverHandler(props.place);
       }}
     >
       {
@@ -86,6 +72,18 @@ const PlaceCard = (props) => {
   );
 };
 
-PlaceCard.propTypes = propTypes;
+PlaceCard.propTypes = {
+  place: PropTypes.shape({
+    mark: PropTypes.string,
+    img: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    time: PropTypes.string.isRequired,
+    isInBookmark: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  }).isRequired,
+  onHoverHandler: PropTypes.func.isRequired
+};
 
-export default PlaceCard;
+export default React.memo(PlaceCard);

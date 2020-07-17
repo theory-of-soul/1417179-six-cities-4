@@ -24,7 +24,7 @@ const placeList = [{
 describe(`PlaceCard component snapshot tests`, () => {
   it(`PlaceCard component show place with a mark and in bookmark`, () => {
     const tree = renderer
-      .create(<PlaceCard place={placeList[0]} handleHover={() => {}}/>)
+      .create(<PlaceCard place={placeList[0]} onHoverHandler={() => {}}/>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -32,7 +32,7 @@ describe(`PlaceCard component snapshot tests`, () => {
 
   it(`PlaceCard component show place without mark and not in bookmark`, () => {
     const tree = renderer
-      .create(<PlaceCard place={placeList[1]} handleHover={() => {}}/>)
+      .create(<PlaceCard place={placeList[1]} onHoverHandler={() => {}}/>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

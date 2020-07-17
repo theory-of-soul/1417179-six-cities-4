@@ -23,7 +23,7 @@ describe(`PlaceCard component e2e tests`, () => {
     const onHoverCallback = jest.fn();
 
     const placeCardComponent = shallow(
-        <PlaceCard place={place} handleHover={onHoverCallback} />
+        <PlaceCard place={place} onHoverHandler={onHoverCallback} />
     );
 
     placeCardComponent.find(`.place-card`).simulate(`mouseEnter`);
