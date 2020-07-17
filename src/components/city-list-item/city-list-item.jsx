@@ -36,4 +36,4 @@ CityListItem.propTypes = {
   isActive: PropTypes.bool.isRequired
 };
 
-export default CityListItem;
+export default React.memo(CityListItem);

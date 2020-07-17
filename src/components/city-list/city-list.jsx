@@ -32,4 +32,4 @@ CityList.propTypes = {
   activeCity: PropTypes.string.isRequired,
 };
 
-export default CityList;
+export default React.memo(CityList);
