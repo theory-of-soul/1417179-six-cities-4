@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import CityListItem from "../city-list-item/city-list-item";
 
 const CityList = (props) => {
   const {
@@ -11,26 +12,15 @@ const CityList = (props) => {
   return (
     <ul className="locations__list tabs__list">
       {
-        cityList.map((city, i) => {
-          let styles = `locations__item-link tabs__item`;
-          if (city === activeCity) {
-            styles += ` tabs__item--active`;
-          }
-          return (
-            <li className="locations__item" key={i}>
-              <a
-                className={styles}
-                href="#"
-                onClick={(event) => {
-                  event.preventDefault();
-                  onCityClickHandler(city);
-                }}
-              >
-                <span>{city}</span>
-              </a>
-            </li>
-          );
-        })
+        cityList.map((city, i) => (
+          <CityListItem
+            key={i}
+            onCityClickHandler={onCityClickHandler}
+            activeCity={activeCity}
+            isActive={city === activeCity}
+            city={city}
+          />
+        ))
       }
     </ul>
   );
