@@ -50,6 +50,7 @@ describe(`App component snapshot tests`, () => {
             chooseCity={() => {}}
             activeCity={activeCity}
             cityList={cityList}
+            dataLoadingError={false}
           />,
           options
       )

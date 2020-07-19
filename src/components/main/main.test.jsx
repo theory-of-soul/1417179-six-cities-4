@@ -42,6 +42,8 @@ describe(`Main component snapshot tests`, () => {
             onLogoLinkClickHandler={() => {}}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
+            hasError={false}
+            onClickCardTitle={() => {}}
           />
       )
       .toJSON();
@@ -60,6 +62,8 @@ describe(`Main component snapshot tests`, () => {
             onLogoLinkClickHandler={() => {}}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
+            hasError={false}
+            onClickCardTitle={() => {}}
           />
       )
       .toJSON();
@@ -79,6 +83,7 @@ describe(`Main component snapshot tests`, () => {
             onLogoLinkClickHandler={() => {}}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
+            onClickCardTitle={() => {}}
           />
       )
       .toJSON();

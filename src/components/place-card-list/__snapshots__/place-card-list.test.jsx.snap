@@ -94,6 +94,7 @@ exports[`PlaceCardList component snapshot tests PlaceCardList component show two
       </div>
       <h2
         className="place-card__name"
+        onClick={[Function]}
       >
         <a
           href="#"
@@ -191,6 +192,7 @@ exports[`PlaceCardList component snapshot tests PlaceCardList component show two
       </div>
       <h2
         className="place-card__name"
+        onClick={[Function]}
       >
         <a
           href="#"

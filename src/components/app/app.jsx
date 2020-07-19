@@ -15,11 +15,20 @@ const MainScreenWithMap = withMap(Main);
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      activePlace: null
+    };
+
     this._renderApp = this._renderApp.bind(this);
+    this._showPlaceProperties = this._showPlaceProperties.bind(this);
   }
 
   componentDidMount() {
     this.props.loadHotelOffers();
+  }
+
+  _showPlaceProperties(place) {
+    this.setState({activePlace: place});
   }
 
   _renderApp() {
@@ -32,17 +41,23 @@ class App extends React.PureComponent {
       dataLoadingError
     } = this.props;
 
-    return (
-      <MainScreenWithMap
-        placesAmount={placesAmount}
-        placeList={placeList}
-        activeCity={activeCity}
-        cityList={cityList}
-        onCityClickHandler={chooseCity}
-        hasError={dataLoadingError}
-        onLogoLinkClickHandler={() => {}}
-      />
-    );
+    if (this.state.activePlace) {
+      return <PlaceProperty />;
+    } else {
+      return (
+        <MainScreenWithMap
+          placesAmount={placesAmount}
+          placeList={placeList}
+          activeCity={activeCity}
+          cityList={cityList}
+          onCityClickHandler={chooseCity}
+          hasError={dataLoadingError}
+          onLogoLinkClickHandler={() => {}}
+          onClickCardTitle={this._showPlaceProperties}
+        />
+      );
+    }
+
   }
 
   render() {
