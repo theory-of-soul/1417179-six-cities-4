@@ -1,20 +1,8 @@
-export const cities = {
-  AMSTERDAM: `Amsterdam`,
-  COLOGNE: `Cologne`,
-  PARIS: `Paris`,
-  BRUSSELS: `Brussels`,
-  HAMBURG: `Hamburg`,
-  DUSSELDORF: `Dusseldorf`,
-};
-
-export const citiesCenter = {
-  [cities.AMSTERDAM]: [52.38333, 4.9],
-  [cities.COLOGNE]: [50.93333, 6.95],
-  [cities.PARIS]: [48.85341, 2.3488],
-};
+import {hotelResponseAdapter} from "./helpers/hotels-response-adapter";
+import {extend} from "./helpers/extend-object";
 
 const initialState = {
-  city: cities.AMSTERDAM,
+  city: `Amsterdam`,
   offers: [],
   cityOffers: []
 };
@@ -29,14 +17,24 @@ export const actionCreator = {
     type: actions.CHOOSE_CITY,
     payload: city
   }),
-  setOffers: (offers) => ({
+  initOffers: (offers) => ({
     type: actions.INIT_OFFERS,
     payload: offers
   })
 };
 
-const extend = (state, expand) => {
-  return Object.assign({}, state, expand);
+export const operationCreator = {
+  loadHotelOffers: () => (dispatch, getState, api) => {
+    return api
+      .get(`hotels`)
+      .then((response) => {
+        const offers = hotelResponseAdapter(response.data);
+        dispatch(actionCreator.initOffers(offers));
+      })
+      .catch((e) => {
+        throw new Error(e);
+      });
+  }
 };
 
 export const reducer = (state = initialState, action) => {

@@ -1,4 +1,6 @@
-import {reducer, actions} from "./reducer";
+import {operationCreator, reducer} from "./reducer";
+import {createAPI} from "./api";
+import MockAdapter from "axios-mock-adapter";
 
 const initialState = {
   city: `Amsterdam`,
@@ -17,6 +19,7 @@ const offers = [{
   name: `luxurious apartment at great location`,
   type: `Apartment`,
   city: `Cologne`,
+  cityLocation: [52.38333, 4.9]
 }, {
   id: 1,
   mark: `premium`,
@@ -28,6 +31,7 @@ const offers = [{
   name: `Beautiful & luxurious`,
   type: `Hotel`,
   city: `Paris`,
+  cityLocation: [52.38333, 4.9]
 }, {
   id: 2,
   img: `img/apartment-03.jpg`,
@@ -38,6 +42,7 @@ const offers = [{
   name: `Beautiful`,
   type: `Apartment`,
   city: `Brussels`,
+  cityLocation: [52.38333, 4.9]
 }, {
   id: 3,
   img: `img/apartment-01.jpg`,
@@ -48,6 +53,7 @@ const offers = [{
   name: `Beautiful & luxurious apartment at great location`,
   type: `Apartment`,
   city: `Amsterdam`,
+  cityLocation: [52.38333, 4.9]
 }, {
   id: 4,
   img: `img/apartment-01.jpg`,
@@ -58,6 +64,7 @@ const offers = [{
   name: `Beautiful & luxurious apartment at great location`,
   type: `Apartment`,
   city: `Hamburg`,
+  cityLocation: [52.38333, 4.9]
 }, {
   id: 5,
   img: `img/apartment-01.jpg`,
@@ -68,6 +75,7 @@ const offers = [{
   name: `Beautiful & luxurious apartment at great location`,
   type: `Apartment`,
   city: `Dusseldorf`,
+  cityLocation: [52.38333, 4.9]
 }, {
   id: 6,
   img: `img/apartment-01.jpg`,
@@ -78,7 +86,13 @@ const offers = [{
   name: `Beautiful & luxurious apartment at great location`,
   type: `Apartment`,
   city: `Amsterdam`,
+  cityLocation: [52.38333, 4.9]
 }];
+
+const api = createAPI(() => {});
+const actions = {
+  INIT_OFFERS: `INIT_OFFERS`
+};
 
 describe(`app reducer tests`, () => {
   it(`if reducer has no state, it returns initialState`, () => {
@@ -125,6 +139,7 @@ describe(`app reducer tests`, () => {
         name: `Beautiful & luxurious apartment at great location`,
         type: `Apartment`,
         city: `Amsterdam`,
+        cityLocation: [52.38333, 4.9]
       }, {
         id: 6,
         img: `img/apartment-01.jpg`,
@@ -135,6 +150,7 @@ describe(`app reducer tests`, () => {
         name: `Beautiful & luxurious apartment at great location`,
         type: `Apartment`,
         city: `Amsterdam`,
+        cityLocation: [52.38333, 4.9]
       }]
     }, {
       type: actions.CHOOSE_CITY,
@@ -152,7 +168,27 @@ describe(`app reducer tests`, () => {
         name: `Beautiful & luxurious apartment at great location`,
         type: `Apartment`,
         city: `Dusseldorf`,
+        cityLocation: [52.38333, 4.9]
       }]
     });
+  });
+
+  it(`check operation load data`, () => {
+    const axiosMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const loadingHotelOffers = operationCreator.loadHotelOffers();
+
+    axiosMock
+      .onGet(`hotels`)
+      .reply(200, [{fake: true}]);
+
+    loadingHotelOffers(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: actions.INIT_OFFERS,
+          payload: [{fake: true}]
+        });
+      });
   });
 });

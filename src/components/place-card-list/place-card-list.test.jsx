@@ -26,7 +26,7 @@ const placeList = [{
 describe(`PlaceCardList component snapshot tests`, () => {
   it(`PlaceCardList component show two places`, () => {
     const tree = renderer
-      .create(<PlaceCardList placeList={placeList}/>)
+      .create(<PlaceCardList placeList={placeList} onActiveHandler={() => {}}/>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

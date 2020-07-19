@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 import PlaceCardList from "../place-card-list/place-card-list";
 import CityList from "../city-list/city-list";
-import {citiesCenter} from "../../reducer";
 import withActiveItem from "../../hoc/with-active-item";
 
 const MAX_SIZE_CITY_LIST = 6;
@@ -21,6 +20,7 @@ const Main = (props) => {
   } = props;
 
   const coordinates = placeList.map((place) => place.point);
+  const cityCenter = placeList[0] && placeList[0].cityLocation;
 
   return (
     <div className="page page--gray page--main">
@@ -94,7 +94,7 @@ const Main = (props) => {
               )
             }
             <div className="cities__right-section">
-              {renderMap(coordinates, citiesCenter[activeCity])}
+              {cityCenter && renderMap(coordinates, cityCenter)}
             </div>
           </div>
         </div>
@@ -117,6 +117,9 @@ Main.propTypes = {
         name: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
         point: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
+        cityLocation: PropTypes.arrayOf(
             PropTypes.number.isRequired
         ).isRequired,
       }).isRequired
