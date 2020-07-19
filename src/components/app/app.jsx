@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import Main from "../main/main";
 import withMap from "../../hoc/with-map";
 import {connect} from "react-redux";
-import {actionCreator, operationCreator} from "../../reducer";
+import {getCurrentCityOffers, getUniqCities} from "../../reducers/data/selectors";
+import {getCurrentCity} from "../../reducers/app/selectors";
+import {operationCreator} from "../../reducers/data/data";
+import {appActionCreator} from "../../reducers/app/app";
 
 const MainScreenWithMap = withMap(Main);
 
@@ -64,16 +67,11 @@ App.propTypes = {
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
-const getUniqCities = (placeList) => {
-  const allCities = placeList.map((place) => place.city);
-  return [...new Set(allCities)];
-};
-
 const mapStateToProps = (state) => ({
-  placesAmount: state.cityOffers.length,
-  placeList: state.cityOffers,
-  activeCity: state.city,
-  cityList: getUniqCities(state.offers)
+  placesAmount: getCurrentCityOffers(state).length,
+  placeList: getCurrentCityOffers(state),
+  activeCity: getCurrentCity(state),
+  cityList: getUniqCities(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -81,7 +79,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(operationCreator.loadHotelOffers());
   },
   chooseCity: (city) => {
-    dispatch(actionCreator.setCity(city));
+    dispatch(appActionCreator.setCity(city));
   }
 });
 
