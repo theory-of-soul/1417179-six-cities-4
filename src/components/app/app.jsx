@@ -7,19 +7,22 @@ import {getCurrentCityOffers, getHasErrorFlag, getUniqCities} from "../../reduce
 import {getCurrentCity} from "../../reducers/app/selectors";
 import {operationCreator} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import PlaceProperty from "../place-property/place-property";
 
 const MainScreenWithMap = withMap(Main);
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
+    this._renderApp = this._renderApp.bind(this);
   }
 
   componentDidMount() {
     this.props.loadHotelOffers();
   }
 
-  render() {
+  _renderApp() {
     const {
       placesAmount,
       placeList,
@@ -40,6 +43,23 @@ class App extends React.PureComponent {
         onLogoLinkClickHandler={() => {}}
       />
     );
+  }
+
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            {this._renderApp()}
+          </Route>
+          <Route exact path="/dev-property">
+            <PlaceProperty />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    );
+
+
   }
 }
 
