@@ -66,4 +66,23 @@ describe(`Main component snapshot tests`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`if has error show error message`, () => {
+    const tree = renderer
+      .create(
+          <Main
+            hasError={true}
+            placeList={[]}
+            placesAmount={0}
+            cityList={[]}
+            activeCity={``}
+            onLogoLinkClickHandler={() => {}}
+            onCityClickHandler={() => {}}
+            renderMap={() => <React.Fragment/>}
+          />
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

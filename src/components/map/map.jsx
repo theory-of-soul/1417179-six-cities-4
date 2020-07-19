@@ -2,13 +2,6 @@ import React, {createRef} from "react";
 import PropTypes from 'prop-types';
 import * as leaflet from "leaflet";
 
-const propTypes = {
-  city: PropTypes.arrayOf(PropTypes.number).isRequired,
-  markersCoordinates: PropTypes.arrayOf(
-      PropTypes.arrayOf(PropTypes.number).isRequired
-  ).isRequired
-};
-
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -65,7 +58,7 @@ class Map extends React.PureComponent {
       markersCoordinates
     } = this.props;
 
-    if (markersCoordinates.length) {
+    if (markersCoordinates.length && city) {
       const map = this._getMap(city);
 
       this._clearMap();
@@ -92,6 +85,11 @@ class Map extends React.PureComponent {
   }
 }
 
-Map.propTypes = propTypes;
+Map.propTypes = {
+  city: PropTypes.arrayOf(PropTypes.number),
+  markersCoordinates: PropTypes.arrayOf(
+      PropTypes.arrayOf(PropTypes.number).isRequired
+  ).isRequired
+};
 
 export default Map;

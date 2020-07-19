@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Main from "../main/main";
 import withMap from "../../hoc/with-map";
 import {connect} from "react-redux";
-import {getCurrentCityOffers, getUniqCities} from "../../reducers/data/selectors";
+import {getCurrentCityOffers, getHasErrorFlag, getUniqCities} from "../../reducers/data/selectors";
 import {getCurrentCity} from "../../reducers/app/selectors";
 import {operationCreator} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
@@ -25,7 +25,8 @@ class App extends React.PureComponent {
       placeList,
       activeCity,
       cityList,
-      chooseCity
+      chooseCity,
+      dataLoadingError
     } = this.props;
 
     return (
@@ -35,6 +36,7 @@ class App extends React.PureComponent {
         activeCity={activeCity}
         cityList={cityList}
         onCityClickHandler={chooseCity}
+        hasError={dataLoadingError}
         onLogoLinkClickHandler={() => {}}
       />
     );
@@ -65,13 +67,15 @@ App.propTypes = {
   chooseCity: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  dataLoadingError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   placesAmount: getCurrentCityOffers(state).length,
   placeList: getCurrentCityOffers(state),
   activeCity: getCurrentCity(state),
-  cityList: getUniqCities(state)
+  cityList: getUniqCities(state),
+  dataLoadingError: getHasErrorFlag(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

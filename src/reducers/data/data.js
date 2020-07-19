@@ -3,17 +3,22 @@ import {extend} from "../../helpers/extend-object";
 import {appActionCreator} from "../app/app";
 
 const initialState = {
-  offers: []
+  offers: [],
+  hasError: false
 };
 
 export const actions = {
   INIT_OFFERS: `INIT_OFFERS`,
+  SHOW_ERROR: `SHOW_ERROR`,
 };
 
 const actionCreator = {
   initOffers: (offers) => ({
     type: actions.INIT_OFFERS,
     payload: offers
+  }),
+  showError: () => ({
+    type: actions.SHOW_ERROR,
   })
 };
 
@@ -27,6 +32,7 @@ export const operationCreator = {
         dispatch(appActionCreator.setCity(offers[0].city));
       })
       .catch((e) => {
+        dispatch(actionCreator.showError());
         throw new Error(e);
       });
   }
@@ -37,6 +43,11 @@ export const data = (state = initialState, action) => {
     case actions.INIT_OFFERS: {
       return extend(state, {
         offers: action.payload
+      });
+    }
+    case actions.SHOW_ERROR: {
+      return extend(state, {
+        hasError: true
       });
     }
   }

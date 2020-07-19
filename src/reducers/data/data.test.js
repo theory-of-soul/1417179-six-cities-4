@@ -3,7 +3,8 @@ import {createAPI} from "../../api";
 import MockAdapter from "axios-mock-adapter";
 
 const initialState = {
-  offers: []
+  offers: [],
+  hasError: false
 };
 
 const offers = [{
@@ -88,9 +89,11 @@ const offers = [{
 }];
 
 const api = createAPI(() => {});
+const axiosMock = new MockAdapter(api);
 const actions = {
   INIT_OFFERS: `INIT_OFFERS`,
-  CHOOSE_CITY: `CHOOSE_CITY`
+  CHOOSE_CITY: `CHOOSE_CITY`,
+  SHOW_ERROR: `SHOW_ERROR`,
 };
 
 const responseOffers = [{
@@ -138,17 +141,31 @@ describe(`data reducer tests`, () => {
 
   it(`set loaded offers`, () => {
     expect(reducer({
-      offers: []
+      offers: [],
+      hasError: false
     }, {
       type: actions.INIT_OFFERS,
       payload: offers
     })).toMatchObject({
-      offers
+      offers,
+      hasError: false
+    });
+  });
+
+  it(`set error flag true`, () => {
+    expect(reducer({
+      offers: [],
+      hasError: false
+    }, {
+      type: actions.SHOW_ERROR,
+      payload: offers
+    })).toMatchObject({
+      offers: [],
+      hasError: true
     });
   });
 
   it(`check operation load data`, () => {
-    const axiosMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const loadingHotelOffers = operationCreator.loadHotelOffers();
 
@@ -166,6 +183,23 @@ describe(`data reducer tests`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: actions.CHOOSE_CITY,
           payload: `Dusseldorf`
+        });
+      });
+  });
+
+  it(`check fail operation when load data`, () => {
+    const dispatch = jest.fn();
+    const loadingHotelOffers = operationCreator.loadHotelOffers();
+
+    axiosMock
+      .onGet(`hotels`)
+      .reply(404, {fake: true});
+
+    loadingHotelOffers(dispatch, () => {}, api)
+      .catch(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: actions.SHOW_ERROR,
         });
       });
   });
