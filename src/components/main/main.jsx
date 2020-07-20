@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import PlaceCardList from "../place-card-list/place-card-list";
 import CityList from "../city-list/city-list";
 import {citiesCenter} from "../../reducer";
+import withActiveItem from "../../hoc/with-active-item";
 
 const MAX_SIZE_CITY_LIST = 6;
+
+const PlaceCardListWithActiveItem = withActiveItem(PlaceCardList);
 
 const Main = (props) => {
   const {
@@ -77,14 +80,15 @@ const Main = (props) => {
                       <li className="places__option" tabIndex="0">Top rated first</li>
                     </ul>
                   </form>
-                  <PlaceCardList placeList={placeList}/>
+                  <PlaceCardListWithActiveItem placeList={placeList}/>
                 </section>
               ) : (
                 <section className="cities__no-places">
                   <div className="cities__status-wrapper tabs__content">
                     <b className="cities__status">No places to stay available</b>
-                    <p className="cities__status-description">We could not find any property available at the moment in
-                      {activeCity}</p>
+                    <p className="cities__status-description">
+                      We could not find any property available at the moment in {activeCity}
+                    </p>
                   </div>
                 </section>
               )
@@ -124,4 +128,4 @@ Main.propTypes = {
   renderMap: PropTypes.func.isRequired,
 };
 
-export default Main;
+export default React.memo(Main);
