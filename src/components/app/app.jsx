@@ -42,7 +42,34 @@ class App extends React.PureComponent {
     } = this.props;
 
     if (this.state.activePlace) {
-      return <PlaceProperty />;
+      const {
+        images,
+        name,
+        description,
+        isPremium,
+        type,
+        rating,
+        bedrooms,
+        guests,
+        value,
+        goods,
+        host
+      } = this.state.activePlace;
+      return (
+        <PlaceProperty
+          images={images}
+          title={name}
+          description={description}
+          isPremium={isPremium}
+          type={type}
+          rating={rating}
+          rooms={bedrooms}
+          guests={guests}
+          price={value}
+          goods={goods}
+          host={host}
+        />
+      );
     } else {
       return (
         <MainScreenWithMap
@@ -67,8 +94,24 @@ class App extends React.PureComponent {
           <Route exact path="/">
             {this._renderApp()}
           </Route>
-          <Route exact path="/dev-property">
-            <PlaceProperty />
+          <Route exact path="/offer">
+            <PlaceProperty
+              images={[`img/apartment-01.jpg`, `img/apartment-02.jpg`]}
+              title={`Beautiful &amp; luxurious studio at great location`}
+              description={`A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`}
+              isPremium={true}
+              type={`room`}
+              rating={4}
+              rooms={1}
+              guests={2}
+              price={100}
+              goods={[`Wi-Fi`, `Towels`, `Baby seat`]}
+              host={{
+                icon: `img/avatar-angelina.jpg`,
+                name: `Angelina`,
+                isSuper: true
+              }}
+            />
           </Route>
         </Switch>
       </BrowserRouter>
