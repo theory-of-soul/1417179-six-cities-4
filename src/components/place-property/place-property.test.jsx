@@ -11,6 +11,32 @@ const reviewList = [{
   userIcon: `img/avatar-max.jpg`
 }];
 
+const neighbourhoods = [{
+  id: 1,
+  img: `https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/15.jpg`,
+  value: 235,
+  time: `night`,
+  isInBookmark: false,
+  rating: 2.4,
+  name: `The house among olive `,
+  type: `apartment`,
+  city: `Dusseldorf`,
+  point: [51.237402, 6.797314],
+  cityLocation: [51.225402, 6.776314],
+  bedrooms: 4,
+  description: `I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!`,
+  goods: [`Laptop friendly workspace`],
+  guests: 6,
+  host: {
+    hostId: 25,
+    name: `Angelina`,
+    isSuper: true,
+    icon: `img/avatar-angelina.jpg`
+  },
+  images: [`https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/5.jpg`],
+  isPremium: false,
+}];
+
 describe(`PlaceProperty component snapshot tests`, () => {
   it(`PlaceProperty component premium user`, () => {
     const tree = renderer
@@ -35,6 +61,9 @@ describe(`PlaceProperty component snapshot tests`, () => {
             coordinates={[]}
             cityCoordinates={[]}
             renderMap={() => {}}
+            onClickCardTitle={() => {}}
+            renderPlaces={() => {}}
+            neighbourhoods={neighbourhoods}
           />
       )
       .toJSON();
