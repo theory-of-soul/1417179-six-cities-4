@@ -11,6 +11,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import PlaceProperty from "../place-property/place-property";
 
 const MainScreenWithMap = withMap(Main);
+const PlacePropertyWithMap = withMap(PlaceProperty);
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -56,7 +57,7 @@ class App extends React.PureComponent {
         host
       } = this.state.activePlace;
       return (
-        <PlaceProperty
+        <PlacePropertyWithMap
           images={images}
           title={name}
           description={description}
@@ -69,6 +70,9 @@ class App extends React.PureComponent {
           goods={goods}
           host={host}
           reviewList={[]}
+          coordinates={[]}
+          cityCoordinates={[]}
+          mapClassName="property__map"
         />
       );
     } else {
@@ -82,6 +86,7 @@ class App extends React.PureComponent {
           hasError={dataLoadingError}
           onLogoLinkClickHandler={() => {}}
           onClickCardTitle={this._showPlaceProperties}
+          mapClassName="cities__map"
         />
       );
     }
@@ -96,7 +101,7 @@ class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer">
-            <PlaceProperty
+            <PlacePropertyWithMap
               images={[`img/apartment-01.jpg`, `img/apartment-02.jpg`]}
               title={`Beautiful &amp; luxurious studio at great location`}
               description={`A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`}
@@ -113,6 +118,15 @@ class App extends React.PureComponent {
                 isSuper: true
               }}
               reviewList={[]}
+              cityCoordinates={[52.38333, 4.9]}
+              coordinates={[
+                [52.3909553943508, 4.85309666406198],
+                [52.369553943508, 4.85309666406198],
+                [52.389353943508, 4.85349666406198],
+                [52.379553943508, 4.76909666406198],
+                [52.387553943508, 4.75345666406198]
+              ]}
+              mapClassName="property__map"
             />
           </Route>
         </Switch>

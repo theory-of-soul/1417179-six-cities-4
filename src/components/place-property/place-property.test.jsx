@@ -32,6 +32,9 @@ describe(`PlaceProperty component snapshot tests`, () => {
               isSuper: true
             }}
             reviewList={reviewList}
+            coordinates={[]}
+            cityCoordinates={[]}
+            renderMap={() => {}}
           />
       )
       .toJSON();

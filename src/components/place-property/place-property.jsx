@@ -19,7 +19,10 @@ const PlaceProperty = (props) => {
       name,
       isSuper,
     },
-    reviewList
+    reviewList,
+    cityCoordinates,
+    coordinates,
+    renderMap
   } = props;
   return (
     <section className="property">
@@ -149,7 +152,8 @@ const PlaceProperty = (props) => {
           </section>
         </div>
       </div>
-      <section className="property__map map"/>
+
+      {renderMap(coordinates, cityCoordinates)}
     </section>
   );
 };
@@ -182,6 +186,10 @@ PlaceProperty.propTypes = {
     name: PropTypes.string.isRequired,
     isSuper: PropTypes.bool.isRequired,
   }),
+  coordinates: PropTypes.arrayOf(
+      PropTypes.arrayOf(PropTypes.number.isRequired)
+  ).isRequired,
+  cityCoordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   reviewList: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -191,7 +199,8 @@ PlaceProperty.propTypes = {
         userName: PropTypes.string.isRequired,
         userIcon: PropTypes.string.isRequired
       }).isRequired
-  ).isRequired
+  ).isRequired,
+  renderMap: PropTypes.func.isRequired
 };
 
 export default React.memo(PlaceProperty);
