@@ -2,6 +2,15 @@ import React from "react";
 import renderer from 'react-test-renderer';
 import PlaceProperty from "./place-property";
 
+const reviewList = [{
+  id: 0,
+  rating: 2,
+  text: `It was a pain. Wi-Fi was soooo low.`,
+  date: new Date(`2020-06-10`),
+  userName: `Alex`,
+  userIcon: `img/avatar-max.jpg`
+}];
+
 describe(`PlaceProperty component snapshot tests`, () => {
   it(`PlaceProperty component premium user`, () => {
     const tree = renderer
@@ -22,6 +31,7 @@ describe(`PlaceProperty component snapshot tests`, () => {
               name: `Angelina`,
               isSuper: true
             }}
+            reviewList={reviewList}
           />
       )
       .toJSON();

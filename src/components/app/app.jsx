@@ -68,6 +68,7 @@ class App extends React.PureComponent {
           price={value}
           goods={goods}
           host={host}
+          reviewList={[]}
         />
       );
     } else {
@@ -111,6 +112,7 @@ class App extends React.PureComponent {
                 name: `Angelina`,
                 isSuper: true
               }}
+              reviewList={[]}
             />
           </Route>
         </Switch>

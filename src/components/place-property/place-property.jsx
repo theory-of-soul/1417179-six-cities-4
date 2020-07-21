@@ -18,7 +18,8 @@ const PlaceProperty = (props) => {
       icon,
       name,
       isSuper,
-    }
+    },
+    reviewList
   } = props;
   return (
     <section className="property">
@@ -91,7 +92,7 @@ const PlaceProperty = (props) => {
             </div>
           </div>
           <section className="property__reviews reviews">
-            <ReviewList reviewList={[]}/>
+            <ReviewList reviewList={reviewList}/>
 
             <form className="reviews__form form" action="#" method="post">
               <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -180,7 +181,17 @@ PlaceProperty.propTypes = {
     icon: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     isSuper: PropTypes.bool.isRequired,
-  })
+  }),
+  reviewList: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+        date: PropTypes.instanceOf(Date),
+        userName: PropTypes.string.isRequired,
+        userIcon: PropTypes.string.isRequired
+      }).isRequired
+  ).isRequired
 };
 
 export default React.memo(PlaceProperty);
