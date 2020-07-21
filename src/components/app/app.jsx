@@ -9,9 +9,10 @@ import {operationCreator} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import PlaceProperty from "../place-property/place-property";
+import withPlaceCardList from "../../hoc/with-place-card-list";
 
-const MainScreenWithMap = withMap(Main);
-const PlacePropertyWithMap = withMap(PlaceProperty);
+const MainScreenWithMap = withMap(withPlaceCardList(Main));
+const PlacePropertyWithMap = withMap(withPlaceCardList(PlaceProperty));
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -54,12 +55,14 @@ class App extends React.PureComponent {
         guests,
         value,
         goods,
-        host
+        host,
+        point,
+        cityLocation
       } = this.state.activePlace;
       return (
         <PlacePropertyWithMap
-          images={images}
           title={name}
+          images={images}
           description={description}
           isPremium={isPremium}
           type={type}
@@ -70,9 +73,12 @@ class App extends React.PureComponent {
           goods={goods}
           host={host}
           reviewList={[]}
-          coordinates={[]}
-          cityCoordinates={[]}
+          coordinates={point}
+          cityCoordinates={cityLocation}
           mapClassName="property__map"
+          placeListClassName="near-places__list"
+          onClickCardTitle={this._showPlaceProperties}
+          neighbourhoods={placeList.filter((place) => place.name !== name)}
         />
       );
     } else {
@@ -86,6 +92,7 @@ class App extends React.PureComponent {
           hasError={dataLoadingError}
           onLogoLinkClickHandler={() => {}}
           onClickCardTitle={this._showPlaceProperties}
+          placeListClassName="cities__places-list"
           mapClassName="cities__map"
         />
       );
@@ -94,6 +101,10 @@ class App extends React.PureComponent {
   }
 
   render() {
+    const {
+      placeList
+    } = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
@@ -119,14 +130,11 @@ class App extends React.PureComponent {
               }}
               reviewList={[]}
               cityCoordinates={[52.38333, 4.9]}
-              coordinates={[
-                [52.3909553943508, 4.85309666406198],
-                [52.369553943508, 4.85309666406198],
-                [52.389353943508, 4.85349666406198],
-                [52.379553943508, 4.76909666406198],
-                [52.387553943508, 4.75345666406198]
-              ]}
+              coordinates={[52.3909553943508, 4.85309666406198]}
               mapClassName="property__map"
+              placeListClassName="near-places__list"
+              neighbourhoods={placeList}
+              onClickCardTitle={this._showPlaceProperties}
             />
           </Route>
         </Switch>
