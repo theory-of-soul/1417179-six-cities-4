@@ -18,7 +18,8 @@ const Main = (props) => {
     onLogoLinkClickHandler,
     onCityClickHandler,
     hasError,
-    onClickCardTitle
+    onClickCardTitle,
+    isUserAuth
   } = props;
 
   const coordinates = placeList.map((place) => place.point);
@@ -40,7 +41,11 @@ const Main = (props) => {
                   <a className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    {
+                      isUserAuth ?
+                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span> :
+                        <span className="header__login">Sign in</span>
+                    }
                   </a>
                 </li>
               </ul>
@@ -146,6 +151,7 @@ Main.propTypes = {
   renderMap: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   onClickCardTitle: PropTypes.func.isRequired,
+  isUserAuth: PropTypes.bool.isRequired
 };
 
 export default React.memo(Main);

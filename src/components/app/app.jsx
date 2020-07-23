@@ -9,6 +9,7 @@ import {operationCreator} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import PlaceProperty from "../place-property/place-property";
+import {isUserAuth} from "../../reducers/user/selectors";
 
 const MainScreenWithMap = withMap(Main);
 
@@ -38,7 +39,8 @@ class App extends React.PureComponent {
       activeCity,
       cityList,
       chooseCity,
-      dataLoadingError
+      dataLoadingError,
+      isUserAuthorized
     } = this.props;
 
     if (this.state.activePlace) {
@@ -81,6 +83,7 @@ class App extends React.PureComponent {
           hasError={dataLoadingError}
           onLogoLinkClickHandler={() => {}}
           onClickCardTitle={this._showPlaceProperties}
+          isUserAuth={isUserAuthorized}
         />
       );
     }
@@ -116,8 +119,6 @@ class App extends React.PureComponent {
         </Switch>
       </BrowserRouter>
     );
-
-
   }
 }
 
@@ -146,6 +147,7 @@ App.propTypes = {
   activeCity: PropTypes.string.isRequired,
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   dataLoadingError: PropTypes.bool.isRequired,
+  isUserAuthorized: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -153,7 +155,8 @@ const mapStateToProps = (state) => ({
   placeList: getCurrentCityOffers(state),
   activeCity: getCurrentCity(state),
   cityList: getUniqCities(state),
-  dataLoadingError: getHasErrorFlag(state)
+  dataLoadingError: getHasErrorFlag(state),
+  isUserAuthorized: isUserAuth(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -6,9 +6,10 @@ import {Provider} from "react-redux";
 import {applyMiddleware, compose, createStore} from "redux";
 import thunk from "redux-thunk";
 import {createAPI} from "./api";
+import {actionCreator, AuthorizationStatus, userOperations} from "./reducers/user/user";
 
 const onUnauthorized = () => {
-  // store.dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+  store.dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
 };
 
 const api = createAPI(onUnauthorized);
@@ -21,6 +22,7 @@ const store = createStore(
     )
 );
 
+store.dispatch(userOperations.checkAuthStatus());
 
 ReactDOM.render(
     <Provider store={store}>
