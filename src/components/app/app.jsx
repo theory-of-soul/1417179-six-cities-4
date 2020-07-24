@@ -10,6 +10,8 @@ import {appActionCreator} from "../../reducers/app/app";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import PlaceProperty from "../place-property/place-property";
 import {isUserAuth} from "../../reducers/user/selectors";
+import LogIn from "../log-in/log-in";
+import {userOperations} from "../../reducers/user/user";
 
 const MainScreenWithMap = withMap(Main);
 
@@ -17,19 +19,32 @@ class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      activePlace: null
+      activePlace: null,
+      isLoginPage: false
     };
 
     this._renderApp = this._renderApp.bind(this);
     this._showPlaceProperties = this._showPlaceProperties.bind(this);
+    this._onLoginLinkClickHandler = this._onLoginLinkClickHandler.bind(this);
   }
 
   componentDidMount() {
     this.props.loadHotelOffers();
   }
 
+  componentDidUpdate(prevProps) {
+    // временное решения, до использования роутинга
+    if (prevProps.isUserAuthorized !== this.props.isUserAuthorized && this.props.isUserAuthorized) {
+      this.setState({isLoginPage: false});
+    }
+  }
+
   _showPlaceProperties(place) {
     this.setState({activePlace: place});
+  }
+
+  _onLoginLinkClickHandler() {
+    this.setState({isLoginPage: true});
   }
 
   _renderApp() {
@@ -42,6 +57,10 @@ class App extends React.PureComponent {
       dataLoadingError,
       isUserAuthorized
     } = this.props;
+
+    if (this.state.isLoginPage) {
+      return (<LogIn onSubmitHandler={this.props.signIn}/>);
+    }
 
     if (this.state.activePlace) {
       const {
@@ -84,6 +103,7 @@ class App extends React.PureComponent {
           onLogoLinkClickHandler={() => {}}
           onClickCardTitle={this._showPlaceProperties}
           isUserAuth={isUserAuthorized}
+          onLoginClickHandler={this._onLoginLinkClickHandler}
         />
       );
     }
@@ -147,7 +167,8 @@ App.propTypes = {
   activeCity: PropTypes.string.isRequired,
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   dataLoadingError: PropTypes.bool.isRequired,
-  isUserAuthorized: PropTypes.bool.isRequired
+  isUserAuthorized: PropTypes.bool.isRequired,
+  signIn: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -156,7 +177,7 @@ const mapStateToProps = (state) => ({
   activeCity: getCurrentCity(state),
   cityList: getUniqCities(state),
   dataLoadingError: getHasErrorFlag(state),
-  isUserAuthorized: isUserAuth(state)
+  isUserAuthorized: isUserAuth(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -165,6 +186,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   chooseCity: (city) => {
     dispatch(appActionCreator.setCity(city));
+  },
+  signIn: (email, password) => {
+    dispatch(userOperations.login(email, password));
   }
 });
 

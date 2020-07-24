@@ -40,7 +40,7 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
