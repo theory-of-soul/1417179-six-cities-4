@@ -13,8 +13,9 @@ import {isUserAuth} from "../../reducers/user/selectors";
 import LogIn from "../log-in/log-in";
 import {userOperations} from "../../reducers/user/user";
 import {Sorting} from "../places-sorting/places-sorting";
+import withActiveItem from "../../hoc/with-active-item";
 
-const MainScreenWithMap = withMap(Main);
+const MainScreenWithMap = withMap(withActiveItem(Main));
 
 class App extends React.PureComponent {
   constructor(props) {

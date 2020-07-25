@@ -5,8 +5,14 @@ const withMap = (Component) => (props) => {
   return (
     <Component
       {...props}
-      renderMap={(coordinates, city) => {
-        return <Map city={city} markersCoordinates={coordinates}/>;
+      renderMap={(coordinates, city, activePoint) => {
+        return (
+          <Map
+            city={city}
+            markersCoordinates={coordinates}
+            activePoint={activePoint}
+          />
+        );
       }}
     />
   );

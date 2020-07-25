@@ -2,13 +2,11 @@ import React from "react";
 import PropTypes from 'prop-types';
 import PlaceCardList from "../place-card-list/place-card-list";
 import CityList from "../city-list/city-list";
-import withActiveItem from "../../hoc/with-active-item";
 import withOpenMenu from "../../hoc/with-open-menu";
 import PlacesSorting, {Sorting} from "../places-sorting/places-sorting";
 
 const MAX_SIZE_CITY_LIST = 6;
 
-const PlaceCardListWithActiveItem = withActiveItem(PlaceCardList);
 const PlacesSortingMenu = withOpenMenu(PlacesSorting);
 
 const Main = (props) => {
@@ -25,7 +23,9 @@ const Main = (props) => {
     isUserAuth,
     onLoginClickHandler,
     chosenSorting,
-    onChooseSortingHandler
+    onChooseSortingHandler,
+    onActiveHandler,
+    activeItem: hoveredOffer
   } = props;
 
   const coordinates = placeList.map((place) => place.point);
@@ -79,7 +79,7 @@ const Main = (props) => {
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{placesAmount} places to stay in {activeCity}</b>
                   <PlacesSortingMenu chosenSorting={chosenSorting} onChooseSortingHandler={onChooseSortingHandler}/>
-                  <PlaceCardListWithActiveItem placeList={placeList} onClickCardTitle={onClickCardTitle} />
+                  <PlaceCardList placeList={placeList} onClickCardTitle={onClickCardTitle} onActiveHandler={onActiveHandler} />
                 </section>
               ) : (
                 <section className="cities__no-places">
@@ -106,7 +106,7 @@ const Main = (props) => {
               )
             }
             <div className="cities__right-section">
-              {renderMap(coordinates, cityCenter)}
+              {renderMap(coordinates, cityCenter, hoveredOffer && hoveredOffer.point)}
             </div>
           </div>
         </div>
@@ -146,7 +146,25 @@ Main.propTypes = {
   isUserAuth: PropTypes.bool.isRequired,
   onLoginClickHandler: PropTypes.func.isRequired,
   chosenSorting: PropTypes.oneOf(Object.values(Sorting)).isRequired,
-  onChooseSortingHandler: PropTypes.func.isRequired
+  onChooseSortingHandler: PropTypes.func.isRequired,
+  activeItem: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    mark: PropTypes.string,
+    img: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    time: PropTypes.string.isRequired,
+    isInBookmark: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    point: PropTypes.arrayOf(
+        PropTypes.number.isRequired
+    ).isRequired,
+    cityLocation: PropTypes.arrayOf(
+        PropTypes.number.isRequired
+    ).isRequired,
+  }),
+  onActiveHandler: PropTypes.func.isRequired
 };
 
 export default React.memo(Main);

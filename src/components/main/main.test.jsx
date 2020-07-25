@@ -48,6 +48,7 @@ describe(`Main component snapshot tests`, () => {
             onLoginClickHandler={() => {}}
             chosenSorting={`Popular`}
             onChooseSortingHandler={() => {}}
+            onActiveHandler={() => {}}
           />
       )
       .toJSON();
@@ -72,6 +73,7 @@ describe(`Main component snapshot tests`, () => {
             onLoginClickHandler={() => {}}
             chosenSorting={`Popular`}
             onChooseSortingHandler={() => {}}
+            onActiveHandler={() => {}}
           />
       )
       .toJSON();
@@ -96,6 +98,7 @@ describe(`Main component snapshot tests`, () => {
             onLoginClickHandler={() => {}}
             chosenSorting={`Popular`}
             onChooseSortingHandler={() => {}}
+            onActiveHandler={() => {}}
           />
       )
       .toJSON();
