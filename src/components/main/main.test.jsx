@@ -39,13 +39,10 @@ describe(`Main component snapshot tests`, () => {
             placesAmount={placesAmount}
             cityList={cityList}
             activeCity={activeCity}
-            onLogoLinkClickHandler={() => {}}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
             hasError={false}
             onClickCardTitle={() => {}}
-            isUserAuth={true}
-            onLoginClickHandler={() => {}}
             chosenSorting={`Popular`}
             onChooseSortingHandler={() => {}}
             onActiveHandler={() => {}}
@@ -64,13 +61,10 @@ describe(`Main component snapshot tests`, () => {
             placesAmount={0}
             cityList={cityList}
             activeCity={activeCity}
-            onLogoLinkClickHandler={() => {}}
-            onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
             hasError={false}
             onClickCardTitle={() => {}}
-            isUserAuth={false}
-            onLoginClickHandler={() => {}}
+            onCityClickHandler={() => {}}
             chosenSorting={`Popular`}
             onChooseSortingHandler={() => {}}
             onActiveHandler={() => {}}
@@ -90,12 +84,9 @@ describe(`Main component snapshot tests`, () => {
             placesAmount={0}
             cityList={[]}
             activeCity={``}
-            onLogoLinkClickHandler={() => {}}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
             onClickCardTitle={() => {}}
-            isUserAuth={true}
-            onLoginClickHandler={() => {}}
             chosenSorting={`Popular`}
             onChooseSortingHandler={() => {}}
             onActiveHandler={() => {}}

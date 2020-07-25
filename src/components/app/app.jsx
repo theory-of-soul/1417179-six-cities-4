@@ -14,6 +14,8 @@ import LogIn from "../log-in/log-in";
 import {userOperations} from "../../reducers/user/user";
 import {Sorting} from "../places-sorting/places-sorting";
 import withActiveItem from "../../hoc/with-active-item";
+import MainWrapper from "../main-wrapper/main-wrapper";
+import MainEmpty from "../main-empty/main-empty";
 
 const MainScreenWithMap = withMap(withActiveItem(Main));
 
@@ -96,22 +98,38 @@ class App extends React.PureComponent {
         />
       );
     } else {
-      return (
-        <MainScreenWithMap
-          placesAmount={placesAmount}
-          placeList={placeList}
-          activeCity={activeCity}
-          cityList={cityList}
-          onCityClickHandler={chooseCity}
-          hasError={dataLoadingError}
-          onLogoLinkClickHandler={() => {}}
-          onClickCardTitle={this._showPlaceProperties}
-          isUserAuth={isUserAuthorized}
-          onLoginClickHandler={this._onLoginLinkClickHandler}
-          chosenSorting={chosenSorting}
-          onChooseSortingHandler={chooseSorting}
-        />
-      );
+      if (placesAmount === 0) {
+        return (
+          <MainWrapper
+            isUserAuth={isUserAuthorized}
+            onLogoLinkClickHandler={() => {}}
+            onLoginClickHandler={this._onLoginLinkClickHandler}
+            className="page__main--index-empty"
+          >
+            <MainEmpty />
+          </MainWrapper>
+        );
+      } else {
+        return (
+          <MainWrapper
+            isUserAuth={isUserAuthorized}
+            onLogoLinkClickHandler={() => {}}
+            onLoginClickHandler={this._onLoginLinkClickHandler}
+          >
+            <MainScreenWithMap
+              placesAmount={placesAmount}
+              placeList={placeList}
+              activeCity={activeCity}
+              cityList={cityList}
+              onCityClickHandler={chooseCity}
+              hasError={dataLoadingError}
+              onClickCardTitle={this._showPlaceProperties}
+              chosenSorting={chosenSorting}
+              onChooseSortingHandler={chooseSorting}
+            />
+          </MainWrapper>
+        );
+      }
     }
 
   }
