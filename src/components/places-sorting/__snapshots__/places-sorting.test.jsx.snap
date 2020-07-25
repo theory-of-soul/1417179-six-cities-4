@@ -16,7 +16,7 @@ exports[`PlacesSorting component snapshot tests PlacesSorting component show def
     onClick={[Function]}
     tabIndex="0"
   >
-    POPULAR
+    Popular
     <svg
       className="places__sorting-arrow"
       height="4"
@@ -78,7 +78,7 @@ exports[`PlacesSorting component snapshot tests PlacesSorting component show fou
     onClick={[Function]}
     tabIndex="0"
   >
-    PRICE_LOW_TO_HIGH
+    Price: low to high
     <svg
       className="places__sorting-arrow"
       height="4"

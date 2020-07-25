@@ -4,7 +4,7 @@ import PlaceCardList from "../place-card-list/place-card-list";
 import CityList from "../city-list/city-list";
 import withActiveItem from "../../hoc/with-active-item";
 import withOpenMenu from "../../hoc/with-open-menu";
-import PlacesSorting, {typeOfSorting} from "../places-sorting/places-sorting";
+import PlacesSorting, {Sorting} from "../places-sorting/places-sorting";
 
 const MAX_SIZE_CITY_LIST = 6;
 
@@ -23,7 +23,9 @@ const Main = (props) => {
     hasError,
     onClickCardTitle,
     isUserAuth,
-    onLoginClickHandler
+    onLoginClickHandler,
+    chosenSorting,
+    onChooseSortingHandler
   } = props;
 
   const coordinates = placeList.map((place) => place.point);
@@ -76,7 +78,7 @@ const Main = (props) => {
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{placesAmount} places to stay in {activeCity}</b>
-                  <PlacesSortingMenu chosenSorting={typeOfSorting[0]} onChooseSortingHandler={() => {}}/>
+                  <PlacesSortingMenu chosenSorting={chosenSorting} onChooseSortingHandler={onChooseSortingHandler}/>
                   <PlaceCardListWithActiveItem placeList={placeList} onClickCardTitle={onClickCardTitle} />
                 </section>
               ) : (
@@ -142,7 +144,9 @@ Main.propTypes = {
   hasError: PropTypes.bool.isRequired,
   onClickCardTitle: PropTypes.func.isRequired,
   isUserAuth: PropTypes.bool.isRequired,
-  onLoginClickHandler: PropTypes.func.isRequired
+  onLoginClickHandler: PropTypes.func.isRequired,
+  chosenSorting: PropTypes.oneOf(Object.values(Sorting)).isRequired,
+  onChooseSortingHandler: PropTypes.func.isRequired
 };
 
 export default React.memo(Main);

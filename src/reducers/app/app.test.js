@@ -1,11 +1,13 @@
 import {app as reducer} from "./app";
 
 const initialState = {
-  city: ``
+  city: ``,
+  sorting: `Popular`
 };
 
 const actions = {
-  CHOOSE_CITY: `CHOOSE_CITY`
+  CHOOSE_CITY: `CHOOSE_CITY`,
+  CHOOSE_SORTING: `CHOOSE_SORTING`
 };
 
 describe(`app reducer tests`, () => {
@@ -21,6 +23,17 @@ describe(`app reducer tests`, () => {
       payload: `Dusseldorf`,
     })).toMatchObject({
       city: `Dusseldorf`
+    });
+  });
+
+  it(`change sorting`, () => {
+    expect(reducer({
+      sorting: `Popular`
+    }, {
+      type: actions.CHOOSE_SORTING,
+      payload: `Price: low to high`,
+    })).toMatchObject({
+      sorting: `Price: low to high`
     });
   });
 });

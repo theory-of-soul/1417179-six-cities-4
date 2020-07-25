@@ -7,7 +7,7 @@ describe(`PlacesSorting component snapshot tests`, () => {
     const tree = renderer
       .create(
           <PlacesSorting
-            chosenSorting={`PRICE_LOW_TO_HIGH`}
+            chosenSorting={`Price: low to high`}
             isOpened={true}
             onOpenHandler={() => {}}
             onChooseSortingHandler={() => {}}
@@ -22,7 +22,7 @@ describe(`PlacesSorting component snapshot tests`, () => {
     const tree = renderer
       .create(
           <PlacesSorting
-            chosenSorting={`POPULAR`}
+            chosenSorting={`Popular`}
             isOpened={false}
             onOpenHandler={() => {}}
             onChooseSortingHandler={() => {}}

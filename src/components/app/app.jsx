@@ -4,7 +4,7 @@ import Main from "../main/main";
 import withMap from "../../hoc/with-map";
 import {connect} from "react-redux";
 import {getCurrentCityOffers, getHasErrorFlag, getUniqCities} from "../../reducers/data/selectors";
-import {getCurrentCity} from "../../reducers/app/selectors";
+import {getCurrentCity, getCurrentSorting} from "../../reducers/app/selectors";
 import {operationCreator} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
@@ -12,6 +12,7 @@ import PlaceProperty from "../place-property/place-property";
 import {isUserAuth} from "../../reducers/user/selectors";
 import LogIn from "../log-in/log-in";
 import {userOperations} from "../../reducers/user/user";
+import {Sorting} from "../places-sorting/places-sorting";
 
 const MainScreenWithMap = withMap(Main);
 
@@ -55,7 +56,9 @@ class App extends React.PureComponent {
       cityList,
       chooseCity,
       dataLoadingError,
-      isUserAuthorized
+      isUserAuthorized,
+      chosenSorting,
+      chooseSorting
     } = this.props;
 
     if (this.state.isLoginPage) {
@@ -104,6 +107,8 @@ class App extends React.PureComponent {
           onClickCardTitle={this._showPlaceProperties}
           isUserAuth={isUserAuthorized}
           onLoginClickHandler={this._onLoginLinkClickHandler}
+          chosenSorting={chosenSorting}
+          onChooseSortingHandler={chooseSorting}
         />
       );
     }
@@ -168,7 +173,9 @@ App.propTypes = {
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   dataLoadingError: PropTypes.bool.isRequired,
   isUserAuthorized: PropTypes.bool.isRequired,
-  signIn: PropTypes.func.isRequired
+  signIn: PropTypes.func.isRequired,
+  chooseSorting: PropTypes.func.isRequired,
+  chosenSorting: PropTypes.oneOf(Object.values(Sorting)).isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -178,6 +185,7 @@ const mapStateToProps = (state) => ({
   cityList: getUniqCities(state),
   dataLoadingError: getHasErrorFlag(state),
   isUserAuthorized: isUserAuth(state),
+  chosenSorting: getCurrentSorting(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -189,6 +197,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   signIn: (email, password) => {
     dispatch(userOperations.login(email, password));
+  },
+  chooseSorting: (sorting) => {
+    dispatch(appActionCreator.chooseSorting(sorting));
   }
 });
 

@@ -1,6 +1,7 @@
 import {nameSpaces} from "../nameSpaces";
 import {createSelector} from 'reselect';
-import {getCurrentCity} from "../app/selectors";
+import {getCurrentCity, getCurrentSorting} from "../app/selectors";
+import {Sorting} from "../../components/places-sorting/places-sorting";
 
 export const getHotelsOffers = (state) => {
   return state[nameSpaces.DATA].offers;
@@ -18,5 +19,24 @@ export const getUniqCities = (state) => {
 export const getCurrentCityOffers = createSelector(
     getCurrentCity,
     getHotelsOffers,
-    (city, offers) => offers.filter((place) => place.city === city)
+    getCurrentSorting,
+    (city, offers, sorting) => {
+      const cityOffers = offers.filter((place) => place.city === city);
+      switch (sorting) {
+        case Sorting.POPULAR: {
+          return cityOffers;
+        }
+        case Sorting.PRICE_LOW_TO_HIGH: {
+          return cityOffers.sort((a, b) => a.value - b.value);
+        }
+        case Sorting.PRICE_HIGH_TO_LOW: {
+          return cityOffers.sort((a, b) => b.value - a.value);
+        }
+        case Sorting.TOP_RATED: {
+          return cityOffers.sort((a, b) => b.rating - a.rating);
+        }
+      }
+
+      return cityOffers;
+    }
 );

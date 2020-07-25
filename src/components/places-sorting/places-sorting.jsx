@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const Sorting = {
+export const Sorting = {
   POPULAR: `Popular`,
   PRICE_LOW_TO_HIGH: `Price: low to high`,
   PRICE_HIGH_TO_LOW: `Price: high to low`,
   TOP_RATED: `Top rated first`
 };
 
-export const typeOfSorting = Object.keys(Sorting);
+const typeOfSorting = Object.values(Sorting);
 
 const PlacesSorting = (props) => {
   const {
@@ -27,7 +27,7 @@ const PlacesSorting = (props) => {
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex="0" onClick={onOpenHandler}>
-        {Sorting[chosenSorting]}
+        {chosenSorting}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
@@ -49,7 +49,7 @@ const PlacesSorting = (props) => {
                   onOpenHandler();
                 }}
               >
-                {Sorting[type]}
+                {type}
               </li>
             );
           })
@@ -60,7 +60,7 @@ const PlacesSorting = (props) => {
 };
 
 PlacesSorting.propTypes = {
-  chosenSorting: PropTypes.oneOf(typeOfSorting).isRequired,
+  chosenSorting: PropTypes.oneOf(Object.values(Sorting)).isRequired,
   onOpenHandler: PropTypes.func.isRequired,
   isOpened: PropTypes.bool.isRequired,
   onChooseSortingHandler: PropTypes.func.isRequired,
