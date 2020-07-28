@@ -54,7 +54,7 @@ exports[`ReviewsForm component snapshot tests ReviewsForm in active with fill da
     <label
       className="reviews__rating-label form__rating-label"
       htmlFor="4-stars"
-      title="perfect"
+      title="good"
     >
       <svg
         className="form__star-image"
@@ -79,7 +79,7 @@ exports[`ReviewsForm component snapshot tests ReviewsForm in active with fill da
     <label
       className="reviews__rating-label form__rating-label"
       htmlFor="3-stars"
-      title="perfect"
+      title="not bad"
     >
       <svg
         className="form__star-image"
@@ -104,7 +104,7 @@ exports[`ReviewsForm component snapshot tests ReviewsForm in active with fill da
     <label
       className="reviews__rating-label form__rating-label"
       htmlFor="2-stars"
-      title="perfect"
+      title="badly"
     >
       <svg
         className="form__star-image"
@@ -129,7 +129,7 @@ exports[`ReviewsForm component snapshot tests ReviewsForm in active with fill da
     <label
       className="reviews__rating-label form__rating-label"
       htmlFor="1-stars"
-      title="perfect"
+      title="terribly"
     >
       <svg
         className="form__star-image"
@@ -237,7 +237,7 @@ exports[`ReviewsForm component snapshot tests ReviewsForm inactive with error 1`
     <label
       className="reviews__rating-label form__rating-label"
       htmlFor="4-stars"
-      title="perfect"
+      title="good"
     >
       <svg
         className="form__star-image"
@@ -262,7 +262,7 @@ exports[`ReviewsForm component snapshot tests ReviewsForm inactive with error 1`
     <label
       className="reviews__rating-label form__rating-label"
       htmlFor="3-stars"
-      title="perfect"
+      title="not bad"
     >
       <svg
         className="form__star-image"
@@ -287,7 +287,7 @@ exports[`ReviewsForm component snapshot tests ReviewsForm inactive with error 1`
     <label
       className="reviews__rating-label form__rating-label"
       htmlFor="2-stars"
-      title="perfect"
+      title="badly"
     >
       <svg
         className="form__star-image"
@@ -312,7 +312,7 @@ exports[`ReviewsForm component snapshot tests ReviewsForm inactive with error 1`
     <label
       className="reviews__rating-label form__rating-label"
       htmlFor="1-stars"
-      title="perfect"
+      title="terribly"
     >
       <svg
         className="form__star-image"

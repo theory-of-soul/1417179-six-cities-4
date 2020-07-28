@@ -55,6 +55,12 @@ describe(`App component snapshot tests`, () => {
             isUserAuthorized={true}
             chooseSorting={() => {}}
             chosenSorting={`Popular`}
+            isActiveReviewSubmit={true}
+            reviewText={``}
+            onChangeTextReviewHandler={() => {}}
+            onChangeRatingHandler={() => {}}
+            sendReview={() => {}}
+            isReviewFormDisabled={false}
           />,
           options
       )

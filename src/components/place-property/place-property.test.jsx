@@ -22,6 +22,13 @@ describe(`PlaceProperty component snapshot tests`, () => {
               name: `Angelina`,
               isSuper: true
             }}
+            isUserAuth={true}
+            reviewText={``}
+            isActiveReviewSubmit={true}
+            isReviewFormDisabled={false}
+            onReviewFormSubmitHandler={() => {}}
+            onChangeRatingHandler={() => {}}
+            onChangeTextReviewHandler={() => {}}
           />
       )
       .toJSON();

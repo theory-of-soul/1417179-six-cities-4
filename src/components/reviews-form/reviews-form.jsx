@@ -2,7 +2,9 @@ import React, {Fragment} from "react";
 import PropTypes from 'prop-types';
 import {ReviewSize} from "../../reducers/reviews/selectors";
 
-const stars = new Array(5).fill(null).map((empty, index) => index + 1).reverse();
+const stars = [`terribly`, `badly`, `not bad`, `good`, `perfect`]
+  .map((title, index) => ({title, star: index + 1}))
+  .reverse();
 
 const ReviewsForm = (props) => {
   const {
@@ -29,7 +31,7 @@ const ReviewsForm = (props) => {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
-          stars.map((star) => (
+          stars.map(({star, title}) => (
             <Fragment key={star}>
               <input
                 className="form__rating-input visually-hidden"
@@ -41,7 +43,7 @@ const ReviewsForm = (props) => {
                 disabled={isFormDisabled}
                 checked={reviewRating === star}
               />
-              <label htmlFor={`${star}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
+              <label htmlFor={`${star}-stars`} className="reviews__rating-label form__rating-label" title={title}>
                 <svg className="form__star-image" width="37" height="33">
                   <use xlinkHref="#icon-star"></use>
                 </svg>
