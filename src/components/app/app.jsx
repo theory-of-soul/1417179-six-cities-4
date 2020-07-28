@@ -16,6 +16,13 @@ import {Sorting} from "../places-sorting/places-sorting";
 import withActiveItem from "../../hoc/with-active-item";
 import MainWrapper from "../main-wrapper/main-wrapper";
 import MainEmpty from "../main-empty/main-empty";
+import {reviewActionCreator, reviewOperations} from "../../reducers/reviews/reviews";
+import {
+  getDisabledReviewFlag,
+  checkActiveReviewSubmit,
+  getReviewRating,
+  getReviewText, getAddReviewError
+} from "../../reducers/reviews/selectors";
 
 const MainScreenWithMap = withMap(withActiveItem(Main));
 
@@ -61,7 +68,15 @@ class App extends React.PureComponent {
       dataLoadingError,
       isUserAuthorized,
       chosenSorting,
-      chooseSorting
+      chooseSorting,
+      isReviewFormDisabled,
+      sendReview,
+      onChangeTextReviewHandler,
+      onChangeRatingHandler,
+      isActiveReviewSubmit,
+      reviewRating,
+      reviewText,
+      addReviewError
     } = this.props;
 
     if (this.state.isLoginPage) {
@@ -80,7 +95,8 @@ class App extends React.PureComponent {
         guests,
         value,
         goods,
-        host
+        host,
+        id: offerId
       } = this.state.activePlace;
       return (
         <PlaceProperty
@@ -95,6 +111,15 @@ class App extends React.PureComponent {
           price={value}
           goods={goods}
           host={host}
+          isUserAuth={isUserAuthorized}
+          onReviewFormSubmitHandler={() => sendReview(offerId)}
+          isReviewFormDisabled={isReviewFormDisabled}
+          onChangeTextReviewHandler={onChangeTextReviewHandler}
+          onChangeRatingHandler={onChangeRatingHandler}
+          isActiveReviewSubmit={isActiveReviewSubmit}
+          reviewRating={reviewRating}
+          reviewText={reviewText}
+          addReviewError={addReviewError}
         />
       );
     } else {
@@ -158,6 +183,12 @@ class App extends React.PureComponent {
                 name: `Angelina`,
                 isSuper: true
               }}
+              isUserAuth={true}
+              isActiveReviewSubmit={this.props.isActiveReviewSubmit}
+              onReviewFormSubmitHandler={() => {}}
+              isReviewFormDisabled={false}
+              onChangeTextReviewHandler={this.props.onChangeTextReviewHandler}
+              onChangeRatingHandler={this.props.onChangeRatingHandler}
             />
           </Route>
         </Switch>
@@ -170,6 +201,7 @@ App.propTypes = {
   placesAmount: PropTypes.number.isRequired,
   placeList: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         mark: PropTypes.string,
         img: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
@@ -195,6 +227,14 @@ App.propTypes = {
   signIn: PropTypes.func.isRequired,
   chooseSorting: PropTypes.func.isRequired,
   chosenSorting: PropTypes.oneOf(Object.values(Sorting)).isRequired,
+  isReviewFormDisabled: PropTypes.bool.isRequired,
+  sendReview: PropTypes.func.isRequired,
+  onChangeRatingHandler: PropTypes.func.isRequired,
+  onChangeTextReviewHandler: PropTypes.func.isRequired,
+  isActiveReviewSubmit: PropTypes.bool.isRequired,
+  reviewRating: PropTypes.number,
+  reviewText: PropTypes.string.isRequired,
+  addReviewError: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
@@ -203,8 +243,13 @@ const mapStateToProps = (state) => ({
   activeCity: getCurrentCity(state),
   cityList: getUniqCities(state),
   dataLoadingError: getHasErrorFlag(state),
-  isUserAuthorized: isUserAuth(state),
-  chosenSorting: getCurrentSorting(state)
+  isUserAuthorized: isUserAuth(state) || true,
+  chosenSorting: getCurrentSorting(state),
+  isReviewFormDisabled: getDisabledReviewFlag(state),
+  isActiveReviewSubmit: checkActiveReviewSubmit(state),
+  reviewRating: getReviewRating(state),
+  reviewText: getReviewText(state),
+  addReviewError: getAddReviewError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -219,6 +264,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   chooseSorting: (sorting) => {
     dispatch(appActionCreator.chooseSorting(sorting));
+  },
+  sendReview: (hotelId) => {
+    dispatch(reviewOperations.sendReview(hotelId));
+  },
+  onChangeRatingHandler: (rating) => {
+    dispatch(reviewActionCreator.setCommentRating(rating));
+  },
+  onChangeTextReviewHandler: (text) => {
+    dispatch(reviewActionCreator.setCommentText(text));
   }
 });
 
