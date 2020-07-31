@@ -7,7 +7,7 @@ import {getCurrentCityOffers, getHasErrorFlag, getUniqCities} from "../../reduce
 import {getCurrentCity, getCurrentSorting} from "../../reducers/app/selectors";
 import {operationCreator} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Route, Router, Switch} from "react-router-dom";
 import PlaceProperty from "../place-property/place-property";
 import {isUserAuth} from "../../reducers/user/selectors";
 import LogIn from "../log-in/log-in";
@@ -23,6 +23,7 @@ import {
   getReviewRating,
   getReviewText, getAddReviewError
 } from "../../reducers/reviews/selectors";
+import history from "../../history";
 
 const MainScreenWithMap = withMap(withActiveItem(Main));
 
@@ -161,7 +162,7 @@ class App extends React.PureComponent {
 
   render() {
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
           <Route exact path="/">
             {this._renderApp()}
@@ -192,7 +193,7 @@ class App extends React.PureComponent {
             />
           </Route>
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
