@@ -18,6 +18,7 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
         >
           <a
             className="header__logo-link header__logo-link--active"
+            href="/"
             onClick={[Function]}
           >
             <img
@@ -40,6 +41,7 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
+                href="/favorites"
                 onClick={[Function]}
               >
                 <div

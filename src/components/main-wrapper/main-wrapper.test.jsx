@@ -1,19 +1,20 @@
 import React from "react";
 import renderer from 'react-test-renderer';
 import MainWrapper from "./main-wrapper";
+import {BrowserRouter} from "react-router-dom";
 
 describe(`MainWrapper component snapshot tests`, () => {
   it(`MainWrapper show header auth user with additional class`, () => {
     const tree = renderer
       .create(
-          <MainWrapper
-            onLogoLinkClickHandler={() => {}}
-            isUserAuth={true}
-            onLoginClickHandler={() => {}}
-            className="addAnyClass"
-          >
-            children here
-          </MainWrapper>
+          <BrowserRouter>
+            <MainWrapper
+              isUserAuth={true}
+              className="addAnyClass"
+            >
+              children here
+            </MainWrapper>
+          </BrowserRouter>
       )
       .toJSON();
 
@@ -23,13 +24,13 @@ describe(`MainWrapper component snapshot tests`, () => {
   it(`MainWrapper show header not auth user without additional class`, () => {
     const tree = renderer
       .create(
-          <MainWrapper
-            onLogoLinkClickHandler={() => {}}
-            isUserAuth={false}
-            onLoginClickHandler={() => {}}
-          >
-            children here
-          </MainWrapper>
+          <BrowserRouter>
+            <MainWrapper
+              isUserAuth={false}
+            >
+              children here
+            </MainWrapper>
+          </BrowserRouter>
       )
       .toJSON();
 

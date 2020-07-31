@@ -24,6 +24,7 @@ import {
   getReviewText, getAddReviewError
 } from "../../reducers/reviews/selectors";
 import history from "../../history";
+import {AppUrls} from "../../app-urls";
 
 const MainScreenWithMap = withMap(withActiveItem(Main));
 
@@ -31,32 +32,19 @@ class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      activePlace: null,
-      isLoginPage: false
+      activePlace: null
     };
 
     this._renderApp = this._renderApp.bind(this);
     this._showPlaceProperties = this._showPlaceProperties.bind(this);
-    this._onLoginLinkClickHandler = this._onLoginLinkClickHandler.bind(this);
   }
 
   componentDidMount() {
     this.props.loadHotelOffers();
   }
 
-  componentDidUpdate(prevProps) {
-    // временное решения, до использования роутинга
-    if (prevProps.isUserAuthorized !== this.props.isUserAuthorized && this.props.isUserAuthorized) {
-      this.setState({isLoginPage: false});
-    }
-  }
-
   _showPlaceProperties(place) {
     this.setState({activePlace: place});
-  }
-
-  _onLoginLinkClickHandler() {
-    this.setState({isLoginPage: true});
   }
 
   _renderApp() {
@@ -79,10 +67,6 @@ class App extends React.PureComponent {
       reviewText,
       addReviewError
     } = this.props;
-
-    if (this.state.isLoginPage) {
-      return (<LogIn onSubmitHandler={this.props.signIn}/>);
-    }
 
     if (this.state.activePlace) {
       const {
@@ -128,8 +112,6 @@ class App extends React.PureComponent {
         return (
           <MainWrapper
             isUserAuth={isUserAuthorized}
-            onLogoLinkClickHandler={() => {}}
-            onLoginClickHandler={this._onLoginLinkClickHandler}
             className="page__main--index-empty"
           >
             <MainEmpty />
@@ -137,11 +119,7 @@ class App extends React.PureComponent {
         );
       } else {
         return (
-          <MainWrapper
-            isUserAuth={isUserAuthorized}
-            onLogoLinkClickHandler={() => {}}
-            onLoginClickHandler={this._onLoginLinkClickHandler}
-          >
+          <MainWrapper isUserAuth={isUserAuthorized}>
             <MainScreenWithMap
               placesAmount={placesAmount}
               placeList={placeList}
@@ -164,33 +142,11 @@ class App extends React.PureComponent {
     return (
       <Router history={history}>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={AppUrls.BASE}>
             {this._renderApp()}
           </Route>
-          <Route exact path="/offer">
-            <PlaceProperty
-              images={[`img/apartment-01.jpg`, `img/apartment-02.jpg`]}
-              title={`Beautiful &amp; luxurious studio at great location`}
-              description={`A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`}
-              isPremium={true}
-              type={`room`}
-              rating={4}
-              rooms={1}
-              guests={2}
-              price={100}
-              goods={[`Wi-Fi`, `Towels`, `Baby seat`]}
-              host={{
-                icon: `img/avatar-angelina.jpg`,
-                name: `Angelina`,
-                isSuper: true
-              }}
-              isUserAuth={true}
-              isActiveReviewSubmit={this.props.isActiveReviewSubmit}
-              onReviewFormSubmitHandler={() => {}}
-              isReviewFormDisabled={false}
-              onChangeTextReviewHandler={this.props.onChangeTextReviewHandler}
-              onChangeRatingHandler={this.props.onChangeRatingHandler}
-            />
+          <Route exact path={AppUrls.AUTH}>
+            <LogIn onSubmitHandler={this.props.signIn}/>
           </Route>
         </Switch>
       </Router>
@@ -244,7 +200,7 @@ const mapStateToProps = (state) => ({
   activeCity: getCurrentCity(state),
   cityList: getUniqCities(state),
   dataLoadingError: getHasErrorFlag(state),
-  isUserAuthorized: isUserAuth(state) || true,
+  isUserAuthorized: isUserAuth(state),
   chosenSorting: getCurrentSorting(state),
   isReviewFormDisabled: getDisabledReviewFlag(state),
   isActiveReviewSubmit: checkActiveReviewSubmit(state),
