@@ -1,4 +1,4 @@
-import {operationCreator, data as reducer} from "./data";
+import {dataOperations, data as reducer} from "./data";
 import {createAPI} from "../../api";
 import MockAdapter from "axios-mock-adapter";
 
@@ -179,7 +179,7 @@ describe(`data reducer tests`, () => {
 
   it(`check operation load data`, () => {
     const dispatch = jest.fn();
-    const loadingHotelOffers = operationCreator.loadHotelOffers();
+    const loadingHotelOffers = dataOperations.loadHotelOffers();
 
     axiosMock
       .onGet(`hotels`)
@@ -201,7 +201,7 @@ describe(`data reducer tests`, () => {
 
   it(`check fail operation when load data`, () => {
     const dispatch = jest.fn();
-    const loadingHotelOffers = operationCreator.loadHotelOffers();
+    const loadingHotelOffers = dataOperations.loadHotelOffers();
 
     axiosMock
       .onGet(`hotels`)
@@ -214,5 +214,18 @@ describe(`data reducer tests`, () => {
           type: actions.SHOW_ERROR,
         });
       });
+  });
+
+  it(`set error flag true`, () => {
+    expect(reducer({
+      offers: [],
+      hasError: false
+    }, {
+      type: actions.SHOW_ERROR,
+      payload: offers
+    })).toMatchObject({
+      offers: [],
+      hasError: true
+    });
   });
 });

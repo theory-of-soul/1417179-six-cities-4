@@ -5,7 +5,7 @@ import withMap from "../../hoc/with-map";
 import {connect} from "react-redux";
 import {getCurrentCityOffers, getHasErrorFlag, getUniqCities} from "../../reducers/data/selectors";
 import {getCurrentCity, getCurrentSorting} from "../../reducers/app/selectors";
-import {operationCreator} from "../../reducers/data/data";
+import {dataOperations} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
 import {Route, Router, Switch, Redirect} from "react-router-dom";
 import PlaceProperty from "../place-property/place-property";
@@ -67,7 +67,8 @@ class App extends React.PureComponent {
       reviewRating,
       reviewText,
       addReviewError,
-      userEmail
+      userEmail,
+      addToFavorites
     } = this.props;
 
     if (this.state.activePlace) {
@@ -136,6 +137,7 @@ class App extends React.PureComponent {
               onClickCardTitle={this._showPlaceProperties}
               chosenSorting={chosenSorting}
               onChooseSortingHandler={chooseSorting}
+              addToFavorites={addToFavorites}
             />
           </MainWrapper>
         );
@@ -208,7 +210,8 @@ App.propTypes = {
   reviewRating: PropTypes.number,
   reviewText: PropTypes.string.isRequired,
   addReviewError: PropTypes.string,
-  userEmail: PropTypes.string
+  userEmail: PropTypes.string,
+  addToFavorites: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -229,7 +232,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadHotelOffers: () => {
-    dispatch(operationCreator.loadHotelOffers());
+    dispatch(dataOperations.loadHotelOffers());
   },
   chooseCity: (city) => {
     dispatch(appActionCreator.setCity(city));
@@ -248,6 +251,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChangeTextReviewHandler: (text) => {
     dispatch(reviewActionCreator.setCommentText(text));
+  },
+  addToFavorites: (hotelId, isFavorite) => {
+    dispatch(dataOperations.addToFavorites(hotelId, isFavorite));
   }
 });
 

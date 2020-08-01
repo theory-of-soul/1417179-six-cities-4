@@ -22,7 +22,8 @@ const Main = (props) => {
     chosenSorting,
     onChooseSortingHandler,
     onActiveHandler,
-    activeItem: hoveredOffer
+    activeItem: hoveredOffer,
+    addToFavorites
   } = props;
 
   const coordinates = placeList.map((place) => place.point);
@@ -48,7 +49,12 @@ const Main = (props) => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{placesAmount} places to stay in {activeCity}</b>
                 <PlacesSortingMenu chosenSorting={chosenSorting} onChooseSortingHandler={onChooseSortingHandler}/>
-                <PlaceCardList placeList={placeList} onClickCardTitle={onClickCardTitle} onActiveHandler={onActiveHandler} />
+                <PlaceCardList
+                  placeList={placeList}
+                  onClickCardTitle={onClickCardTitle}
+                  onActiveHandler={onActiveHandler}
+                  addToFavorites={addToFavorites}
+                />
               </section>
             ) : (
               <section className="cities__no-places">
@@ -129,7 +135,8 @@ Main.propTypes = {
         PropTypes.number.isRequired
     ).isRequired,
   }),
-  onActiveHandler: PropTypes.func.isRequired
+  onActiveHandler: PropTypes.func.isRequired,
+  addToFavorites: PropTypes.func.isRequired
 };
 
 export default React.memo(Main);

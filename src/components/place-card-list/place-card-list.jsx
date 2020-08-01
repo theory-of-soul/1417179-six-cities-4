@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import PlaceCard from "../place-card/place-card";
 
 const PlaceCardList = (props) => {
-  const {placeList, onActiveHandler, onClickCardTitle} = props;
+  const {
+    placeList,
+    onActiveHandler,
+    onClickCardTitle,
+    addToFavorites
+  } = props;
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -15,6 +20,7 @@ const PlaceCardList = (props) => {
               onHoverHandler={onActiveHandler}
               place={place}
               onClickTitle={onClickCardTitle}
+              addToFavorites={addToFavorites}
             />
           );
         })
@@ -39,6 +45,7 @@ PlaceCardList.propTypes = {
   ).isRequired,
   onActiveHandler: PropTypes.func.isRequired,
   onClickCardTitle: PropTypes.func.isRequired,
+  addToFavorites: PropTypes.func.isRequired,
 };
 
 export default React.memo(PlaceCardList);

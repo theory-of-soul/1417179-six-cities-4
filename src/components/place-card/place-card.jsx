@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const PlaceCard = (props) => {
   const {
     place: {
+      id,
       mark = false,
       img,
       value,
@@ -14,7 +15,8 @@ const PlaceCard = (props) => {
       type
     },
     onHoverHandler,
-    onClickTitle
+    onClickTitle,
+    addToFavorites
   } = props;
 
   return (
@@ -47,6 +49,9 @@ const PlaceCard = (props) => {
               `place-card__bookmark-button button ${isInBookmark ? `place-card__bookmark-button--active` : ``}`
             }
             type="button"
+            onClick={() => {
+              addToFavorites(id, isInBookmark);
+            }}
           >
             <svg
               className="place-card__bookmark-icon"
@@ -80,6 +85,7 @@ const PlaceCard = (props) => {
 
 PlaceCard.propTypes = {
   place: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     mark: PropTypes.string,
     img: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
@@ -91,6 +97,7 @@ PlaceCard.propTypes = {
   }).isRequired,
   onHoverHandler: PropTypes.func.isRequired,
   onClickTitle: PropTypes.func.isRequired,
+  addToFavorites: PropTypes.func.isRequired,
 };
 
 export default React.memo(PlaceCard);
