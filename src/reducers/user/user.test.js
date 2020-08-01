@@ -12,7 +12,8 @@ const initialState = {
 };
 
 const actions = {
-  UPDATE_STATUS: `UPDATE_STATUS`
+  UPDATE_STATUS: `UPDATE_STATUS`,
+  SET_USER_PROFILE: `SET_USER_PROFILE`
 };
 
 describe(`User reducer tests`, () => {
@@ -37,14 +38,30 @@ describe(`User reducer tests`, () => {
 
     apiMock
       .onPost(`/login`)
-      .reply(200, [{fake: true}]);
+      .reply(200, {
+        // eslint-disable-next-line camelcase
+        avatar_url: `avatar.jpg`,
+        email: `fake@email.com`,
+        id: 881,
+        // eslint-disable-next-line camelcase
+        is_pro: true
+      });
 
     questionLoader(dispatch, () => {}, createdApi)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch.mock.calls[0][0]).toEqual({
           type: actions.UPDATE_STATUS,
           payload: AuthorizationStatus.AUTH,
+        });
+        expect(dispatch.mock.calls[1][0]).toEqual({
+          type: actions.SET_USER_PROFILE,
+          payload: {
+            avatar: `avatar.jpg`,
+            email: `fake@email.com`,
+            id: 881,
+            isPro: true
+          }
         });
       });
   });

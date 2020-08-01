@@ -61,6 +61,8 @@ describe(`App component snapshot tests`, () => {
             onChangeRatingHandler={() => {}}
             sendReview={() => {}}
             isReviewFormDisabled={false}
+            userEmail={`Oliver.conner@gmail.com`}
+            addToFavorites={() => {}}
           />,
           options
       )

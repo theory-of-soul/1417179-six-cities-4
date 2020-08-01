@@ -11,6 +11,7 @@ describe(`MainWrapper component snapshot tests`, () => {
             <MainWrapper
               isUserAuth={true}
               className="addAnyClass"
+              userEmail="Oliver.conner@gmail.com"
             >
               children here
             </MainWrapper>
@@ -27,6 +28,7 @@ describe(`MainWrapper component snapshot tests`, () => {
           <BrowserRouter>
             <MainWrapper
               isUserAuth={false}
+              userEmail="Oliver.conner@gmail.com"
             >
               children here
             </MainWrapper>

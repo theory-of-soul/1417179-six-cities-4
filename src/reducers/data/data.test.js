@@ -88,12 +88,95 @@ const offers = [{
   cityLocation: [52.38333, 4.9]
 }];
 
+const updatedOffers = [{
+  id: 0,
+  mark: `premium`,
+  img: `img/apartment-01.jpg`,
+  value: 120,
+  time: `night`,
+  isInBookmark: false,
+  rating: 5,
+  name: `luxurious apartment at great location`,
+  type: `Apartment`,
+  city: `Cologne`,
+  cityLocation: [52.38333, 4.9]
+}, {
+  id: 1,
+  mark: `premium`,
+  img: `img/apartment-02.jpg`,
+  value: 200,
+  time: `night`,
+  isInBookmark: false,
+  rating: 4,
+  name: `Beautiful & luxurious`,
+  type: `Hotel`,
+  city: `Paris`,
+  cityLocation: [52.38333, 4.9]
+}, {
+  id: 2,
+  img: `img/apartment-03.jpg`,
+  value: 100,
+  time: `night`,
+  isInBookmark: false,
+  rating: 3.5,
+  name: `Beautiful`,
+  type: `Apartment`,
+  city: `Brussels`,
+  cityLocation: [52.38333, 4.9]
+}, {
+  id: 3,
+  img: `img/apartment-01.jpg`,
+  value: 40,
+  time: `night`,
+  isInBookmark: false,
+  rating: 2,
+  name: `Beautiful & luxurious apartment at great location`,
+  type: `Apartment`,
+  city: `Amsterdam`,
+  cityLocation: [52.38333, 4.9]
+}, {
+  id: 4,
+  img: `img/apartment-01.jpg`,
+  value: 40,
+  time: `night`,
+  isInBookmark: false,
+  rating: 2,
+  name: `Beautiful & luxurious apartment at great location`,
+  type: `Apartment`,
+  city: `Hamburg`,
+  cityLocation: [52.38333, 4.9]
+}, {
+  id: 5,
+  img: `img/apartment-01.jpg`,
+  value: 40,
+  time: `night`,
+  isInBookmark: false,
+  rating: 2,
+  name: `Beautiful & luxurious apartment at great location`,
+  type: `Apartment`,
+  city: `Dusseldorf`,
+  cityLocation: [52.38333, 4.9]
+}, {
+  id: 6,
+  img: `img/apartment-01.jpg`,
+  value: 40,
+  time: `night`,
+  isInBookmark: false,
+  rating: 2,
+  name: `Beautiful & luxurious apartment at great location`,
+  type: `Apartment`,
+  city: `Amsterdam`,
+  cityLocation: [52.38333, 4.9]
+}];
+
 const api = createAPI(() => {});
 const axiosMock = new MockAdapter(api);
 const actions = {
   INIT_OFFERS: `INIT_OFFERS`,
-  CHOOSE_CITY: `CHOOSE_CITY`,
   SHOW_ERROR: `SHOW_ERROR`,
+  CHOOSE_CITY: `CHOOSE_CITY`,
+  UPDATE_OFFER: `UPDATE_OFFER`,
+  INIT_FAVORITES: `INIT_FAVORITES`,
 };
 
 const responseOffers = [{
@@ -216,16 +299,73 @@ describe(`data reducer tests`, () => {
       });
   });
 
-  it(`set error flag true`, () => {
+  it(`change offer to updated offer`, () => {
     expect(reducer({
-      offers: [],
-      hasError: false
+      offers
     }, {
-      type: actions.SHOW_ERROR,
+      type: actions.UPDATE_OFFER,
+      payload: {
+        id: 0,
+        mark: `premium`,
+        img: `img/apartment-01.jpg`,
+        value: 120,
+        time: `night`,
+        isInBookmark: false,
+        rating: 5,
+        name: `luxurious apartment at great location`,
+        type: `Apartment`,
+        city: `Cologne`,
+        cityLocation: [52.38333, 4.9]
+      }
+    })).toMatchObject({
+      offers: updatedOffers
+    });
+  });
+
+  it(`set favorite offers`, () => {
+    expect(reducer({
+      favorites: []
+    }, {
+      type: actions.INIT_FAVORITES,
       payload: offers
     })).toMatchObject({
-      offers: [],
-      hasError: true
+      favorites: offers
     });
+  });
+
+  it(`check call add to favorites operation`, () => {
+    const dispatch = jest.fn();
+    const addToFavoriteCall = dataOperations.addToFavorites(42, true);
+
+    axiosMock
+      .onPost(`favorite/42/0`)
+      .reply(200, responseOffers[0]);
+
+    addToFavoriteCall(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch.mock.calls.length).toBe(1);
+        expect(dispatch.mock.calls[0][0]).toEqual({
+          type: actions.UPDATE_OFFER,
+          payload: adaptedResponseOffers[0]
+        });
+      });
+  });
+
+  it(`check call get favorites operation`, () => {
+    const dispatch = jest.fn();
+    const getFavoriteCall = dataOperations.loadFavorites();
+
+    axiosMock
+      .onGet(`favorite`)
+      .reply(200, responseOffers);
+
+    getFavoriteCall(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch.mock.calls.length).toBe(1);
+        expect(dispatch.mock.calls[0][0]).toEqual({
+          type: actions.INIT_FAVORITES,
+          payload: adaptedResponseOffers
+        });
+      });
   });
 });

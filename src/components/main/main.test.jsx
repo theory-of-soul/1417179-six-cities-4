@@ -46,6 +46,7 @@ describe(`Main component snapshot tests`, () => {
             chosenSorting={`Popular`}
             onChooseSortingHandler={() => {}}
             onActiveHandler={() => {}}
+            addToFavorites={() => {}}
           />
       )
       .toJSON();
@@ -68,6 +69,7 @@ describe(`Main component snapshot tests`, () => {
             chosenSorting={`Popular`}
             onChooseSortingHandler={() => {}}
             onActiveHandler={() => {}}
+            addToFavorites={() => {}}
           />
       )
       .toJSON();
@@ -90,6 +92,7 @@ describe(`Main component snapshot tests`, () => {
             chosenSorting={`Popular`}
             onChooseSortingHandler={() => {}}
             onActiveHandler={() => {}}
+            addToFavorites={() => {}}
           />
       )
       .toJSON();

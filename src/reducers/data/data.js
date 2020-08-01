@@ -63,9 +63,6 @@ export const dataOperations = {
       .then((response) => {
         const offers = hotelResponseAdapter([response.data]);
         dispatch(actionCreator.updateOffer(offers[0]));
-      })
-      .catch(() => {
-        dispatch(actionCreator.showError());
       });
   }
 };

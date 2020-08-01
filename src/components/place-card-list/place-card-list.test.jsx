@@ -26,7 +26,14 @@ const placeList = [{
 describe(`PlaceCardList component snapshot tests`, () => {
   it(`PlaceCardList component show two places`, () => {
     const tree = renderer
-      .create(<PlaceCardList placeList={placeList} onActiveHandler={() => {}} onClickCardTitle={() => {}}/>)
+      .create(
+          <PlaceCardList
+            placeList={placeList}
+            onActiveHandler={() => {}}
+            onClickCardTitle={() => {}}
+            addToFavorites={() => {}}
+          />
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();
