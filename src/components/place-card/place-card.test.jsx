@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from 'react-test-renderer';
 import PlaceCard from "./place-card";
+import {BrowserRouter} from "react-router-dom";
 
 const placeList = [{
   id: 0,
@@ -27,11 +28,14 @@ describe(`PlaceCard component snapshot tests`, () => {
   it(`PlaceCard component show place with a mark and in bookmark`, () => {
     const tree = renderer
       .create(
-          <PlaceCard
-            place={placeList[0]}
-            onHoverHandler={() => {}}
-            addToFavorites={() => {}}
-          />)
+          <BrowserRouter>
+            <PlaceCard
+              place={placeList[0]}
+              onHoverHandler={() => {}}
+              addToFavorites={() => {}}
+            />
+          </BrowserRouter>
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -39,11 +43,15 @@ describe(`PlaceCard component snapshot tests`, () => {
 
   it(`PlaceCard component show place without mark and not in bookmark`, () => {
     const tree = renderer
-      .create(<PlaceCard
-        place={placeList[1]}
-        onHoverHandler={() => {}}
-        addToFavorites={() => {}}
-      />)
+      .create(
+          <BrowserRouter>
+            <PlaceCard
+              place={placeList[1]}
+              onHoverHandler={() => {}}
+              addToFavorites={() => {}}
+            />
+          </BrowserRouter>
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();

@@ -92,10 +92,10 @@ exports[`FavoritesPlaceCard component snapshot tests FavoritesPlaceCard based Pl
     </div>
     <h2
       className="place-card__name"
-      onClick={[Function]}
     >
       <a
-        href="#"
+        href="/offer/0"
+        onClick={[Function]}
       >
         luxurious apartment at great location
       </a>

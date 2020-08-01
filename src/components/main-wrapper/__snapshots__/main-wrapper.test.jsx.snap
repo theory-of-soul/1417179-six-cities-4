@@ -2,7 +2,7 @@
 
 exports[`MainWrapper component snapshot tests MainWrapper show header auth user with additional class 1`] = `
 <div
-  className="page page--gray page--main"
+  className="page"
 >
   <header
     className="header"
@@ -60,7 +60,7 @@ exports[`MainWrapper component snapshot tests MainWrapper show header auth user 
     </div>
   </header>
   <main
-    className="page__main page__main--index addAnyClass"
+    className="page__main addAnyClass"
   >
     children here
   </main>
@@ -69,7 +69,7 @@ exports[`MainWrapper component snapshot tests MainWrapper show header auth user 
 
 exports[`MainWrapper component snapshot tests MainWrapper show header not auth user without additional class 1`] = `
 <div
-  className="page page--gray page--main"
+  className="page"
 >
   <header
     className="header"
@@ -127,7 +127,7 @@ exports[`MainWrapper component snapshot tests MainWrapper show header not auth u
     </div>
   </header>
   <main
-    className="page__main page__main--index"
+    className="page__main"
   >
     children here
   </main>

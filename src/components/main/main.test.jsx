@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from 'react-test-renderer';
 import Main from "./main";
+import {BrowserRouter} from "react-router-dom";
 
 const placesAmount = 312;
 const placeList = [{
@@ -34,19 +35,21 @@ describe(`Main component snapshot tests`, () => {
   it(`Main component show two places`, () => {
     const tree = renderer
       .create(
-          <Main
-            placeList={placeList}
-            placesAmount={placesAmount}
-            cityList={cityList}
-            activeCity={activeCity}
-            onCityClickHandler={() => {}}
-            renderMap={() => <React.Fragment/>}
-            hasError={false}
-            chosenSorting={`Popular`}
-            onChooseSortingHandler={() => {}}
-            onActiveHandler={() => {}}
-            addToFavorites={() => {}}
-          />
+          <BrowserRouter>
+            <Main
+              placeList={placeList}
+              placesAmount={placesAmount}
+              cityList={cityList}
+              activeCity={activeCity}
+              onCityClickHandler={() => {}}
+              renderMap={() => <React.Fragment/>}
+              hasError={false}
+              chosenSorting={`Popular`}
+              onChooseSortingHandler={() => {}}
+              onActiveHandler={() => {}}
+              addToFavorites={() => {}}
+            />
+          </BrowserRouter>
       )
       .toJSON();
 
@@ -56,19 +59,21 @@ describe(`Main component snapshot tests`, () => {
   it(`Main if places has no, have to be phrase "No places to stay available"`, () => {
     const tree = renderer
       .create(
-          <Main
-            placeList={[]}
-            placesAmount={0}
-            cityList={cityList}
-            activeCity={activeCity}
-            renderMap={() => <React.Fragment/>}
-            hasError={false}
-            onCityClickHandler={() => {}}
-            chosenSorting={`Popular`}
-            onChooseSortingHandler={() => {}}
-            onActiveHandler={() => {}}
-            addToFavorites={() => {}}
-          />
+          <BrowserRouter>
+            <Main
+              placeList={[]}
+              placesAmount={0}
+              cityList={cityList}
+              activeCity={activeCity}
+              renderMap={() => <React.Fragment/>}
+              hasError={false}
+              onCityClickHandler={() => {}}
+              chosenSorting={`Popular`}
+              onChooseSortingHandler={() => {}}
+              onActiveHandler={() => {}}
+              addToFavorites={() => {}}
+            />
+          </BrowserRouter>
       )
       .toJSON();
 
@@ -78,19 +83,21 @@ describe(`Main component snapshot tests`, () => {
   it(`if has error show error message`, () => {
     const tree = renderer
       .create(
-          <Main
-            hasError={true}
-            placeList={[]}
-            placesAmount={0}
-            cityList={[]}
-            activeCity={``}
-            onCityClickHandler={() => {}}
-            renderMap={() => <React.Fragment/>}
-            chosenSorting={`Popular`}
-            onChooseSortingHandler={() => {}}
-            onActiveHandler={() => {}}
-            addToFavorites={() => {}}
-          />
+          <BrowserRouter>
+            <Main
+              hasError={true}
+              placeList={[]}
+              placesAmount={0}
+              cityList={[]}
+              activeCity={``}
+              onCityClickHandler={() => {}}
+              renderMap={() => <React.Fragment/>}
+              chosenSorting={`Popular`}
+              onChooseSortingHandler={() => {}}
+              onActiveHandler={() => {}}
+              addToFavorites={() => {}}
+            />
+          </BrowserRouter>
       )
       .toJSON();
 

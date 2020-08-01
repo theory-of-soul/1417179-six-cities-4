@@ -2,7 +2,7 @@
 
 exports[`PlaceCard component snapshot tests PlaceCard component show place with a mark and in bookmark 1`] = `
 <article
-  className="cities__place-card place-card"
+  className="place-card"
   onMouseEnter={[Function]}
 >
   <div
@@ -13,7 +13,7 @@ exports[`PlaceCard component snapshot tests PlaceCard component show place with 
     </span>
   </div>
   <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="place-card__image-wrapper"
   >
     <a
       href="#"
@@ -21,9 +21,7 @@ exports[`PlaceCard component snapshot tests PlaceCard component show place with 
       <img
         alt="luxurious apartment at great location"
         className="place-card__image"
-        height="200"
         src="img/apartment-01.jpg"
-        width="260"
       />
     </a>
   </div>
@@ -92,10 +90,10 @@ exports[`PlaceCard component snapshot tests PlaceCard component show place with 
     </div>
     <h2
       className="place-card__name"
-      onClick={[Function]}
     >
       <a
-        href="#"
+        href="/offer/0"
+        onClick={[Function]}
       >
         luxurious apartment at great location
       </a>
@@ -111,11 +109,11 @@ exports[`PlaceCard component snapshot tests PlaceCard component show place with 
 
 exports[`PlaceCard component snapshot tests PlaceCard component show place without mark and not in bookmark 1`] = `
 <article
-  className="cities__place-card place-card"
+  className="place-card"
   onMouseEnter={[Function]}
 >
   <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="place-card__image-wrapper"
   >
     <a
       href="#"
@@ -123,9 +121,7 @@ exports[`PlaceCard component snapshot tests PlaceCard component show place witho
       <img
         alt="Beautiful & luxurious"
         className="place-card__image"
-        height="200"
         src="img/apartment-02.jpg"
-        width="260"
       />
     </a>
   </div>
@@ -194,10 +190,10 @@ exports[`PlaceCard component snapshot tests PlaceCard component show place witho
     </div>
     <h2
       className="place-card__name"
-      onClick={[Function]}
     >
       <a
-        href="#"
+        href="/offer/1"
+        onClick={[Function]}
       >
         Beautiful & luxurious
       </a>

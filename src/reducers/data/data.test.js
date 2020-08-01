@@ -177,6 +177,7 @@ const actions = {
   CHOOSE_CITY: `CHOOSE_CITY`,
   UPDATE_OFFER: `UPDATE_OFFER`,
   INIT_FAVORITES: `INIT_FAVORITES`,
+  UPDATE_FAVORITE: `UPDATE_FAVORITE`,
 };
 
 const responseOffers = [{
@@ -223,7 +224,7 @@ const adaptedResponseOffers = [{
     hostId: 25,
     name: `Angelina`,
     isSuper: true,
-    icon: `img/avatar-angelina.jpg`
+    icon: `/img/avatar-angelina.jpg`
   },
   images: [`https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/5.jpg`],
   isPremium: false,
@@ -343,9 +344,13 @@ describe(`data reducer tests`, () => {
 
     addToFavoriteCall(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch.mock.calls.length).toBe(1);
+        expect(dispatch.mock.calls.length).toBe(2);
         expect(dispatch.mock.calls[0][0]).toEqual({
           type: actions.UPDATE_OFFER,
+          payload: adaptedResponseOffers[0]
+        });
+        expect(dispatch.mock.calls[1][0]).toEqual({
+          type: actions.UPDATE_FAVORITE,
           payload: adaptedResponseOffers[0]
         });
       });

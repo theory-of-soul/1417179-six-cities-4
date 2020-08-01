@@ -14,18 +14,8 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
         className="property__image-wrapper"
       >
         <img
-          alt="Beautiful &amp; luxurious studio at great location"
           className="property__image"
-          src="img/apartment-01.jpg"
-        />
-      </div>
-      <div
-        className="property__image-wrapper"
-      >
-        <img
-          alt="Beautiful &amp; luxurious studio at great location"
-          className="property__image"
-          src="img/apartment-02.jpg"
+          src="https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/5.jpg"
         />
       </div>
     </div>
@@ -48,15 +38,14 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
       >
         <h1
           className="property__name"
-        >
-          Beautiful &amp; luxurious studio at great location
-        </h1>
+        />
         <button
-          className="property__bookmark-button button"
+          className="property__bookmark-button button property__bookmark-button--active"
+          onClick={[Function]}
           type="button"
         >
           <svg
-            className="property__bookmark-icon"
+            className="place-card__bookmark-icon"
             height="33"
             width="31"
           >
@@ -107,7 +96,6 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
         <li
           className="property__feature property__feature--bedrooms"
         >
-          1
            Bedrooms
         </li>
         <li
@@ -125,7 +113,6 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
           className="property__price-value"
         >
           €
-          100
         </b>
         <span
           className="property__price-text"
@@ -147,17 +134,7 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
           <li
             className="property__inside-item"
           >
-            Wi-Fi
-          </li>
-          <li
-            className="property__inside-item"
-          >
-            Towels
-          </li>
-          <li
-            className="property__inside-item"
-          >
-            Baby seat
+            Laptop friendly workspace
           </li>
         </ul>
       </div>
@@ -179,7 +156,7 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
               alt="Host avatar"
               className="property__avatar user__avatar"
               height="74"
-              src="img/avatar-angelina.jpg"
+              src="/img/avatar-angelina.jpg"
               width="74"
             />
           </div>
@@ -192,7 +169,7 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
         <div
           className="property__description"
         >
-          A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+          A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century
         </div>
       </div>
       <section

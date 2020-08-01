@@ -178,10 +178,10 @@ Array [
           </ul>
         </form>
         <div
-          className="cities__places-list places__list tabs__content"
+          className="cities__places-list places__list"
         >
           <article
-            className="cities__place-card place-card"
+            className="place-card cities__place-card"
             onMouseEnter={[Function]}
           >
             <div
@@ -192,7 +192,7 @@ Array [
               </span>
             </div>
             <div
-              className="cities__image-wrapper place-card__image-wrapper"
+              className="place-card__image-wrapper cities__image-wrapper"
             >
               <a
                 href="#"
@@ -200,9 +200,9 @@ Array [
                 <img
                   alt="luxurious apartment at great location"
                   className="place-card__image"
-                  height="200"
+                  height={200}
                   src="img/apartment-01.jpg"
-                  width="260"
+                  width={260}
                 />
               </a>
             </div>
@@ -271,10 +271,10 @@ Array [
               </div>
               <h2
                 className="place-card__name"
-                onClick={[Function]}
               >
                 <a
-                  href="#"
+                  href="/offer/0"
+                  onClick={[Function]}
                 >
                   luxurious apartment at great location
                 </a>
@@ -287,11 +287,11 @@ Array [
             </div>
           </article>
           <article
-            className="cities__place-card place-card"
+            className="place-card cities__place-card"
             onMouseEnter={[Function]}
           >
             <div
-              className="cities__image-wrapper place-card__image-wrapper"
+              className="place-card__image-wrapper cities__image-wrapper"
             >
               <a
                 href="#"
@@ -299,9 +299,9 @@ Array [
                 <img
                   alt="Beautiful & luxurious"
                   className="place-card__image"
-                  height="200"
+                  height={200}
                   src="img/apartment-02.jpg"
-                  width="260"
+                  width={260}
                 />
               </a>
             </div>
@@ -370,10 +370,10 @@ Array [
               </div>
               <h2
                 className="place-card__name"
-                onClick={[Function]}
               >
                 <a
-                  href="#"
+                  href="/offer/1"
+                  onClick={[Function]}
                 >
                   Beautiful & luxurious
                 </a>

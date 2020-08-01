@@ -29,7 +29,7 @@ import {AppUrls} from "../../app-urls";
 import PrivateRoute from "../private-route/private-route";
 import {offerType} from "../../types/offerType";
 import MainIndexWrapper from "../main-index-wrapper/main-index-wrapper";
-import MainLoginWrapper from "../main-login-wrapper/main-index-wrapper";
+import MainLoginWrapper from "../main-login-wrapper/main-login-wrapper";
 
 const MainScreenWithMap = withMap(withActiveItem(Main));
 

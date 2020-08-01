@@ -63,6 +63,11 @@ describe(`App component snapshot tests`, () => {
             isReviewFormDisabled={false}
             userEmail={`Oliver.conner@gmail.com`}
             addToFavorites={() => {}}
+            favoriteOffers={{
+              hasFavorites: false,
+              offers: []
+            }}
+            loadFavorites={() => {}}
           />,
           options
       )

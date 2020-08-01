@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from 'react-test-renderer';
 import FavoritesPlaceCard from "./favorites-place-card";
+import {BrowserRouter} from "react-router-dom";
 
 const place = {
   id: 0,
@@ -18,11 +19,14 @@ describe(`FavoritesPlaceCard component snapshot tests`, () => {
   it(`FavoritesPlaceCard based PlaceCard with special classes and image sizes`, () => {
     const tree = renderer
       .create(
-          <FavoritesPlaceCard
-            place={place}
-            onHoverHandler={() => {}}
-            addToFavorites={() => {}}
-          />)
+          <BrowserRouter>
+            <FavoritesPlaceCard
+              place={place}
+              onHoverHandler={() => {}}
+              addToFavorites={() => {}}
+            />
+          </BrowserRouter>
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();

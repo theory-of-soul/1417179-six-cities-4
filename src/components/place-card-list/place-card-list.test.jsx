@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from 'react-test-renderer';
 import PlaceCardList from "./place-card-list";
+import {BrowserRouter} from "react-router-dom";
 
 const placeList = [{
   id: 0,
@@ -27,11 +28,13 @@ describe(`PlaceCardList component snapshot tests`, () => {
   it(`PlaceCardList component show two places`, () => {
     const tree = renderer
       .create(
-          <PlaceCardList
-            placeList={placeList}
-            onActiveHandler={() => {}}
-            addToFavorites={() => {}}
-          />
+          <BrowserRouter>
+            <PlaceCardList
+              placeList={placeList}
+              onActiveHandler={() => {}}
+              addToFavorites={() => {}}
+            />
+          </BrowserRouter>
       )
       .toJSON();
 
