@@ -13,7 +13,10 @@ class Favorites extends React.PureComponent {
   }
 
   render() {
-    const {favorites} = this.props;
+    const {
+      favorites,
+      addToFavoritesHandler
+    } = this.props;
 
     return (
       <div className="page__favorites-container container">
@@ -40,7 +43,7 @@ class Favorites extends React.PureComponent {
                                 key={place.id}
                                 onHoverHandler={() => {}}
                                 place={place}
-                                addToFavorites={() => {}}
+                                addToFavorites={addToFavoritesHandler}
                               />
                             );
                           })
@@ -77,7 +80,8 @@ Favorites.propTypes = {
         })
     ).isRequired
   }).isRequired,
-  onLoadFavorites: PropTypes.func.isRequired
+  onLoadFavorites: PropTypes.func.isRequired,
+  addToFavoritesHandler: PropTypes.func.isRequired,
 };
 
 export default React.memo(Favorites);

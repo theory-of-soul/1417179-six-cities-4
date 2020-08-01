@@ -11,6 +11,7 @@ const initialState = {
 export const actions = {
   INIT_OFFERS: `INIT_OFFERS`,
   UPDATE_OFFER: `UPDATE_OFFER`,
+  UPDATE_FAVORITE: `UPDATE_FAVORITE`,
   INIT_FAVORITES: `INIT_FAVORITES`,
   SHOW_ERROR: `SHOW_ERROR`,
 };
@@ -27,6 +28,10 @@ const actionCreator = {
   initFavorites: (favorites) => ({
     type: actions.INIT_FAVORITES,
     payload: favorites
+  }),
+  updateFavorite: (favorite) => ({
+    type: actions.UPDATE_FAVORITE,
+    payload: favorite
   }),
   showError: () => ({
     type: actions.SHOW_ERROR,
@@ -63,6 +68,7 @@ export const dataOperations = {
       .then((response) => {
         const offers = hotelResponseAdapter([response.data]);
         dispatch(actionCreator.updateOffer(offers[0]));
+        dispatch(actionCreator.updateFavorite(offers[0]));
       });
   }
 };
@@ -90,6 +96,14 @@ export const data = (state = initialState, action) => {
       newOffers[updatedOfferIndex] = action.payload;
       return extend(state, {
         offers: newOffers
+      });
+    }
+    case actions.UPDATE_FAVORITE: {
+      const newFavorites = [...state.favorites];
+      const updatedOfferIndex = newFavorites.findIndex((offer) => offer.id === action.payload.id);
+      newFavorites[updatedOfferIndex] = action.payload;
+      return extend(state, {
+        favorites: newFavorites
       });
     }
   }

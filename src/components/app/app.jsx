@@ -29,6 +29,7 @@ import {AppUrls} from "../../app-urls";
 import PrivateRoute from "../private-route/private-route";
 import {offerType} from "../../types/offerType";
 import MainIndexWrapper from "../main-index-wrapper/main-index-wrapper";
+import MainLoginWrapper from "../main-login-wrapper/main-index-wrapper";
 
 const MainScreenWithMap = withMap(withActiveItem(Main));
 
@@ -104,7 +105,8 @@ class App extends React.PureComponent {
       favoriteOffers,
       signIn,
       loadFavorites,
-      placeList
+      placeList,
+      addToFavorites
     } = this.props;
 
     return (
@@ -114,7 +116,13 @@ class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path={AppUrls.AUTH}>
-            <LogIn onSubmitHandler={signIn}/>
+            <MainLoginWrapper
+              isUserAuth={isUserAuthorized}
+              userEmail={userEmail}
+              className="page__main--login"
+            >
+              <LogIn onSubmitHandler={signIn}/>
+            </MainLoginWrapper>
           </Route>
           <PrivateRoute
             exact
@@ -129,6 +137,7 @@ class App extends React.PureComponent {
                 <Favorites
                   favorites={favoriteOffers}
                   onLoadFavorites={loadFavorites}
+                  addToFavoritesHandler={addToFavorites}
                 />
               </MainWrapper>
             )}
@@ -141,32 +150,12 @@ class App extends React.PureComponent {
               const activePlace = placeList.find((place) => place.id === parseInt(placeId, 10));
               if (activePlace) {
                 const {
-                  images,
-                  name,
-                  description,
-                  isPremium,
-                  type,
-                  rating,
-                  bedrooms,
-                  guests,
-                  value,
-                  goods,
-                  host,
+                  isInBookmark,
                   id: offerId
                 } = activePlace;
                 return (
                   <PlaceProperty
-                    images={images}
-                    title={name}
-                    description={description}
-                    isPremium={isPremium}
-                    type={type}
-                    rating={rating}
-                    rooms={bedrooms}
-                    guests={guests}
-                    price={value}
-                    goods={goods}
-                    host={host}
+                    offer={activePlace}
                     isUserAuth={isUserAuthorized}
                     onReviewFormSubmitHandler={() => sendReview(offerId)}
                     isReviewFormDisabled={isReviewFormDisabled}
@@ -176,6 +165,7 @@ class App extends React.PureComponent {
                     reviewRating={reviewRating}
                     reviewText={reviewText}
                     addReviewError={addReviewError}
+                    addToFavoritesHandler={() => addToFavorites(offerId, isInBookmark)}
                   />
                 );
               } else {

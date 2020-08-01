@@ -2,8 +2,22 @@ import React from "react";
 import PropTypes from 'prop-types';
 import ReviewList from "../review-list/review-list";
 import ReviewsForm from "../reviews-form/reviews-form";
+import {offerType} from "../../types/offerType";
 
 const PlaceProperty = (props) => {
+  const {
+    isUserAuth,
+    isReviewFormDisabled,
+    onReviewFormSubmitHandler,
+    onChangeRatingHandler,
+    onChangeTextReviewHandler,
+    isActiveReviewSubmit,
+    reviewRating,
+    reviewText,
+    addReviewError,
+    addToFavoritesHandler
+  } = props;
+
   const {
     images,
     title,
@@ -20,16 +34,9 @@ const PlaceProperty = (props) => {
       name,
       isSuper,
     },
-    isUserAuth,
-    isReviewFormDisabled,
-    onReviewFormSubmitHandler,
-    onChangeRatingHandler,
-    onChangeTextReviewHandler,
-    isActiveReviewSubmit,
-    reviewRating,
-    reviewText,
-    addReviewError
-  } = props;
+    isInBookmark
+  } = props.offer;
+
   return (
     <section className="property">
       <div className="property__gallery-container container">
@@ -50,8 +57,15 @@ const PlaceProperty = (props) => {
           </div>
           <div className="property__name-wrapper">
             <h1 className="property__name">{title}</h1>
-            <button className="property__bookmark-button button" type="button">
-              <svg className="property__bookmark-icon" width="31" height="33">
+            <button
+              className={`property__bookmark-button button ${isInBookmark ? `property__bookmark-button--active` : ``}`}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                addToFavoritesHandler();
+              }}
+            >
+              <svg className="place-card__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
               <span className="visually-hidden">To bookmarks</span>
@@ -124,34 +138,8 @@ const PlaceProperty = (props) => {
   );
 };
 
-const typeAccommodation = {
-  APARTMENT: `apartment`,
-  ROOM: `room`,
-  HOUSE: `house`,
-  HOTEL: `hotel`
-};
-
 PlaceProperty.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  isPremium: PropTypes.bool.isRequired,
-  type: PropTypes.oneOf([
-    typeAccommodation.APARTMENT,
-    typeAccommodation.ROOM,
-    typeAccommodation.HOTEL,
-    typeAccommodation.HOUSE,
-  ]).isRequired,
-  rating: PropTypes.number.isRequired,
-  rooms: PropTypes.number.isRequired,
-  guests: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
-  goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  host: PropTypes.shape({
-    icon: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    isSuper: PropTypes.bool.isRequired,
-  }),
+  offer: PropTypes.shape(offerType),
   isUserAuth: PropTypes.bool.isRequired,
   onReviewFormSubmitHandler: PropTypes.func.isRequired,
   onChangeRatingHandler: PropTypes.func.isRequired,
@@ -161,6 +149,7 @@ PlaceProperty.propTypes = {
   reviewRating: PropTypes.number,
   reviewText: PropTypes.string.isRequired,
   addReviewError: PropTypes.string,
+  addToFavoritesHandler: PropTypes.func.isRequired,
 };
 
 export default React.memo(PlaceProperty);

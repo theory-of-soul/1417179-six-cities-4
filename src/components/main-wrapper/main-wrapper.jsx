@@ -13,7 +13,7 @@ const MainWrapper = (props) => {
     hasFooter = false
   } = props;
 
-  let pageMainStyle = `page__main page__main--index`;
+  let pageMainStyle = `page__main`;
   if (className) {
     pageMainStyle += ` ${className}`;
   }

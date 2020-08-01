@@ -42,15 +42,16 @@ export const getCurrentCityOffers = createSelector(
 );
 
 export const getFavorites = (state) => {
-  return state[nameSpaces.DATA].favorites;
+  return state[nameSpaces.DATA].favorites.filter((offer) => offer.isInBookmark);
 };
 
 export const getFavoriteOffers = createSelector(
     getUniqCities,
     getFavorites,
     (cities, offers) => {
-      if (cities.length) {
+      if (cities.length && offers.length) {
         let favoriteOffers = cities.map((city) => ({city, places: []}));
+
         offers.forEach((offer) => {
           const cityIndex = cities.indexOf(offer.city);
           favoriteOffers[cityIndex].places.push(offer);

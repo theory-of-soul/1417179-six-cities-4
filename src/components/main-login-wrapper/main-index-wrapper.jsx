@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from 'prop-types';
 import MainWrapper from "../main-wrapper/main-wrapper";
 
-const MainIndexWrapper = (props) => (
-  <MainWrapper {...props} hasFooter={false} pageClassName="page--gray page--main" className="page__main--index" />
+const MainLoginWrapper = (props) => (
+  <MainWrapper {...props} pageClassName="page--gray page--login" />
 );
 
-MainIndexWrapper.propTypes = {
+MainLoginWrapper.propTypes = {
   isUserAuth: PropTypes.bool.isRequired,
   className: PropTypes.string,
   userEmail: PropTypes.string,
@@ -14,4 +14,4 @@ MainIndexWrapper.propTypes = {
   hasFooter: PropTypes.bool
 };
 
-export default React.memo(MainIndexWrapper);
+export default React.memo(MainLoginWrapper);
