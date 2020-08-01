@@ -7,15 +7,16 @@ import {getCurrentCityOffers, getHasErrorFlag, getUniqCities} from "../../reduce
 import {getCurrentCity, getCurrentSorting} from "../../reducers/app/selectors";
 import {operationCreator} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
-import {Route, Router, Switch} from "react-router-dom";
+import {Route, Router, Switch, Redirect} from "react-router-dom";
 import PlaceProperty from "../place-property/place-property";
-import {isUserAuth} from "../../reducers/user/selectors";
+import {getUserEmail, isUserAuth} from "../../reducers/user/selectors";
 import LogIn from "../log-in/log-in";
 import {userOperations} from "../../reducers/user/user";
 import {Sorting} from "../places-sorting/places-sorting";
 import withActiveItem from "../../hoc/with-active-item";
 import MainWrapper from "../main-wrapper/main-wrapper";
 import MainEmpty from "../main-empty/main-empty";
+import Favorites from "../favorites/favorites";
 import {reviewActionCreator, reviewOperations} from "../../reducers/reviews/reviews";
 import {
   getDisabledReviewFlag,
@@ -65,7 +66,8 @@ class App extends React.PureComponent {
       isActiveReviewSubmit,
       reviewRating,
       reviewText,
-      addReviewError
+      addReviewError,
+      userEmail
     } = this.props;
 
     if (this.state.activePlace) {
@@ -112,6 +114,7 @@ class App extends React.PureComponent {
         return (
           <MainWrapper
             isUserAuth={isUserAuthorized}
+            userEmail={userEmail}
             className="page__main--index-empty"
           >
             <MainEmpty />
@@ -119,7 +122,10 @@ class App extends React.PureComponent {
         );
       } else {
         return (
-          <MainWrapper isUserAuth={isUserAuthorized}>
+          <MainWrapper
+            isUserAuth={isUserAuthorized}
+            userEmail={userEmail}
+          >
             <MainScreenWithMap
               placesAmount={placesAmount}
               placeList={placeList}
@@ -135,7 +141,6 @@ class App extends React.PureComponent {
         );
       }
     }
-
   }
 
   render() {
@@ -146,7 +151,18 @@ class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path={AppUrls.AUTH}>
-            <LogIn onSubmitHandler={this.props.signIn}/>
+            {
+              this.props.isUserAuthorized ?
+                <Redirect to={AppUrls.BASE} /> :
+                <LogIn onSubmitHandler={this.props.signIn}/>
+            }
+          </Route>
+          <Route exact path={AppUrls.FAVORITES}>
+            {
+              this.props.isUserAuthorized ?
+                <Favorites /> :
+                <Redirect to={AppUrls.AUTH} />
+            }
           </Route>
         </Switch>
       </Router>
@@ -192,6 +208,7 @@ App.propTypes = {
   reviewRating: PropTypes.number,
   reviewText: PropTypes.string.isRequired,
   addReviewError: PropTypes.string,
+  userEmail: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
@@ -207,6 +224,7 @@ const mapStateToProps = (state) => ({
   reviewRating: getReviewRating(state),
   reviewText: getReviewText(state),
   addReviewError: getAddReviewError(state),
+  userEmail: getUserEmail(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
