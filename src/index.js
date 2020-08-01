@@ -7,9 +7,12 @@ import {applyMiddleware, compose, createStore} from "redux";
 import thunk from "redux-thunk";
 import {createAPI} from "./api";
 import {actionCreator, AuthorizationStatus, userOperations} from "./reducers/user/user";
+import history from "./history";
+import {AppUrls} from "./app-urls";
 
 const onUnauthorized = () => {
   store.dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+  history.push(AppUrls.AUTH);
 };
 
 const api = createAPI(onUnauthorized);
