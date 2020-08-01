@@ -7,7 +7,8 @@ const MainWrapper = (props) => {
   const {
     isUserAuth,
     className = ``,
-    children
+    children,
+    userEmail = ``
   } = props;
 
   let pageMainStyle = `page__main page__main--index`;
@@ -33,7 +34,7 @@ const MainWrapper = (props) => {
                     </div>
                     {
                       isUserAuth ?
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span> :
+                        <span className="header__user-name user__name">{userEmail}</span> :
                         <span className="header__login">Sign in</span>
                     }
                   </Link>
@@ -54,6 +55,7 @@ const MainWrapper = (props) => {
 MainWrapper.propTypes = {
   isUserAuth: PropTypes.bool.isRequired,
   className: PropTypes.string,
+  userEmail: PropTypes.string,
   children: PropTypes.node.isRequired
 };
 
