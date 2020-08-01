@@ -1,5 +1,7 @@
 import {extend} from "../../helpers/extend-object";
 import {userResponseAdapter} from "../../helpers/user-response-adapter";
+import history from "../../history";
+import {AppUrls} from "../../app-urls";
 
 export const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
@@ -44,6 +46,7 @@ export const userOperations = {
         dispatch(actionCreator.updateUserAuthStatus(AuthorizationStatus.AUTH));
         const user = userResponseAdapter(response.data);
         dispatch(actionCreator.setUserProfile(user));
+        history.push(AppUrls.BASE);
       })
       .catch((error) => error);
   },

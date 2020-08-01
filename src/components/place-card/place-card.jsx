@@ -16,12 +16,25 @@ const PlaceCard = (props) => {
     },
     onHoverHandler,
     onClickTitle,
-    addToFavorites
+    addToFavorites,
+    className,
+    imageClassName,
+    imageSize
   } = props;
+
+  let placeCardStyle = `place-card`;
+  if (className) {
+    placeCardStyle += ` ${className}`;
+  }
+
+  let imageStyle = `place-card__image-wrapper`;
+  if (imageClassName) {
+    imageStyle += ` ${imageClassName}`;
+  }
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={placeCardStyle}
       onMouseEnter={() => {
         onHoverHandler(props.place);
       }}
@@ -33,9 +46,9 @@ const PlaceCard = (props) => {
           </div>
         )
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={imageStyle}>
         <a href="#">
-          <img className="place-card__image" src={img} width="260" height="200" alt={name}/>
+          <img className="place-card__image" src={img} alt={name} {...imageSize}/>
         </a>
       </div>
       <div className="place-card__info">
@@ -98,6 +111,12 @@ PlaceCard.propTypes = {
   onHoverHandler: PropTypes.func.isRequired,
   onClickTitle: PropTypes.func.isRequired,
   addToFavorites: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  imageClassName: PropTypes.string,
+  imageSize: PropTypes.shape({
+    width: PropTypes.number,
+    height: PropTypes.number
+  })
 };
 
 export default React.memo(PlaceCard);

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Main from "../main/main";
 import withMap from "../../hoc/with-map";
 import {connect} from "react-redux";
-import {getCurrentCityOffers, getHasErrorFlag, getUniqCities} from "../../reducers/data/selectors";
+import {getCurrentCityOffers, getFavoriteOffers, getHasErrorFlag, getUniqCities} from "../../reducers/data/selectors";
 import {getCurrentCity, getCurrentSorting} from "../../reducers/app/selectors";
 import {dataOperations} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
-import {Route, Router, Switch, Redirect} from "react-router-dom";
+import {Route, Router, Switch} from "react-router-dom";
 import PlaceProperty from "../place-property/place-property";
 import {getUserEmail, isUserAuth} from "../../reducers/user/selectors";
 import LogIn from "../log-in/log-in";
@@ -26,6 +26,9 @@ import {
 } from "../../reducers/reviews/selectors";
 import history from "../../history";
 import {AppUrls} from "../../app-urls";
+import PrivateRoute from "../private-route/private-route";
+import {offerType} from "../../types/offerType";
+import MainIndexWrapper from "../main-index-wrapper/main-index-wrapper";
 
 const MainScreenWithMap = withMap(withActiveItem(Main));
 
@@ -113,17 +116,17 @@ class App extends React.PureComponent {
     } else {
       if (placesAmount === 0) {
         return (
-          <MainWrapper
+          <MainIndexWrapper
             isUserAuth={isUserAuthorized}
             userEmail={userEmail}
             className="page__main--index-empty"
           >
             <MainEmpty />
-          </MainWrapper>
+          </MainIndexWrapper>
         );
       } else {
         return (
-          <MainWrapper
+          <MainIndexWrapper
             isUserAuth={isUserAuthorized}
             userEmail={userEmail}
           >
@@ -139,7 +142,7 @@ class App extends React.PureComponent {
               onChooseSortingHandler={chooseSorting}
               addToFavorites={addToFavorites}
             />
-          </MainWrapper>
+          </MainIndexWrapper>
         );
       }
     }
@@ -153,18 +156,37 @@ class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path={AppUrls.AUTH}>
-            {
-              this.props.isUserAuthorized ?
-                <Redirect to={AppUrls.BASE} /> :
-                <LogIn onSubmitHandler={this.props.signIn}/>
-            }
+            <LogIn onSubmitHandler={this.props.signIn}/>
           </Route>
-          <Route exact path={AppUrls.FAVORITES}>
-            {
-              this.props.isUserAuthorized ?
-                <Favorites /> :
-                <Redirect to={AppUrls.AUTH} />
-            }
+          <PrivateRoute
+            exact
+            path={AppUrls.FAVORITES}
+            render={() => (
+              <MainWrapper
+                isUserAuth={this.props.isUserAuthorized}
+                userEmail={this.props.userEmail}
+                className={`page__main--favorites ${this.props.favoriteOffers.hasFavorites ? `` : `page__main--favorites-empty`}`}
+                hasFooter={true}
+              >
+                <Favorites
+                  favorites={this.props.favoriteOffers}
+                  onLoadFavorites={this.props.loadFavorites}
+                />
+              </MainWrapper>
+            )}
+          />
+          <Route exact path={`/dev`}>
+            <MainWrapper
+              isUserAuth={this.props.isUserAuthorized}
+              userEmail={this.props.userEmail}
+              className={`page__main--favorites ${this.props.favoriteOffers.hasFavorites ? `` : `page__main--favorites-empty`}`}
+              hasFooter={true}
+            >
+              <Favorites
+                favorites={this.props.favoriteOffers}
+                onLoadFavorites={this.props.loadFavorites}
+              />
+            </MainWrapper>
           </Route>
         </Switch>
       </Router>
@@ -174,25 +196,7 @@ class App extends React.PureComponent {
 
 App.propTypes = {
   placesAmount: PropTypes.number.isRequired,
-  placeList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        mark: PropTypes.string,
-        img: PropTypes.string.isRequired,
-        value: PropTypes.number.isRequired,
-        time: PropTypes.string.isRequired,
-        isInBookmark: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        point: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired,
-        cityLocation: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired,
-      }).isRequired
-  ).isRequired,
+  placeList: PropTypes.arrayOf(offerType).isRequired,
   loadHotelOffers: PropTypes.func.isRequired,
   chooseCity: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
@@ -211,7 +215,17 @@ App.propTypes = {
   reviewText: PropTypes.string.isRequired,
   addReviewError: PropTypes.string,
   userEmail: PropTypes.string,
-  addToFavorites: PropTypes.func.isRequired
+  addToFavorites: PropTypes.func.isRequired,
+  loadFavorites: PropTypes.func.isRequired,
+  favoriteOffers: PropTypes.shape({
+    hasFavorites: PropTypes.bool.isRequired,
+    offers: PropTypes.arrayOf(
+        PropTypes.shape({
+          city: PropTypes.string.isRequired,
+          places: PropTypes.arrayOf(offerType).isRequired
+        })
+    ).isRequired
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -227,7 +241,8 @@ const mapStateToProps = (state) => ({
   reviewRating: getReviewRating(state),
   reviewText: getReviewText(state),
   addReviewError: getAddReviewError(state),
-  userEmail: getUserEmail(state)
+  userEmail: getUserEmail(state),
+  favoriteOffers: getFavoriteOffers(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -254,6 +269,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   addToFavorites: (hotelId, isFavorite) => {
     dispatch(dataOperations.addToFavorites(hotelId, isFavorite));
+  },
+  loadFavorites: () => {
+    dispatch(dataOperations.loadFavorites());
   }
 });
 

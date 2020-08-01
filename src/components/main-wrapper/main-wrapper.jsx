@@ -7,8 +7,10 @@ const MainWrapper = (props) => {
   const {
     isUserAuth,
     className = ``,
+    pageClassName = ``,
     children,
-    userEmail = ``
+    userEmail = ``,
+    hasFooter = false
   } = props;
 
   let pageMainStyle = `page__main page__main--index`;
@@ -16,8 +18,13 @@ const MainWrapper = (props) => {
     pageMainStyle += ` ${className}`;
   }
 
+  let pageStyle = `page`;
+  if (pageClassName) {
+    pageStyle += ` ${pageClassName}`;
+  }
+
   return (
-    <div className="page page--gray page--main">
+    <div className={pageStyle}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -48,6 +55,16 @@ const MainWrapper = (props) => {
       <main className={pageMainStyle}>
         {children}
       </main>
+
+      {
+        hasFooter && (
+          <footer className="footer container">
+            <Link to={AppUrls.BASE} className="footer__logo-link">
+              <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
+            </Link>
+          </footer>
+        )
+      }
     </div>
   );
 };
@@ -55,8 +72,10 @@ const MainWrapper = (props) => {
 MainWrapper.propTypes = {
   isUserAuth: PropTypes.bool.isRequired,
   className: PropTypes.string,
+  pageClassName: PropTypes.string,
   userEmail: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  hasFooter: PropTypes.bool
 };
 
 export default React.memo(MainWrapper);

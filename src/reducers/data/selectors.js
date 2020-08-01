@@ -40,3 +40,31 @@ export const getCurrentCityOffers = createSelector(
       return cityOffers;
     }
 );
+
+export const getFavorites = (state) => {
+  return state[nameSpaces.DATA].favorites;
+};
+
+export const getFavoriteOffers = createSelector(
+    getUniqCities,
+    getFavorites,
+    (cities, offers) => {
+      if (cities.length) {
+        let favoriteOffers = cities.map((city) => ({city, places: []}));
+        offers.forEach((offer) => {
+          const cityIndex = cities.indexOf(offer.city);
+          favoriteOffers[cityIndex].places.push(offer);
+        });
+
+        return {
+          hasFavorites: favoriteOffers.length > 0,
+          offers: favoriteOffers
+        };
+      } else {
+        return {
+          hasFavorites: false,
+          offers: []
+        };
+      }
+    }
+);

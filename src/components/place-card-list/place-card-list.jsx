@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import PlaceCard from "../place-card/place-card";
+import CitiesPlaceCard from "../cities-place-card/cities-place-card";
 
 const PlaceCardList = (props) => {
   const {
@@ -11,11 +11,11 @@ const PlaceCardList = (props) => {
   } = props;
 
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className="cities__places-list places__list">
       {
         placeList.map((place) => {
           return (
-            <PlaceCard
+            <CitiesPlaceCard
               key={place.id}
               onHoverHandler={onActiveHandler}
               place={place}
