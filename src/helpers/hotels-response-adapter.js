@@ -26,7 +26,7 @@ export const hotelResponseAdapter = (responseOffers) => {
 
     return {
       id,
-      rating,
+      rating: Math.round(rating),
       type,
       images,
       goods,
