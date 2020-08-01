@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {AppUrls} from "../../app-urls";
+import {Link} from "react-router-dom";
 
 const PlaceCard = (props) => {
   const {
@@ -15,7 +17,6 @@ const PlaceCard = (props) => {
       type
     },
     onHoverHandler,
-    onClickTitle,
     addToFavorites,
     className,
     imageClassName,
@@ -82,13 +83,8 @@ const PlaceCard = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2
-          className="place-card__name"
-          onClick={() => {
-            onClickTitle(props.place);
-          }}
-        >
-          <a href="#">{name}</a>
+        <h2 className="place-card__name">
+          <Link to={AppUrls.OFFER + id}>{name}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -109,7 +105,6 @@ PlaceCard.propTypes = {
     type: PropTypes.string.isRequired,
   }).isRequired,
   onHoverHandler: PropTypes.func.isRequired,
-  onClickTitle: PropTypes.func.isRequired,
   addToFavorites: PropTypes.func.isRequired,
   className: PropTypes.string,
   imageClassName: PropTypes.string,

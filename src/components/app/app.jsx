@@ -40,15 +40,6 @@ class App extends React.PureComponent {
     };
 
     this._renderApp = this._renderApp.bind(this);
-    this._showPlaceProperties = this._showPlaceProperties.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.loadHotelOffers();
-  }
-
-  _showPlaceProperties(place) {
-    this.setState({activePlace: place});
   }
 
   _renderApp() {
@@ -62,6 +53,45 @@ class App extends React.PureComponent {
       isUserAuthorized,
       chosenSorting,
       chooseSorting,
+      userEmail,
+      addToFavorites
+    } = this.props;
+
+    if (placesAmount === 0) {
+      return (
+        <MainIndexWrapper
+          isUserAuth={isUserAuthorized}
+          userEmail={userEmail}
+          className="page__main--index-empty"
+        >
+          <MainEmpty />
+        </MainIndexWrapper>
+      );
+    } else {
+      return (
+        <MainIndexWrapper
+          isUserAuth={isUserAuthorized}
+          userEmail={userEmail}
+        >
+          <MainScreenWithMap
+            placesAmount={placesAmount}
+            placeList={placeList}
+            activeCity={activeCity}
+            cityList={cityList}
+            onCityClickHandler={chooseCity}
+            hasError={dataLoadingError}
+            chosenSorting={chosenSorting}
+            onChooseSortingHandler={chooseSorting}
+            addToFavorites={addToFavorites}
+          />
+        </MainIndexWrapper>
+      );
+    }
+  }
+
+  render() {
+    const {
+      isUserAuthorized,
       isReviewFormDisabled,
       sendReview,
       onChangeTextReviewHandler,
@@ -71,84 +101,12 @@ class App extends React.PureComponent {
       reviewText,
       addReviewError,
       userEmail,
-      addToFavorites
+      favoriteOffers,
+      signIn,
+      loadFavorites,
+      placeList
     } = this.props;
 
-    if (this.state.activePlace) {
-      const {
-        images,
-        name,
-        description,
-        isPremium,
-        type,
-        rating,
-        bedrooms,
-        guests,
-        value,
-        goods,
-        host,
-        id: offerId
-      } = this.state.activePlace;
-      return (
-        <PlaceProperty
-          images={images}
-          title={name}
-          description={description}
-          isPremium={isPremium}
-          type={type}
-          rating={rating}
-          rooms={bedrooms}
-          guests={guests}
-          price={value}
-          goods={goods}
-          host={host}
-          isUserAuth={isUserAuthorized}
-          onReviewFormSubmitHandler={() => sendReview(offerId)}
-          isReviewFormDisabled={isReviewFormDisabled}
-          onChangeTextReviewHandler={onChangeTextReviewHandler}
-          onChangeRatingHandler={onChangeRatingHandler}
-          isActiveReviewSubmit={isActiveReviewSubmit}
-          reviewRating={reviewRating}
-          reviewText={reviewText}
-          addReviewError={addReviewError}
-        />
-      );
-    } else {
-      if (placesAmount === 0) {
-        return (
-          <MainIndexWrapper
-            isUserAuth={isUserAuthorized}
-            userEmail={userEmail}
-            className="page__main--index-empty"
-          >
-            <MainEmpty />
-          </MainIndexWrapper>
-        );
-      } else {
-        return (
-          <MainIndexWrapper
-            isUserAuth={isUserAuthorized}
-            userEmail={userEmail}
-          >
-            <MainScreenWithMap
-              placesAmount={placesAmount}
-              placeList={placeList}
-              activeCity={activeCity}
-              cityList={cityList}
-              onCityClickHandler={chooseCity}
-              hasError={dataLoadingError}
-              onClickCardTitle={this._showPlaceProperties}
-              chosenSorting={chosenSorting}
-              onChooseSortingHandler={chooseSorting}
-              addToFavorites={addToFavorites}
-            />
-          </MainIndexWrapper>
-        );
-      }
-    }
-  }
-
-  render() {
     return (
       <Router history={history}>
         <Switch>
@@ -156,38 +114,75 @@ class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path={AppUrls.AUTH}>
-            <LogIn onSubmitHandler={this.props.signIn}/>
+            <LogIn onSubmitHandler={signIn}/>
           </Route>
           <PrivateRoute
             exact
             path={AppUrls.FAVORITES}
             render={() => (
               <MainWrapper
-                isUserAuth={this.props.isUserAuthorized}
-                userEmail={this.props.userEmail}
-                className={`page__main--favorites ${this.props.favoriteOffers.hasFavorites ? `` : `page__main--favorites-empty`}`}
+                isUserAuth={isUserAuthorized}
+                userEmail={userEmail}
+                className={`page__main--favorites ${favoriteOffers.hasFavorites ? `` : `page__main--favorites-empty`}`}
                 hasFooter={true}
               >
                 <Favorites
-                  favorites={this.props.favoriteOffers}
-                  onLoadFavorites={this.props.loadFavorites}
+                  favorites={favoriteOffers}
+                  onLoadFavorites={loadFavorites}
                 />
               </MainWrapper>
             )}
           />
-          <Route exact path={`/dev`}>
-            <MainWrapper
-              isUserAuth={this.props.isUserAuthorized}
-              userEmail={this.props.userEmail}
-              className={`page__main--favorites ${this.props.favoriteOffers.hasFavorites ? `` : `page__main--favorites-empty`}`}
-              hasFooter={true}
-            >
-              <Favorites
-                favorites={this.props.favoriteOffers}
-                onLoadFavorites={this.props.loadFavorites}
-              />
-            </MainWrapper>
-          </Route>
+          <Route
+            path={AppUrls.OFFER + `:id`}
+            exact
+            render={(renderProps) => {
+              const placeId = renderProps.match.params.id;
+              const activePlace = placeList.find((place) => place.id === parseInt(placeId, 10));
+              if (activePlace) {
+                const {
+                  images,
+                  name,
+                  description,
+                  isPremium,
+                  type,
+                  rating,
+                  bedrooms,
+                  guests,
+                  value,
+                  goods,
+                  host,
+                  id: offerId
+                } = activePlace;
+                return (
+                  <PlaceProperty
+                    images={images}
+                    title={name}
+                    description={description}
+                    isPremium={isPremium}
+                    type={type}
+                    rating={rating}
+                    rooms={bedrooms}
+                    guests={guests}
+                    price={value}
+                    goods={goods}
+                    host={host}
+                    isUserAuth={isUserAuthorized}
+                    onReviewFormSubmitHandler={() => sendReview(offerId)}
+                    isReviewFormDisabled={isReviewFormDisabled}
+                    onChangeTextReviewHandler={onChangeTextReviewHandler}
+                    onChangeRatingHandler={onChangeRatingHandler}
+                    isActiveReviewSubmit={isActiveReviewSubmit}
+                    reviewRating={reviewRating}
+                    reviewText={reviewText}
+                    addReviewError={addReviewError}
+                  />
+                );
+              } else {
+                return null;
+              }
+            }}
+          />
         </Switch>
       </Router>
     );
@@ -197,7 +192,6 @@ class App extends React.PureComponent {
 App.propTypes = {
   placesAmount: PropTypes.number.isRequired,
   placeList: PropTypes.arrayOf(offerType).isRequired,
-  loadHotelOffers: PropTypes.func.isRequired,
   chooseCity: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -246,9 +240,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadHotelOffers: () => {
-    dispatch(dataOperations.loadHotelOffers());
-  },
   chooseCity: (city) => {
     dispatch(appActionCreator.setCity(city));
   },

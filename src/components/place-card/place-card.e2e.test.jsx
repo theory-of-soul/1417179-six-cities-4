@@ -23,23 +23,11 @@ describe(`PlaceCard component e2e tests`, () => {
     const onHoverCallback = jest.fn();
 
     const placeCardComponent = shallow(
-        <PlaceCard place={place} onHoverHandler={onHoverCallback} onClickTitle={() => {}}/>
+        <PlaceCard place={place} onHoverHandler={onHoverCallback}/>
     );
 
     placeCardComponent.find(`.place-card`).simulate(`mouseEnter`);
 
     expect(onHoverCallback.mock.calls[0][0]).toMatchObject(place);
-  });
-
-  it(`PlaceCard click on title of place send current place`, () => {
-    const onClickCallback = jest.fn();
-
-    const placeCardComponent = shallow(
-        <PlaceCard place={place} onHoverHandler={() => {}} onClickTitle={onClickCallback} />
-    );
-
-    placeCardComponent.find(`.place-card__name`).simulate(`click`);
-
-    expect(onClickCallback.mock.calls[0][0]).toMatchObject(place);
   });
 });

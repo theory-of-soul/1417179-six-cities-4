@@ -21,7 +21,6 @@ describe(`FavoritesPlaceCard component snapshot tests`, () => {
           <FavoritesPlaceCard
             place={place}
             onHoverHandler={() => {}}
-            onClickTitle={() => {}}
             addToFavorites={() => {}}
           />)
       .toJSON();

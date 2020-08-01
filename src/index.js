@@ -9,6 +9,7 @@ import {createAPI} from "./api";
 import {actionCreator, AuthorizationStatus, userOperations} from "./reducers/user/user";
 import history from "./history";
 import {AppUrls} from "./app-urls";
+import {dataOperations} from "./reducers/data/data";
 
 const onUnauthorized = () => {
   store.dispatch(actionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
@@ -26,6 +27,7 @@ const store = createStore(
 );
 
 store.dispatch(userOperations.checkAuthStatus());
+store.dispatch(dataOperations.loadHotelOffers());
 
 ReactDOM.render(
     <Provider store={store}>

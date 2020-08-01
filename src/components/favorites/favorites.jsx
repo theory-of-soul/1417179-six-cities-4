@@ -40,7 +40,6 @@ class Favorites extends React.PureComponent {
                                 key={place.id}
                                 onHoverHandler={() => {}}
                                 place={place}
-                                onClickTitle={() => {}}
                                 addToFavorites={() => {}}
                               />
                             );

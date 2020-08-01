@@ -6,7 +6,6 @@ const PlaceCardList = (props) => {
   const {
     placeList,
     onActiveHandler,
-    onClickCardTitle,
     addToFavorites
   } = props;
 
@@ -19,7 +18,6 @@ const PlaceCardList = (props) => {
               key={place.id}
               onHoverHandler={onActiveHandler}
               place={place}
-              onClickTitle={onClickCardTitle}
               addToFavorites={addToFavorites}
             />
           );
@@ -44,7 +42,6 @@ PlaceCardList.propTypes = {
       }).isRequired
   ).isRequired,
   onActiveHandler: PropTypes.func.isRequired,
-  onClickCardTitle: PropTypes.func.isRequired,
   addToFavorites: PropTypes.func.isRequired,
 };
 

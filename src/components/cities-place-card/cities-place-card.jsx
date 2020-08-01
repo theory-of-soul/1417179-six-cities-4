@@ -27,7 +27,6 @@ CitiesPlaceCard.propTypes = {
     type: PropTypes.string.isRequired,
   }).isRequired,
   onHoverHandler: PropTypes.func.isRequired,
-  onClickTitle: PropTypes.func.isRequired,
   addToFavorites: PropTypes.func.isRequired,
 };
 

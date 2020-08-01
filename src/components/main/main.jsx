@@ -18,7 +18,6 @@ const Main = (props) => {
     renderMap,
     onCityClickHandler,
     hasError,
-    onClickCardTitle,
     chosenSorting,
     onChooseSortingHandler,
     onActiveHandler,
@@ -51,7 +50,6 @@ const Main = (props) => {
                 <PlacesSortingMenu chosenSorting={chosenSorting} onChooseSortingHandler={onChooseSortingHandler}/>
                 <PlaceCardList
                   placeList={placeList}
-                  onClickCardTitle={onClickCardTitle}
                   onActiveHandler={onActiveHandler}
                   addToFavorites={addToFavorites}
                 />
@@ -115,7 +113,6 @@ Main.propTypes = {
   onCityClickHandler: PropTypes.func.isRequired,
   renderMap: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
-  onClickCardTitle: PropTypes.func.isRequired,
   chosenSorting: PropTypes.oneOf(Object.values(Sorting)).isRequired,
   onChooseSortingHandler: PropTypes.func.isRequired,
   activeItem: PropTypes.shape({

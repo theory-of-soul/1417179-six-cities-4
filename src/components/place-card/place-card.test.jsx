@@ -30,7 +30,6 @@ describe(`PlaceCard component snapshot tests`, () => {
           <PlaceCard
             place={placeList[0]}
             onHoverHandler={() => {}}
-            onClickTitle={() => {}}
             addToFavorites={() => {}}
           />)
       .toJSON();
@@ -43,7 +42,6 @@ describe(`PlaceCard component snapshot tests`, () => {
       .create(<PlaceCard
         place={placeList[1]}
         onHoverHandler={() => {}}
-        onClickTitle={() => {}}
         addToFavorites={() => {}}
       />)
       .toJSON();

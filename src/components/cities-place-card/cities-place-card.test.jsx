@@ -21,7 +21,6 @@ describe(`CitiesPlaceCard component snapshot tests`, () => {
           <CitiesPlaceCard
             place={place}
             onHoverHandler={() => {}}
-            onClickTitle={() => {}}
             addToFavorites={() => {}}
           />)
       .toJSON();

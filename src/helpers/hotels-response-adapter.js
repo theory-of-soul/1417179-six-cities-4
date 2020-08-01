@@ -35,7 +35,7 @@ export const hotelResponseAdapter = (responseOffers) => {
       bedrooms,
       guests,
       host: {
-        icon,
+        icon: `/${icon}`,
         hostId,
         isSuper: isPro,
         name: hostName

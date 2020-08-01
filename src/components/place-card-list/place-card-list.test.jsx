@@ -30,7 +30,6 @@ describe(`PlaceCardList component snapshot tests`, () => {
           <PlaceCardList
             placeList={placeList}
             onActiveHandler={() => {}}
-            onClickCardTitle={() => {}}
             addToFavorites={() => {}}
           />
       )
