@@ -13,7 +13,8 @@ const placeList = [{
   rating: 5,
   name: `luxurious apartment at great location`,
   type: `Apartment`,
-  point: [52.3909553943508, 4.929309666406198]
+  point: [52.3909553943508, 4.929309666406198],
+  cityLocation: [52.38333, 4.9]
 }, {
   id: 1,
   img: `img/apartment-02.jpg`,
@@ -23,7 +24,8 @@ const placeList = [{
   rating: 0,
   name: `Beautiful & luxurious`,
   type: `Hotel`,
-  point: [52.3909553943508, 4.929309666406198]
+  point: [52.3909553943508, 4.929309666406198],
+  cityLocation: [52.38333, 4.9]
 }];
 const cityList = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
 const activeCity = `Amsterdam`;
@@ -55,6 +57,25 @@ describe(`Main component snapshot tests`, () => {
             placesAmount={0}
             cityList={cityList}
             activeCity={activeCity}
+            onLogoLinkClickHandler={() => {}}
+            onCityClickHandler={() => {}}
+            renderMap={() => <React.Fragment/>}
+          />
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`if has error show error message`, () => {
+    const tree = renderer
+      .create(
+          <Main
+            hasError={true}
+            placeList={[]}
+            placesAmount={0}
+            cityList={[]}
+            activeCity={``}
             onLogoLinkClickHandler={() => {}}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}

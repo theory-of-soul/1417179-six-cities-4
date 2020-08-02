@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 import PlaceCardList from "../place-card-list/place-card-list";
 import CityList from "../city-list/city-list";
-import {citiesCenter} from "../../reducer";
 import withActiveItem from "../../hoc/with-active-item";
 
 const MAX_SIZE_CITY_LIST = 6;
@@ -17,10 +16,12 @@ const Main = (props) => {
     activeCity,
     renderMap,
     onLogoLinkClickHandler,
-    onCityClickHandler
+    onCityClickHandler,
+    hasError
   } = props;
 
   const coordinates = placeList.map((place) => place.point);
+  const cityCenter = placeList[0] && placeList[0].cityLocation;
 
   return (
     <div className="page page--gray page--main">
@@ -85,16 +86,29 @@ const Main = (props) => {
               ) : (
                 <section className="cities__no-places">
                   <div className="cities__status-wrapper tabs__content">
-                    <b className="cities__status">No places to stay available</b>
-                    <p className="cities__status-description">
-                      We could not find any property available at the moment in {activeCity}
-                    </p>
+                    {
+                      hasError ? (
+                        <>
+                          <b className="cities__status">Sorry we have a server problem.</b>
+                          <p className="cities__status-description">
+                            Try again later.
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <b className="cities__status">No places to stay available</b>
+                          <p className="cities__status-description">
+                            We could not find any property available at the moment in {activeCity}
+                          </p>
+                        </>
+                      )
+                    }
                   </div>
                 </section>
               )
             }
             <div className="cities__right-section">
-              {renderMap(coordinates, citiesCenter[activeCity])}
+              {renderMap(coordinates, cityCenter)}
             </div>
           </div>
         </div>
@@ -119,6 +133,9 @@ Main.propTypes = {
         point: PropTypes.arrayOf(
             PropTypes.number.isRequired
         ).isRequired,
+        cityLocation: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
       }).isRequired
   ).isRequired,
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -126,6 +143,7 @@ Main.propTypes = {
   onLogoLinkClickHandler: PropTypes.func.isRequired,
   onCityClickHandler: PropTypes.func.isRequired,
   renderMap: PropTypes.func.isRequired,
+  hasError: PropTypes.bool.isRequired,
 };
 
 export default React.memo(Main);

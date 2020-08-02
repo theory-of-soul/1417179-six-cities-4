@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import Main from "../main/main";
 import withMap from "../../hoc/with-map";
 import {connect} from "react-redux";
-import {actionCreator} from "../../reducer";
-import offers from "../../mocks/offers";
+import {getCurrentCityOffers, getHasErrorFlag, getUniqCities} from "../../reducers/data/selectors";
+import {getCurrentCity} from "../../reducers/app/selectors";
+import {operationCreator} from "../../reducers/data/data";
+import {appActionCreator} from "../../reducers/app/app";
 
 const MainScreenWithMap = withMap(Main);
 
@@ -14,7 +16,7 @@ class App extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.setLoadedOffers(offers);
+    this.props.loadHotelOffers();
   }
 
   render() {
@@ -23,7 +25,8 @@ class App extends React.PureComponent {
       placeList,
       activeCity,
       cityList,
-      chooseCity
+      chooseCity,
+      dataLoadingError
     } = this.props;
 
     return (
@@ -33,6 +36,7 @@ class App extends React.PureComponent {
         activeCity={activeCity}
         cityList={cityList}
         onCityClickHandler={chooseCity}
+        hasError={dataLoadingError}
         onLogoLinkClickHandler={() => {}}
       />
     );
@@ -54,32 +58,32 @@ App.propTypes = {
         point: PropTypes.arrayOf(
             PropTypes.number.isRequired
         ).isRequired,
+        cityLocation: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
       }).isRequired
   ).isRequired,
-  setLoadedOffers: PropTypes.func.isRequired,
+  loadHotelOffers: PropTypes.func.isRequired,
   chooseCity: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
   cityList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-};
-
-const getUniqCities = (placeList) => {
-  const allCities = placeList.map((place) => place.city);
-  return [...new Set(allCities)];
+  dataLoadingError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  placesAmount: state.cityOffers.length,
-  placeList: state.cityOffers,
-  activeCity: state.city,
-  cityList: getUniqCities(state.offers)
+  placesAmount: getCurrentCityOffers(state).length,
+  placeList: getCurrentCityOffers(state),
+  activeCity: getCurrentCity(state),
+  cityList: getUniqCities(state),
+  dataLoadingError: getHasErrorFlag(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setLoadedOffers: (allOffers) => {
-    dispatch(actionCreator.setOffers(allOffers));
+  loadHotelOffers: () => {
+    dispatch(operationCreator.loadHotelOffers());
   },
   chooseCity: (city) => {
-    dispatch(actionCreator.setCity(city));
+    dispatch(appActionCreator.setCity(city));
   }
 });
 
