@@ -15,7 +15,9 @@ const Main = (props) => {
     onCityClickHandler,
     hasError,
     onClickCardTitle,
-    renderPlaces
+    renderPlaces,
+    isUserAuth,
+    onLoginClickHandler
   } = props;
 
   const coordinates = placeList.map((place) => place.point);
@@ -34,10 +36,14 @@ const Main = (props) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <a className="header__nav-link header__nav-link--profile" onClick={onLoginClickHandler}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    {
+                      isUserAuth ?
+                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span> :
+                        <span className="header__login">Sign in</span>
+                    }
                   </a>
                 </li>
               </ul>
@@ -143,6 +149,8 @@ Main.propTypes = {
   renderMap: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
   onClickCardTitle: PropTypes.func.isRequired,
+  isUserAuth: PropTypes.bool.isRequired,
+  onLoginClickHandler: PropTypes.func.isRequired,
   renderPlaces: PropTypes.func.isRequired,
 };
 

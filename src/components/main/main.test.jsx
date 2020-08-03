@@ -45,6 +45,8 @@ describe(`Main component snapshot tests`, () => {
             renderPlaces={() => <React.Fragment/>}
             hasError={false}
             onClickCardTitle={() => {}}
+            isUserAuth={true}
+            onLoginClickHandler={() => {}}
           />
       )
       .toJSON();
@@ -66,6 +68,8 @@ describe(`Main component snapshot tests`, () => {
             renderPlaces={() => <React.Fragment/>}
             hasError={false}
             onClickCardTitle={() => {}}
+            isUserAuth={false}
+            onLoginClickHandler={() => {}}
           />
       )
       .toJSON();
@@ -87,6 +91,8 @@ describe(`Main component snapshot tests`, () => {
             renderMap={() => <React.Fragment/>}
             renderPlaces={() => <React.Fragment/>}
             onClickCardTitle={() => {}}
+            isUserAuth={true}
+            onLoginClickHandler={() => {}}
           />
       )
       .toJSON();

@@ -48,9 +48,11 @@ describe(`App component snapshot tests`, () => {
             placesAmount={placesAmount}
             loadHotelOffers={() => {}}
             chooseCity={() => {}}
+            signIn={() => {}}
             activeCity={activeCity}
             cityList={cityList}
             dataLoadingError={false}
+            isUserAuthorized={true}
           />,
           options
       )
