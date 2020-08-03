@@ -18,8 +18,19 @@ const PlaceProperty = (props) => {
       icon,
       name,
       isSuper,
-    }
+    },
+    reviewList,
+    cityCoordinates,
+    coordinates,
+    renderMap,
+    renderPlaces,
+    onClickCardTitle,
+    neighbourhoods
   } = props;
+
+  const nearPlaces = neighbourhoods.slice(0, 3).map((place) => place.point);
+  const coordinatesWithNearPlaces = [coordinates, ...nearPlaces];
+
   return (
     <section className="property">
       <div className="property__gallery-container container">
@@ -91,7 +102,7 @@ const PlaceProperty = (props) => {
             </div>
           </div>
           <section className="property__reviews reviews">
-            <ReviewList reviewList={[]}/>
+            <ReviewList reviewList={reviewList}/>
 
             <form className="reviews__form form" action="#" method="post">
               <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -148,7 +159,17 @@ const PlaceProperty = (props) => {
           </section>
         </div>
       </div>
-      <section className="property__map map"/>
+
+      {renderMap(coordinatesWithNearPlaces, cityCoordinates)}
+
+      <div className="container">
+        <section className="near-places places">
+          <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          <div className="near-places__list places__list">
+            {renderPlaces(neighbourhoods, onClickCardTitle)}
+          </div>
+        </section>
+      </div>
     </section>
   );
 };
@@ -180,7 +201,41 @@ PlaceProperty.propTypes = {
     icon: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     isSuper: PropTypes.bool.isRequired,
-  })
+  }),
+  coordinates: PropTypes.arrayOf(PropTypes.number.isRequired),
+  cityCoordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  reviewList: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+        date: PropTypes.instanceOf(Date),
+        userName: PropTypes.string.isRequired,
+        userIcon: PropTypes.string.isRequired
+      }).isRequired
+  ).isRequired,
+  renderMap: PropTypes.func.isRequired,
+  renderPlaces: PropTypes.func.isRequired,
+  onClickCardTitle: PropTypes.func.isRequired,
+  neighbourhoods: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        mark: PropTypes.string,
+        img: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        time: PropTypes.string.isRequired,
+        isInBookmark: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        point: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
+        cityLocation: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
+      }).isRequired
+  ).isRequired
 };
 
 export default React.memo(PlaceProperty);
