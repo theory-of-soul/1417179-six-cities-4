@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PlaceCard from "../place-card/place-card";
 
 const PlaceCardList = (props) => {
-  const {placeList, onActiveHandler} = props;
+  const {placeList, onActiveHandler, onClickCardTitle} = props;
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -14,6 +14,7 @@ const PlaceCardList = (props) => {
               key={place.id}
               onHoverHandler={onActiveHandler}
               place={place}
+              onClickTitle={onClickCardTitle}
             />
           );
         })
@@ -36,7 +37,8 @@ PlaceCardList.propTypes = {
         type: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-  onActiveHandler: PropTypes.func.isRequired
+  onActiveHandler: PropTypes.func.isRequired,
+  onClickCardTitle: PropTypes.func.isRequired,
 };
 
 export default React.memo(PlaceCardList);

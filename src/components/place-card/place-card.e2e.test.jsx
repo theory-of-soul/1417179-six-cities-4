@@ -19,15 +19,27 @@ const place = {
 };
 
 describe(`PlaceCard component e2e tests`, () => {
-  it(`PlaceCard hover callback return place information`, () => {
+  it(`PlaceCard hover callback send place information`, () => {
     const onHoverCallback = jest.fn();
 
     const placeCardComponent = shallow(
-        <PlaceCard place={place} onHoverHandler={onHoverCallback} />
+        <PlaceCard place={place} onHoverHandler={onHoverCallback} onClickTitle={() => {}}/>
     );
 
     placeCardComponent.find(`.place-card`).simulate(`mouseEnter`);
 
     expect(onHoverCallback.mock.calls[0][0]).toMatchObject(place);
+  });
+
+  it(`PlaceCard click on title of place send current place`, () => {
+    const onClickCallback = jest.fn();
+
+    const placeCardComponent = shallow(
+        <PlaceCard place={place} onHoverHandler={() => {}} onClickTitle={onClickCallback} />
+    );
+
+    placeCardComponent.find(`.place-card__name`).simulate(`click`);
+
+    expect(onClickCallback.mock.calls[0][0]).toMatchObject(place);
   });
 });

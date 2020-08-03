@@ -48,6 +48,8 @@ describe(`Main component e2e tests`, () => {
           onLogoLinkClickHandler={onHeaderLogoClickCallback}
           onCityClickHandler={() => {}}
           renderMap={() => <React.Fragment/>}
+          onClickCardTitle={() => {}}
+          hasError={false}
         />
     );
     mainComponent.find(`.header__logo-link`).simulate(`click`);

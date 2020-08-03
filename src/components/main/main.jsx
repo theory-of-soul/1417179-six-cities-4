@@ -17,7 +17,8 @@ const Main = (props) => {
     renderMap,
     onLogoLinkClickHandler,
     onCityClickHandler,
-    hasError
+    hasError,
+    onClickCardTitle
   } = props;
 
   const coordinates = placeList.map((place) => place.point);
@@ -81,7 +82,7 @@ const Main = (props) => {
                       <li className="places__option" tabIndex="0">Top rated first</li>
                     </ul>
                   </form>
-                  <PlaceCardListWithActiveItem placeList={placeList}/>
+                  <PlaceCardListWithActiveItem placeList={placeList} onClickCardTitle={onClickCardTitle} />
                 </section>
               ) : (
                 <section className="cities__no-places">
@@ -144,6 +145,7 @@ Main.propTypes = {
   onCityClickHandler: PropTypes.func.isRequired,
   renderMap: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
+  onClickCardTitle: PropTypes.func.isRequired,
 };
 
 export default React.memo(Main);

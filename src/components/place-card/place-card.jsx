@@ -13,7 +13,8 @@ const PlaceCard = (props) => {
       name,
       type
     },
-    onHoverHandler
+    onHoverHandler,
+    onClickTitle
   } = props;
 
   return (
@@ -63,7 +64,12 @@ const PlaceCard = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
+        <h2
+          className="place-card__name"
+          onClick={() => {
+            onClickTitle(props.place);
+          }}
+        >
           <a href="#">{name}</a>
         </h2>
         <p className="place-card__type">{type}</p>
@@ -83,7 +89,8 @@ PlaceCard.propTypes = {
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   }).isRequired,
-  onHoverHandler: PropTypes.func.isRequired
+  onHoverHandler: PropTypes.func.isRequired,
+  onClickTitle: PropTypes.func.isRequired,
 };
 
 export default React.memo(PlaceCard);

@@ -7,19 +7,31 @@ import {getCurrentCityOffers, getHasErrorFlag, getUniqCities} from "../../reduce
 import {getCurrentCity} from "../../reducers/app/selectors";
 import {operationCreator} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import PlaceProperty from "../place-property/place-property";
 
 const MainScreenWithMap = withMap(Main);
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      activePlace: null
+    };
+
+    this._renderApp = this._renderApp.bind(this);
+    this._showPlaceProperties = this._showPlaceProperties.bind(this);
   }
 
   componentDidMount() {
     this.props.loadHotelOffers();
   }
 
-  render() {
+  _showPlaceProperties(place) {
+    this.setState({activePlace: place});
+  }
+
+  _renderApp() {
     const {
       placesAmount,
       placeList,
@@ -29,17 +41,83 @@ class App extends React.PureComponent {
       dataLoadingError
     } = this.props;
 
+    if (this.state.activePlace) {
+      const {
+        images,
+        name,
+        description,
+        isPremium,
+        type,
+        rating,
+        bedrooms,
+        guests,
+        value,
+        goods,
+        host
+      } = this.state.activePlace;
+      return (
+        <PlaceProperty
+          images={images}
+          title={name}
+          description={description}
+          isPremium={isPremium}
+          type={type}
+          rating={rating}
+          rooms={bedrooms}
+          guests={guests}
+          price={value}
+          goods={goods}
+          host={host}
+        />
+      );
+    } else {
+      return (
+        <MainScreenWithMap
+          placesAmount={placesAmount}
+          placeList={placeList}
+          activeCity={activeCity}
+          cityList={cityList}
+          onCityClickHandler={chooseCity}
+          hasError={dataLoadingError}
+          onLogoLinkClickHandler={() => {}}
+          onClickCardTitle={this._showPlaceProperties}
+        />
+      );
+    }
+
+  }
+
+  render() {
     return (
-      <MainScreenWithMap
-        placesAmount={placesAmount}
-        placeList={placeList}
-        activeCity={activeCity}
-        cityList={cityList}
-        onCityClickHandler={chooseCity}
-        hasError={dataLoadingError}
-        onLogoLinkClickHandler={() => {}}
-      />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            {this._renderApp()}
+          </Route>
+          <Route exact path="/offer">
+            <PlaceProperty
+              images={[`img/apartment-01.jpg`, `img/apartment-02.jpg`]}
+              title={`Beautiful &amp; luxurious studio at great location`}
+              description={`A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`}
+              isPremium={true}
+              type={`room`}
+              rating={4}
+              rooms={1}
+              guests={2}
+              price={100}
+              goods={[`Wi-Fi`, `Towels`, `Baby seat`]}
+              host={{
+                icon: `img/avatar-angelina.jpg`,
+                name: `Angelina`,
+                isSuper: true
+              }}
+            />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     );
+
+
   }
 }
 
