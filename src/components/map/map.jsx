@@ -26,8 +26,12 @@ class Map extends React.PureComponent {
   }
 
   render() {
+    const {
+      className = ``
+    } = this.props;
+
     return (
-      <section id="map" className="cities__map map" ref={this.mapRef}/>
+      <section id="map" className={`${className} map`} ref={this.mapRef}/>
     );
   }
 
@@ -89,7 +93,8 @@ Map.propTypes = {
   city: PropTypes.arrayOf(PropTypes.number),
   markersCoordinates: PropTypes.arrayOf(
       PropTypes.arrayOf(PropTypes.number).isRequired
-  ).isRequired
+  ).isRequired,
+  className: PropTypes.string
 };
 
 export default Map;

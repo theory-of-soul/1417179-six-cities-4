@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import PlaceCard from "../place-card/place-card";
 
 const PlaceCardList = (props) => {
-  const {placeList, onActiveHandler, onClickCardTitle} = props;
+  const {placeList, onActiveHandler, onClickCardTitle, className = ``} = props;
 
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className={`${className} places__list tabs__content`}>
       {
         placeList.map((place) => {
           return (
@@ -39,6 +39,7 @@ PlaceCardList.propTypes = {
   ).isRequired,
   onActiveHandler: PropTypes.func.isRequired,
   onClickCardTitle: PropTypes.func.isRequired,
+  className: PropTypes.string
 };
 
 export default React.memo(PlaceCardList);

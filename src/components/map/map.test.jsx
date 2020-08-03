@@ -16,7 +16,10 @@ const options = {
 describe(`Map component snapshot tests`, () => {
   it(`Map component render map container`, () => {
     const tree = renderer
-      .create(<Map city={city} markersCoordinates={markersCoordinates}/>, options).toJSON();
+      .create(
+          <Map city={city} markersCoordinates={markersCoordinates} className="cities__map"/>,
+          options
+      ).toJSON();
 
     expect(tree).toMatchSnapshot();
   });

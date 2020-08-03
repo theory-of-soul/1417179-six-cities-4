@@ -48,6 +48,7 @@ describe(`Main component e2e tests`, () => {
           onLogoLinkClickHandler={onHeaderLogoClickCallback}
           onCityClickHandler={() => {}}
           renderMap={() => <React.Fragment/>}
+          renderPlaces={() => <React.Fragment/>}
           onClickCardTitle={() => {}}
           hasError={false}
         />
