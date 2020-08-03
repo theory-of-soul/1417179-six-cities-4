@@ -41,6 +41,7 @@ describe(`Main component snapshot tests`, () => {
             activeCity={activeCity}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
+            renderPlaces={() => <React.Fragment/>}
             hasError={false}
             onClickCardTitle={() => {}}
             chosenSorting={`Popular`}
@@ -62,6 +63,7 @@ describe(`Main component snapshot tests`, () => {
             cityList={cityList}
             activeCity={activeCity}
             renderMap={() => <React.Fragment/>}
+            renderPlaces={() => <React.Fragment/>}
             hasError={false}
             onClickCardTitle={() => {}}
             onCityClickHandler={() => {}}
@@ -86,6 +88,7 @@ describe(`Main component snapshot tests`, () => {
             activeCity={``}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
+            renderPlaces={() => <React.Fragment/>}
             onClickCardTitle={() => {}}
             chosenSorting={`Popular`}
             onChooseSortingHandler={() => {}}
