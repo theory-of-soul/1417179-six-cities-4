@@ -205,12 +205,72 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
           <span
             className="reviews__amount"
           >
-            0
+            1
           </span>
         </h2>
         <ul
           className="reviews__list"
-        />
+        >
+          <li
+            className="reviews__item"
+          >
+            <div
+              className="reviews__user user"
+            >
+              <div
+                className="reviews__avatar-wrapper user__avatar-wrapper"
+              >
+                <img
+                  alt="Reviews avatar"
+                  className="reviews__avatar user__avatar"
+                  height="54"
+                  src="img/avatar-max.jpg"
+                  width="54"
+                />
+              </div>
+              <span
+                className="reviews__user-name"
+              >
+                Alex
+              </span>
+            </div>
+            <div
+              className="reviews__info"
+            >
+              <div
+                className="reviews__rating rating"
+              >
+                <div
+                  className="reviews__stars rating__stars"
+                >
+                  <span
+                    style={
+                      Object {
+                        "width": "40%",
+                      }
+                    }
+                  />
+                  <span
+                    className="visually-hidden"
+                  >
+                    Rating
+                  </span>
+                </div>
+              </div>
+              <p
+                className="reviews__text"
+              >
+                It was a pain. Wi-Fi was soooo low.
+              </p>
+              <time
+                className="reviews__time"
+                dateTime="2020-06-10"
+              >
+                June 10, 2020
+              </time>
+            </div>
+          </li>
+        </ul>
         <form
           action="#"
           className="reviews__form form"
@@ -394,8 +454,21 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
       </section>
     </div>
   </div>
-  <section
-    className="property__map map"
-  />
+  <div
+    className="container"
+  >
+    <section
+      className="near-places places"
+    >
+      <h2
+        className="near-places__title"
+      >
+        Other places in the neighbourhood
+      </h2>
+      <div
+        className="near-places__list places__list"
+      />
+    </section>
+  </div>
 </section>
 `;

@@ -9,6 +9,7 @@ import {operationCreator} from "../../reducers/data/data";
 import {appActionCreator} from "../../reducers/app/app";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import PlaceProperty from "../place-property/place-property";
+import withPlaceCardList from "../../hoc/with-place-card-list";
 import {isUserAuth} from "../../reducers/user/selectors";
 import LogIn from "../log-in/log-in";
 import {userOperations} from "../../reducers/user/user";
@@ -24,7 +25,8 @@ import {
   getReviewText, getAddReviewError
 } from "../../reducers/reviews/selectors";
 
-const MainScreenWithMap = withMap(withActiveItem(Main));
+const MainScreenWithMap = withMap(withActiveItem((withPlaceCardList(Main))));
+const PlacePropertyWithMap = withMap(withActiveItem(withPlaceCardList(PlaceProperty)));
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -96,12 +98,14 @@ class App extends React.PureComponent {
         value,
         goods,
         host,
-        id: offerId
+        id: offerId,
+        point,
+        cityLocation
       } = this.state.activePlace;
       return (
-        <PlaceProperty
-          images={images}
+        <PlacePropertyWithMap
           title={name}
+          images={images}
           description={description}
           isPremium={isPremium}
           type={type}
@@ -120,6 +124,13 @@ class App extends React.PureComponent {
           reviewRating={reviewRating}
           reviewText={reviewText}
           addReviewError={addReviewError}
+          reviewList={[]}
+          coordinates={point}
+          cityCoordinates={cityLocation}
+          mapClassName="property__map"
+          placeListClassName="near-places__list"
+          onClickCardTitle={this._showPlaceProperties}
+          neighbourhoods={placeList.filter((place) => place.name !== name)}
         />
       );
     } else {
@@ -151,6 +162,11 @@ class App extends React.PureComponent {
               onClickCardTitle={this._showPlaceProperties}
               chosenSorting={chosenSorting}
               onChooseSortingHandler={chooseSorting}
+              onLogoLinkClickHandler={() => {}}
+              placeListClassName="cities__places-list"
+              mapClassName="cities__map"
+              isUserAuth={isUserAuthorized}
+              onLoginClickHandler={this._onLoginLinkClickHandler}
             />
           </MainWrapper>
         );
@@ -160,6 +176,10 @@ class App extends React.PureComponent {
   }
 
   render() {
+    const {
+      placeList
+    } = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
@@ -167,7 +187,7 @@ class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer">
-            <PlaceProperty
+            <PlacePropertyWithMap
               images={[`img/apartment-01.jpg`, `img/apartment-02.jpg`]}
               title={`Beautiful &amp; luxurious studio at great location`}
               description={`A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`}
@@ -183,6 +203,13 @@ class App extends React.PureComponent {
                 name: `Angelina`,
                 isSuper: true
               }}
+              reviewList={[]}
+              cityCoordinates={[52.38333, 4.9]}
+              coordinates={[52.3909553943508, 4.85309666406198]}
+              mapClassName="property__map"
+              placeListClassName="near-places__list"
+              neighbourhoods={placeList}
+              onClickCardTitle={this._showPlaceProperties}
               isUserAuth={true}
               isActiveReviewSubmit={this.props.isActiveReviewSubmit}
               onReviewFormSubmitHandler={() => {}}
@@ -243,7 +270,7 @@ const mapStateToProps = (state) => ({
   activeCity: getCurrentCity(state),
   cityList: getUniqCities(state),
   dataLoadingError: getHasErrorFlag(state),
-  isUserAuthorized: isUserAuth(state) || true,
+  isUserAuthorized: isUserAuth(state),
   chosenSorting: getCurrentSorting(state),
   isReviewFormDisabled: getDisabledReviewFlag(state),
   isActiveReviewSubmit: checkActiveReviewSubmit(state),
