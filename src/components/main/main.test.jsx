@@ -42,6 +42,7 @@ describe(`Main component snapshot tests`, () => {
             onLogoLinkClickHandler={() => {}}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
+            renderPlaces={() => <React.Fragment/>}
             hasError={false}
             onClickCardTitle={() => {}}
           />
@@ -62,6 +63,7 @@ describe(`Main component snapshot tests`, () => {
             onLogoLinkClickHandler={() => {}}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
+            renderPlaces={() => <React.Fragment/>}
             hasError={false}
             onClickCardTitle={() => {}}
           />
@@ -83,6 +85,7 @@ describe(`Main component snapshot tests`, () => {
             onLogoLinkClickHandler={() => {}}
             onCityClickHandler={() => {}}
             renderMap={() => <React.Fragment/>}
+            renderPlaces={() => <React.Fragment/>}
             onClickCardTitle={() => {}}
           />
       )

@@ -231,7 +231,7 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
               <span
                 className="reviews__user-name"
               >
-                Max
+                Alex
               </span>
             </div>
             <div
@@ -246,7 +246,7 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "40%",
                       }
                     }
                   />
@@ -260,13 +260,13 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
               <p
                 className="reviews__text"
               >
-                A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                It was a pain. Wi-Fi was soooo low.
               </p>
               <time
                 className="reviews__time"
-                dateTime="2019-04-24"
+                dateTime="2020-06-10"
               >
-                April 2019
+                June 10, 2020
               </time>
             </div>
           </li>
@@ -434,8 +434,21 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
       </section>
     </div>
   </div>
-  <section
-    className="property__map map"
-  />
+  <div
+    className="container"
+  >
+    <section
+      className="near-places places"
+    >
+      <h2
+        className="near-places__title"
+      >
+        Other places in the neighbourhood
+      </h2>
+      <div
+        className="near-places__list places__list"
+      />
+    </section>
+  </div>
 </section>
 `;

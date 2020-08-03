@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import ReviewList from "../review-list/review-list";
 
 const PlaceProperty = (props) => {
   const {
@@ -17,8 +18,19 @@ const PlaceProperty = (props) => {
       icon,
       name,
       isSuper,
-    }
+    },
+    reviewList,
+    cityCoordinates,
+    coordinates,
+    renderMap,
+    renderPlaces,
+    onClickCardTitle,
+    neighbourhoods
   } = props;
+
+  const nearPlaces = neighbourhoods.slice(0, 3).map((place) => place.point);
+  const coordinatesWithNearPlaces = [coordinates, ...nearPlaces];
+
   return (
     <section className="property">
       <div className="property__gallery-container container">
@@ -90,33 +102,8 @@ const PlaceProperty = (props) => {
             </div>
           </div>
           <section className="property__reviews reviews">
-            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-            <ul className="reviews__list">
-              <li className="reviews__item">
-                <div className="reviews__user user">
-                  <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                    <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54"
-                      alt="Reviews avatar"/>
-                  </div>
-                  <span className="reviews__user-name">
-                        Max
-                  </span>
-                </div>
-                <div className="reviews__info">
-                  <div className="reviews__rating rating">
-                    <div className="reviews__stars rating__stars">
-                      <span style={{width: `80%`}}/>
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <p className="reviews__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The
-                    building is green and from 18th century.
-                  </p>
-                  <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                </div>
-              </li>
-            </ul>
+            <ReviewList reviewList={reviewList}/>
+
             <form className="reviews__form form" action="#" method="post">
               <label className="reviews__label form__label" htmlFor="review">Your review</label>
               <div className="reviews__rating-form form__rating">
@@ -172,7 +159,17 @@ const PlaceProperty = (props) => {
           </section>
         </div>
       </div>
-      <section className="property__map map"/>
+
+      {renderMap(coordinatesWithNearPlaces, cityCoordinates)}
+
+      <div className="container">
+        <section className="near-places places">
+          <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          <div className="near-places__list places__list">
+            {renderPlaces(neighbourhoods, onClickCardTitle)}
+          </div>
+        </section>
+      </div>
     </section>
   );
 };
@@ -204,7 +201,41 @@ PlaceProperty.propTypes = {
     icon: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     isSuper: PropTypes.bool.isRequired,
-  })
+  }),
+  coordinates: PropTypes.arrayOf(PropTypes.number.isRequired),
+  cityCoordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  reviewList: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+        date: PropTypes.instanceOf(Date),
+        userName: PropTypes.string.isRequired,
+        userIcon: PropTypes.string.isRequired
+      }).isRequired
+  ).isRequired,
+  renderMap: PropTypes.func.isRequired,
+  renderPlaces: PropTypes.func.isRequired,
+  onClickCardTitle: PropTypes.func.isRequired,
+  neighbourhoods: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        mark: PropTypes.string,
+        img: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        time: PropTypes.string.isRequired,
+        isInBookmark: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        point: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
+        cityLocation: PropTypes.arrayOf(
+            PropTypes.number.isRequired
+        ).isRequired,
+      }).isRequired
+  ).isRequired
 };
 
 export default React.memo(PlaceProperty);
