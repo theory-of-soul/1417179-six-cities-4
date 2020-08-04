@@ -9,8 +9,15 @@ const withMap = (Component) => (props) => {
   return (
     <Component
       {...properties}
-      renderMap={(coordinates, city) => {
-        return <Map city={city} markersCoordinates={coordinates} className={props.mapClassName}/>;
+      renderMap={(coordinates, city, activePoint) => {
+        return (
+          <Map
+            city={city}
+            markersCoordinates={coordinates}
+            activePoint={activePoint}
+            className={props.mapClassName}
+          />
+        );
       }}
     />
   );

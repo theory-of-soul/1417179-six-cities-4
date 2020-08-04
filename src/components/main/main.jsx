@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import CityList from "../city-list/city-list";
+import withOpenMenu from "../../hoc/with-open-menu";
+import PlacesSorting, {Sorting} from "../places-sorting/places-sorting";
 
 const MAX_SIZE_CITY_LIST = 6;
+
+const PlacesSortingMenu = withOpenMenu(PlacesSorting);
 
 const Main = (props) => {
   const {
@@ -17,7 +21,10 @@ const Main = (props) => {
     onClickCardTitle,
     renderPlaces,
     isUserAuth,
-    onLoginClickHandler
+    onLoginClickHandler,
+    chosenSorting,
+    onChooseSortingHandler,
+    activeItem: hoveredOffer,
   } = props;
 
   const coordinates = placeList.map((place) => place.point);
@@ -70,21 +77,7 @@ const Main = (props) => {
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{placesAmount} places to stay in {activeCity}</b>
-                  <form className="places__sorting" action="#" method="get">
-                    <span className="places__sorting-caption">Sort by </span>
-                    <span className="places__sorting-type" tabIndex="0">
-                      Popular
-                      <svg className="places__sorting-arrow" width="7" height="4">
-                        <use xlinkHref="#icon-arrow-select"/>
-                      </svg>
-                    </span>
-                    <ul className="places__options places__options--custom places__options--opened">
-                      <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                      <li className="places__option" tabIndex="0">Price: low to high</li>
-                      <li className="places__option" tabIndex="0">Price: high to low</li>
-                      <li className="places__option" tabIndex="0">Top rated first</li>
-                    </ul>
-                  </form>
+                  <PlacesSortingMenu chosenSorting={chosenSorting} onChooseSortingHandler={onChooseSortingHandler}/>
                   {renderPlaces(placeList, onClickCardTitle)}
                 </section>
               ) : (
@@ -112,7 +105,7 @@ const Main = (props) => {
               )
             }
             <div className="cities__right-section">
-              {renderMap(coordinates, cityCenter)}
+              {renderMap(coordinates, cityCenter, hoveredOffer && hoveredOffer.point)}
             </div>
           </div>
         </div>
@@ -150,8 +143,27 @@ Main.propTypes = {
   hasError: PropTypes.bool.isRequired,
   onClickCardTitle: PropTypes.func.isRequired,
   isUserAuth: PropTypes.bool.isRequired,
-  onLoginClickHandler: PropTypes.func.isRequired,
   renderPlaces: PropTypes.func.isRequired,
+  onLoginClickHandler: PropTypes.func.isRequired,
+  chosenSorting: PropTypes.oneOf(Object.values(Sorting)).isRequired,
+  onChooseSortingHandler: PropTypes.func.isRequired,
+  activeItem: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    mark: PropTypes.string,
+    img: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    time: PropTypes.string.isRequired,
+    isInBookmark: PropTypes.bool.isRequired,
+    rating: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    point: PropTypes.arrayOf(
+        PropTypes.number.isRequired
+    ).isRequired,
+    cityLocation: PropTypes.arrayOf(
+        PropTypes.number.isRequired
+    ).isRequired,
+  })
 };
 
 export default React.memo(Main);

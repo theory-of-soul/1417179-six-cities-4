@@ -47,6 +47,9 @@ describe(`Main component snapshot tests`, () => {
             onClickCardTitle={() => {}}
             isUserAuth={true}
             onLoginClickHandler={() => {}}
+            chosenSorting={`Popular`}
+            onChooseSortingHandler={() => {}}
+            onActiveHandler={() => {}}
           />
       )
       .toJSON();
@@ -70,6 +73,9 @@ describe(`Main component snapshot tests`, () => {
             onClickCardTitle={() => {}}
             isUserAuth={false}
             onLoginClickHandler={() => {}}
+            chosenSorting={`Popular`}
+            onChooseSortingHandler={() => {}}
+            onActiveHandler={() => {}}
           />
       )
       .toJSON();
@@ -93,6 +99,9 @@ describe(`Main component snapshot tests`, () => {
             onClickCardTitle={() => {}}
             isUserAuth={true}
             onLoginClickHandler={() => {}}
+            chosenSorting={`Popular`}
+            onChooseSortingHandler={() => {}}
+            onActiveHandler={() => {}}
           />
       )
       .toJSON();

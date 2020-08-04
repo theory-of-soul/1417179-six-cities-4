@@ -51,6 +51,9 @@ describe(`Main component e2e tests`, () => {
           renderPlaces={() => <React.Fragment/>}
           onClickCardTitle={() => {}}
           hasError={false}
+          chosenSorting={`Popular`}
+          onChooseSortingHandler={() => {}}
+          onActiveHandler={() => {}}
         />
     );
     mainComponent.find(`.header__logo-link`).simulate(`click`);

@@ -53,6 +53,8 @@ describe(`App component snapshot tests`, () => {
             cityList={cityList}
             dataLoadingError={false}
             isUserAuthorized={true}
+            chooseSorting={() => {}}
+            chosenSorting={`Popular`}
           />,
           options
       )

@@ -5,7 +5,7 @@ const withActiveItem = (WrappedComponent) => {
     constructor(props) {
       super(props);
       this.state = {
-        activeItem: null
+        activeItem: undefined
       };
       this._onActiveHandler = this._onActiveHandler.bind(this);
     }
@@ -18,6 +18,7 @@ const withActiveItem = (WrappedComponent) => {
       return (
         <WrappedComponent
           {...this.props}
+          activeItem={this.state.activeItem}
           onActiveHandler={this._onActiveHandler}
         />
       );

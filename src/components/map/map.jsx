@@ -10,6 +10,10 @@ class Map extends React.PureComponent {
       iconUrl: `img/pin.svg`,
       iconSize: [21, 30]
     });
+    this.activeIcon = leaflet.icon({
+      iconUrl: `img/pin-active.svg`,
+      iconSize: [21, 30]
+    });
     this.zoom = 12;
     this.markerList = [];
     this._updateMap = this._updateMap.bind(this);
@@ -56,10 +60,15 @@ class Map extends React.PureComponent {
     }
   }
 
+  _isTheSameLocation(firstLocation, secondLocation) {
+    return firstLocation[0] === secondLocation[0] && firstLocation[1] === secondLocation[1];
+  }
+
   _updateMap() {
     const {
       city,
-      markersCoordinates
+      markersCoordinates,
+      activePoint = []
     } = this.props;
 
     if (markersCoordinates.length && city) {
@@ -72,7 +81,7 @@ class Map extends React.PureComponent {
       markersCoordinates.forEach((offerCords) => {
         const marker = leaflet
           .marker(offerCords, {
-            icon: this.icon
+            icon: this._isTheSameLocation(offerCords, activePoint) ? this.activeIcon : this.icon
           })
           .addTo(map);
 
@@ -94,7 +103,8 @@ Map.propTypes = {
   markersCoordinates: PropTypes.arrayOf(
       PropTypes.arrayOf(PropTypes.number).isRequired
   ).isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  activePoint: PropTypes.arrayOf(PropTypes.number)
 };
 
 export default Map;
