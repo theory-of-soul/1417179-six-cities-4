@@ -167,6 +167,7 @@ class App extends React.PureComponent {
               mapClassName="cities__map"
               isUserAuth={isUserAuthorized}
               onLoginClickHandler={this._onLoginLinkClickHandler}
+              onActiveHandler={() => {}}
             />
           </MainWrapper>
         );
