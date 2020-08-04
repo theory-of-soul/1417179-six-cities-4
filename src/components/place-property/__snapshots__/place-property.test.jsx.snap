@@ -275,6 +275,7 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
           action="#"
           className="reviews__form form"
           method="post"
+          onSubmit={[Function]}
         >
           <label
             className="reviews__label form__label"
@@ -286,11 +287,14 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
             className="reviews__rating-form form__rating"
           >
             <input
+              checked={false}
               className="form__rating-input visually-hidden"
+              disabled={false}
               id="5-stars"
               name="rating"
+              onChange={[Function]}
               type="radio"
-              value="5"
+              value={5}
             />
             <label
               className="reviews__rating-label form__rating-label"
@@ -308,11 +312,14 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
               </svg>
             </label>
             <input
+              checked={false}
               className="form__rating-input visually-hidden"
+              disabled={false}
               id="4-stars"
               name="rating"
+              onChange={[Function]}
               type="radio"
-              value="4"
+              value={4}
             />
             <label
               className="reviews__rating-label form__rating-label"
@@ -330,11 +337,14 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
               </svg>
             </label>
             <input
+              checked={false}
               className="form__rating-input visually-hidden"
+              disabled={false}
               id="3-stars"
               name="rating"
+              onChange={[Function]}
               type="radio"
-              value="3"
+              value={3}
             />
             <label
               className="reviews__rating-label form__rating-label"
@@ -352,11 +362,14 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
               </svg>
             </label>
             <input
+              checked={false}
               className="form__rating-input visually-hidden"
+              disabled={false}
               id="2-stars"
               name="rating"
+              onChange={[Function]}
               type="radio"
-              value="2"
+              value={2}
             />
             <label
               className="reviews__rating-label form__rating-label"
@@ -374,15 +387,18 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
               </svg>
             </label>
             <input
+              checked={false}
               className="form__rating-input visually-hidden"
-              id="1-star"
+              disabled={false}
+              id="1-stars"
               name="rating"
+              onChange={[Function]}
               type="radio"
-              value="1"
+              value={1}
             />
             <label
               className="reviews__rating-label form__rating-label"
-              htmlFor="1-star"
+              htmlFor="1-stars"
               title="terribly"
             >
               <svg
@@ -398,9 +414,12 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
           </div>
           <textarea
             className="reviews__textarea form__textarea"
+            disabled={false}
             id="review"
             name="review"
+            onChange={[Function]}
             placeholder="Tell how was your stay, what you like and what can be improved"
+            value=""
           />
           <div
             className="reviews__button-wrapper"
@@ -418,13 +437,14 @@ exports[`PlaceProperty component snapshot tests PlaceProperty component premium 
               <b
                 className="reviews__text-amount"
               >
-                50 characters
+                50
+                 characters
               </b>
               .
             </p>
             <button
               className="reviews__submit form__submit button"
-              disabled=""
+              disabled={false}
               type="submit"
             >
               Submit

@@ -64,6 +64,13 @@ describe(`PlaceProperty component snapshot tests`, () => {
             onClickCardTitle={() => {}}
             renderPlaces={() => {}}
             neighbourhoods={neighbourhoods}
+            isUserAuth={true}
+            reviewText={``}
+            isActiveReviewSubmit={true}
+            isReviewFormDisabled={false}
+            onReviewFormSubmitHandler={() => {}}
+            onChangeRatingHandler={() => {}}
+            onChangeTextReviewHandler={() => {}}
           />
       )
       .toJSON();

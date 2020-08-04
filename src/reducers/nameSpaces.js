@@ -1,5 +1,6 @@
 export const nameSpaces = {
   APP: `app`,
   DATA: `data`,
-  USER: `user`
+  USER: `user`,
+  REVIEWS: `reviews`,
 };
