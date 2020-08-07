@@ -43,6 +43,7 @@ describe(`Main component snapshot tests`, () => {
               activeCity={activeCity}
               onCityClickHandler={() => {}}
               renderMap={() => <React.Fragment/>}
+              renderPlaces={() => <React.Fragment/>}
               hasError={false}
               chosenSorting={`Popular`}
               onChooseSortingHandler={() => {}}
@@ -61,11 +62,12 @@ describe(`Main component snapshot tests`, () => {
       .create(
           <BrowserRouter>
             <Main
-              placeList={[]}
+              placeList={placeList}
               placesAmount={0}
               cityList={cityList}
               activeCity={activeCity}
               renderMap={() => <React.Fragment/>}
+              renderPlaces={() => <React.Fragment/>}
               hasError={false}
               onCityClickHandler={() => {}}
               chosenSorting={`Popular`}
@@ -86,12 +88,13 @@ describe(`Main component snapshot tests`, () => {
           <BrowserRouter>
             <Main
               hasError={true}
-              placeList={[]}
+              placeList={placeList}
               placesAmount={0}
               cityList={[]}
               activeCity={``}
               onCityClickHandler={() => {}}
               renderMap={() => <React.Fragment/>}
+              renderPlaces={() => <React.Fragment/>}
               chosenSorting={`Popular`}
               onChooseSortingHandler={() => {}}
               onActiveHandler={() => {}}

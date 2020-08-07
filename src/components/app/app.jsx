@@ -10,6 +10,7 @@ import {appActionCreator} from "../../reducers/app/app";
 import {Route, Router, Switch} from "react-router-dom";
 import PlaceProperty from "../place-property/place-property";
 import {getUserEmail, isUserAuth} from "../../reducers/user/selectors";
+import withPlaceCardList from "../../hoc/with-place-card-list";
 import LogIn from "../log-in/log-in";
 import {userOperations} from "../../reducers/user/user";
 import {Sorting} from "../places-sorting/places-sorting";
@@ -31,7 +32,8 @@ import {offerType} from "../../types/offerType";
 import MainIndexWrapper from "../main-index-wrapper/main-index-wrapper";
 import MainLoginWrapper from "../main-login-wrapper/main-login-wrapper";
 
-const MainScreenWithMap = withMap(withActiveItem(Main));
+const MainScreenWithMap = withMap(withActiveItem((withPlaceCardList(Main))));
+const PlacePropertyWithMap = withMap(withActiveItem(withPlaceCardList(PlaceProperty)));
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -84,6 +86,10 @@ class App extends React.PureComponent {
             chosenSorting={chosenSorting}
             onChooseSortingHandler={chooseSorting}
             addToFavorites={addToFavorites}
+            onLogoLinkClickHandler={() => {}}
+            placeListClassName="cities__places-list"
+            mapClassName="cities__map"
+            isUserAuth={isUserAuthorized}
           />
         </MainIndexWrapper>
       );
@@ -148,13 +154,14 @@ class App extends React.PureComponent {
             render={(renderProps) => {
               const placeId = renderProps.match.params.id;
               const activePlace = placeList.find((place) => place.id === parseInt(placeId, 10));
+              const neighbourhoods = placeList.filter((place) => place.id !== parseInt(placeId, 10));
               if (activePlace) {
                 const {
                   isInBookmark,
                   id: offerId
                 } = activePlace;
                 return (
-                  <PlaceProperty
+                  <PlacePropertyWithMap
                     offer={activePlace}
                     isUserAuth={isUserAuthorized}
                     onReviewFormSubmitHandler={() => sendReview(offerId)}
@@ -166,6 +173,12 @@ class App extends React.PureComponent {
                     reviewText={reviewText}
                     addReviewError={addReviewError}
                     addToFavoritesHandler={() => addToFavorites(offerId, isInBookmark)}
+                    reviewList={[]}
+                    mapClassName="property__map"
+                    placeListClassName="near-places__list"
+                    neighbourhoods={neighbourhoods}
+                    onClickCardTitle={() => {}}
+                    addToFavorites={addToFavorites}
                   />
                 );
               } else {

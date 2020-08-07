@@ -30,6 +30,7 @@ describe(`PlaceCardList component snapshot tests`, () => {
       .create(
           <BrowserRouter>
             <PlaceCardList
+              className={`cities__places-list`}
               placeList={placeList}
               onActiveHandler={() => {}}
               addToFavorites={() => {}}

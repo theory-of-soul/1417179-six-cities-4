@@ -238,7 +238,7 @@ exports[`App component snapshot tests App component show Main screen 1`] = `
             </ul>
           </form>
           <div
-            className="cities__places-list places__list"
+            className="cities__places-list places__list tabs__content"
           >
             <article
               className="place-card cities__place-card"

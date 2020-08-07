@@ -7,11 +7,11 @@ class Map extends React.PureComponent {
     super(props);
     this.mapRef = createRef(null);
     this.icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: `/img/pin.svg`,
       iconSize: [21, 30]
     });
     this.activeIcon = leaflet.icon({
-      iconUrl: `img/pin-active.svg`,
+      iconUrl: `/img/pin-active.svg`,
       iconSize: [21, 30]
     });
     this.zoom = 12;
@@ -30,8 +30,12 @@ class Map extends React.PureComponent {
   }
 
   render() {
+    const {
+      className = ``
+    } = this.props;
+
     return (
-      <section id="map" className="cities__map map" ref={this.mapRef}/>
+      <section id="map" className={`${className} map`} ref={this.mapRef}/>
     );
   }
 
@@ -99,6 +103,7 @@ Map.propTypes = {
   markersCoordinates: PropTypes.arrayOf(
       PropTypes.arrayOf(PropTypes.number).isRequired
   ).isRequired,
+  className: PropTypes.string,
   activePoint: PropTypes.arrayOf(PropTypes.number)
 };
 

@@ -6,11 +6,12 @@ const PlaceCardList = (props) => {
   const {
     placeList,
     onActiveHandler,
-    addToFavorites
+    addToFavorites,
+    className = ``
   } = props;
 
   return (
-    <div className="cities__places-list places__list">
+    <div className={`${className} places__list tabs__content`}>
       {
         placeList.map((place) => {
           return (
@@ -43,6 +44,7 @@ PlaceCardList.propTypes = {
   ).isRequired,
   onActiveHandler: PropTypes.func.isRequired,
   addToFavorites: PropTypes.func.isRequired,
+  className: PropTypes.string
 };
 
 export default React.memo(PlaceCardList);

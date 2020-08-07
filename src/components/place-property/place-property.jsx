@@ -4,6 +4,7 @@ import ReviewList from "../review-list/review-list";
 import ReviewsForm from "../reviews-form/reviews-form";
 import {offerType} from "../../types/offerType";
 
+const MAX_NEIGHBOURHOODS_ON_MAP = 3;
 const PlaceProperty = (props) => {
   const {
     isUserAuth,
@@ -15,7 +16,12 @@ const PlaceProperty = (props) => {
     reviewRating,
     reviewText,
     addReviewError,
-    addToFavoritesHandler
+    addToFavoritesHandler,
+    reviewList,
+    renderMap,
+    renderPlaces,
+    onClickCardTitle,
+    neighbourhoods
   } = props;
 
   const {
@@ -27,8 +33,10 @@ const PlaceProperty = (props) => {
     rating,
     rooms,
     guests,
-    price,
+    value,
     goods,
+    cityLocation,
+    point,
     host: {
       icon,
       name,
@@ -36,6 +44,9 @@ const PlaceProperty = (props) => {
     },
     isInBookmark
   } = props.offer;
+
+  const nearPlaces = neighbourhoods.slice(0, MAX_NEIGHBOURHOODS_ON_MAP).map((place) => place.point);
+  const coordinatesWithNearPlaces = [point, ...nearPlaces];
 
   return (
     <section className="property">
@@ -90,7 +101,7 @@ const PlaceProperty = (props) => {
             </li>
           </ul>
           <div className="property__price">
-            <b className="property__price-value">&euro;{price}</b>
+            <b className="property__price-value">&euro;{value}</b>
             <span className="property__price-text">&nbsp;night</span>
           </div>
           <div className="property__inside">
@@ -115,7 +126,7 @@ const PlaceProperty = (props) => {
             </div>
           </div>
           <section className="property__reviews reviews">
-            <ReviewList reviewList={[]}/>
+            <ReviewList reviewList={reviewList}/>
             {
               isUserAuth && (
                 <ReviewsForm
@@ -133,7 +144,17 @@ const PlaceProperty = (props) => {
           </section>
         </div>
       </div>
-      <section className="property__map map"/>
+
+      {renderMap(coordinatesWithNearPlaces, cityLocation, point)}
+
+      <div className="container">
+        <section className="near-places places">
+          <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          <div className="near-places__list places__list">
+            {renderPlaces(neighbourhoods, onClickCardTitle)}
+          </div>
+        </section>
+      </div>
     </section>
   );
 };
@@ -150,6 +171,20 @@ PlaceProperty.propTypes = {
   reviewText: PropTypes.string.isRequired,
   addReviewError: PropTypes.string,
   addToFavoritesHandler: PropTypes.func.isRequired,
+  reviewList: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+        date: PropTypes.instanceOf(Date),
+        userName: PropTypes.string.isRequired,
+        userIcon: PropTypes.string.isRequired
+      }).isRequired
+  ).isRequired,
+  renderMap: PropTypes.func.isRequired,
+  renderPlaces: PropTypes.func.isRequired,
+  onClickCardTitle: PropTypes.func.isRequired,
+  neighbourhoods: PropTypes.arrayOf(PropTypes.shape(offerType)).isRequired
 };
 
 export default React.memo(PlaceProperty);

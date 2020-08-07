@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import PlaceCardList from "../place-card-list/place-card-list";
 import CityList from "../city-list/city-list";
 import withOpenMenu from "../../hoc/with-open-menu";
 import PlacesSorting, {Sorting} from "../places-sorting/places-sorting";
@@ -18,9 +17,9 @@ const Main = (props) => {
     renderMap,
     onCityClickHandler,
     hasError,
+    renderPlaces,
     chosenSorting,
     onChooseSortingHandler,
-    onActiveHandler,
     activeItem: hoveredOffer,
     addToFavorites
   } = props;
@@ -48,11 +47,7 @@ const Main = (props) => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{placesAmount} places to stay in {activeCity}</b>
                 <PlacesSortingMenu chosenSorting={chosenSorting} onChooseSortingHandler={onChooseSortingHandler}/>
-                <PlaceCardList
-                  placeList={placeList}
-                  onActiveHandler={onActiveHandler}
-                  addToFavorites={addToFavorites}
-                />
+                {renderPlaces(placeList, addToFavorites)}
               </section>
             ) : (
               <section className="cities__no-places">
@@ -113,6 +108,7 @@ Main.propTypes = {
   onCityClickHandler: PropTypes.func.isRequired,
   renderMap: PropTypes.func.isRequired,
   hasError: PropTypes.bool.isRequired,
+  renderPlaces: PropTypes.func.isRequired,
   chosenSorting: PropTypes.oneOf(Object.values(Sorting)).isRequired,
   onChooseSortingHandler: PropTypes.func.isRequired,
   activeItem: PropTypes.shape({
@@ -132,7 +128,6 @@ Main.propTypes = {
         PropTypes.number.isRequired
     ).isRequired,
   }),
-  onActiveHandler: PropTypes.func.isRequired,
   addToFavorites: PropTypes.func.isRequired
 };
 

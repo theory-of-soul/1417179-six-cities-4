@@ -2,7 +2,7 @@
 
 exports[`PlaceCardList component snapshot tests PlaceCardList component show two places 1`] = `
 <div
-  className="cities__places-list places__list"
+  className="cities__places-list places__list tabs__content"
 >
   <article
     className="place-card cities__place-card"
